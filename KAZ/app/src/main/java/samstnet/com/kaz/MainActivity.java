@@ -2,9 +2,12 @@ package samstnet.com.kaz;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,26 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.gps.ConverterGridGps;
 import samstnet.com.kaz.gps.GpsInfo;
 import samstnet.com.kaz.gps.LatXLngY;
@@ -39,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
     private LatXLngY grid;
     private ConverterGridGps converterGridGps;
 
+    Document doc = null;
+
+    WeatherEvent wev = null;
+    ArrayList<String> wtstate = new ArrayList<>();
+    ArrayList<String> tempor = new ArrayList<>();
+    ArrayList<Integer> time = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +76,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        // 첫 화면 지정
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame_layout, menu1FragGrowth).commitAllowingStateLoss();
 
-        //파싱 쓰레드
-        //GetXMLTask task = new GetXMLTask();
+        // 프래그먼트 초기 추가
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        //transaction.attach(menu1FragGrowth);
+        //transaction.attach(menu2FragStore);
+        //transaction.attach(menu3FragWeather);
+        //transaction.attach(menu4FragConfig);
+        // 첫 화면 추가
+        transaction.replace(R.id.frame_layout, menu1FragGrowth).commitAllowingStateLoss();
 
         // bottomNavigationView의 아이템이 선택될 때 호출될 리스너 등록
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.navigation_menu1: {
+                        Log.d("sss : ","menu1");
                         transaction.replace(R.id.frame_layout, menu1FragGrowth).commitAllowingStateLoss();
                         break;
                     }
                     case R.id.navigation_menu2: {
+                        Log.d("sss : ","menu2");
                         transaction.replace(R.id.frame_layout, menu2FragStore).commitAllowingStateLoss();
                         break;
                     }
@@ -92,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
            UsingGps();
         }
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -141,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void UsingGps(){
+        GetXMLTask task = new GetXMLTask();
         gps = new GpsInfo(MainActivity.this);
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
@@ -150,11 +188,7 @@ public class MainActivity extends AppCompatActivity {
             converterGridGps = new ConverterGridGps();
             grid = converterGridGps.getGridValue(TO_GRID, latitude, longitude);
             Log.d("ddd","당신의 위치 - " + grid.x + "    " + grid.y);
-            Toast.makeText(
-                    getApplicationContext(),
-                    "당신의 위치 - " + grid.x + "    " + grid.y,
-                    Toast.LENGTH_LONG).show();
-            //task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=" + grid.x + "&gridy=" + grid.y);
+            task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=" + grid.x + "&gridy=" + grid.y);
 
         } else {
             // GPS 를 사용할수 없으므로
@@ -162,7 +196,91 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class GetXMLTask extends AsyncTask<String, Void, Document> {
+        @Override
+        protected Document doInBackground(String... urls) {
+            URL url;
+            try {
+                url = new URL(urls[0]);
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder(); //XML문서 빌더 객체를 생성
+                doc = db.parse(new InputSource(url.openStream())); //XML문서를 파싱한다.
+                doc.getDocumentElement().normalize();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
+            return doc;
+        }
 
+        protected void onPostExecute(Document doc) {
+            super.onPostExecute(doc);//이 부분에서 날씨 이미지를 출력해줌
+            String s = "";
+
+            int nowTime = -100;
+
+            //data 태그가 있는 노드를 찾아서 리스트 형태로 만들어서 반환
+            NodeList nodeList = doc.getElementsByTagName("data");
+            //data 태그를 가지는 노드를 찾음, 계층적인 노드 구조를 반환
+
+
+            for (int i = 0; i < 15; i++) {////////////////////////////////for문 시작
+                //날씨 데이터를 추출
+                s = "";
+                Node node = nodeList.item(i); //data엘리먼트 노드
+                Element fstElmnt = (Element) node;
+
+                NodeList timeList = fstElmnt.getElementsByTagName("hour");          //시간 timeList
+                s += timeList.item(0).getChildNodes().item(0).getNodeValue() + "시 ";
+                nowTime = Integer.parseInt(timeList.item(0).getChildNodes().item(0).getNodeValue());
+                NodeList nameList = fstElmnt.getElementsByTagName("temp");          //이름
+                Element nameElement = (Element) nameList.item(0);
+                nameList = nameElement.getChildNodes();
+
+                s += ((Node) nameList.item(0)).getNodeValue() + "°C\n\n";
+
+                NodeList websiteList = fstElmnt.getElementsByTagName("wfKor");
+                // s += websiteList.item(0).getChildNodes().item(0).getNodeValue() + "\n";
+                time.add(nowTime);
+                tempor.add(((Node) nameList.item(0)).getNodeValue() + "°C");
+                if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("구름 많음") || websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("흐림"))
+                {//구름 많을때
+                    wtstate.add("manycloud");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("구름 조금"))
+                {
+                    wtstate.add("fewcloud");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("맑음"))
+                {
+                    wtstate.add("sun");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("비"))
+                { //비
+                    wtstate.add("rain");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("눈") || websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("눈/비"))
+                {//눈 올 때
+                    wtstate.add("snow");
+                }
+
+                //Log.d("weather : ",wtstate.get(i));
+                //Log.d("tempor : ",tempor.get(i));
+                //Log.d("time : ",Integer.toString(time.get(i)));
+            }
+            wev = new WeatherEvent(time,wtstate,tempor);
+            BusProvider.getInstance().post(wev);
+        }
+    }
+
+    public WeatherEvent getWeatherInfo(){
+        return wev;
+    }
 
 
 
