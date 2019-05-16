@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="88af7321-c8b0-4662-8c68-0bbd23059f43" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/KAZ/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/.idea/assetWizardSettings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/androidTest/java/samstnet/com/kaz/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/Menu1FragGrowth.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/Menu2FragStore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/Menu3FragWeather.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/Menu4FragConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/ic_cloud_queue_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/ic_sentiment_satisfied_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/ic_settings_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/ic_store_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/layout/fragment_menu1_frag_growth.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/layout/fragment_menu2_frag_store.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/layout/fragment_menu3_frag_weather.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/layout/fragment_menu4_frag_config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/menu/menu_bottom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/test/java/samstnet/com/kaz/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="KAZ_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KAZ_project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KAZ_project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KAZ_project" type="462c0819:PsiDirectoryNode" />
+              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/KAZ/KAZ" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="88af7321-c8b0-4662-8c68-0bbd23059f43" name="Default Changelist" comment="" />
+      <created>1557968027355</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1557968027355</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="0" width="782" height="831" extended-state="0" />
+    <layout>
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.6697987" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Resources Explorer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
+    </layout>
+  </component>
+</project>
