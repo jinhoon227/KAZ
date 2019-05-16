@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.WeatherEvent;
+import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
 
 /**
@@ -24,6 +25,7 @@ public class Menu3FragWeather extends Fragment {
     ArrayList<String> wtstate = new ArrayList<>();
     ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
+    ArrayList<WeekWeatherInfo> arr_wwif = new ArrayList<>();
 
     public Menu3FragWeather() {
         // Required empty public constructor
@@ -44,6 +46,10 @@ public class Menu3FragWeather extends Fragment {
             wtstate.addAll(weatherinfo.getWstate());
             tempor.addAll(weatherinfo.getTempor());
             time.addAll(weatherinfo.getTime());
+        }
+        if( ((MainActivity)getActivity()).getWeekWeatherInfo() != null){
+            arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
+
         }
     }
 
