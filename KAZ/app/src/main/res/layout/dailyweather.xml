@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CDDC39">
+    android:background="#FBFCFB">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="오늘 날씨"
+        android:autoText="true"
+        android:text="         오늘 날씨"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.45"
@@ -27,7 +29,10 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView"
+        android:layout_height="532dp"
+        android:layout_below="@+id/textView"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="30dp"
         tools:layout_editor_absoluteX="5dp"></ListView>
 </RelativeLayout>
