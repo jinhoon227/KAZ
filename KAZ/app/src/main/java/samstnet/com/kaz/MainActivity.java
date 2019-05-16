@@ -39,6 +39,9 @@ import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.gps.ConverterGridGps;
 import samstnet.com.kaz.gps.GpsInfo;
 import samstnet.com.kaz.gps.LatXLngY;
+import samstnet.com.kaz.weekweather.FindShortestReigon;
+import samstnet.com.kaz.weekweather.WeekWeatherInfo;
+import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
 
+    //주간 날씨 저장
+    ArrayList<WeekWeatherInfo> arr_wwif = null;
+    WeekWeatherParser wwp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        // 프래그먼트 초기 추가
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 프래그먼트 초기 추가
+        // 하지만 해당 프래그먼트 이동시 초기 데이터를 가져오기로 해놨기 때문에 필요없어보임
         //transaction.attach(menu1FragGrowth);
         //transaction.attach(menu2FragStore);
         //transaction.attach(menu3FragWeather);
@@ -93,12 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.navigation_menu1: {
-                        Log.d("sss : ","menu1");
                         transaction.replace(R.id.frame_layout, menu1FragGrowth).commitAllowingStateLoss();
                         break;
                     }
                     case R.id.navigation_menu2: {
-                        Log.d("sss : ","menu2");
                         transaction.replace(R.id.frame_layout, menu2FragStore).commitAllowingStateLoss();
                         break;
                     }
@@ -177,17 +184,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    double latitude;
+    double longitude;
     private void UsingGps(){
         GetXMLTask task = new GetXMLTask();
         gps = new GpsInfo(MainActivity.this);
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+            Log.d("latitude",Double.toString(latitude));
+            Log.d("latitudeddd",Double.toString(longitude));
             converterGridGps = new ConverterGridGps();
             grid = converterGridGps.getGridValue(TO_GRID, latitude, longitude);
             Log.d("ddd","당신의 위치 - " + grid.x + "    " + grid.y);
+
             task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=" + grid.x + "&gridy=" + grid.y);
 
         } else {
@@ -196,9 +207,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private class GetXMLTask extends AsyncTask<String, Void, Document> {
         @Override
         protected Document doInBackground(String... urls) {
+            //주간날씨
+
+            wwp = new WeekWeatherParser(latitude, longitude);
+            wwp.StartParsing();
+
+            //일간날시
             URL url;
             try {
                 url = new URL(urls[0]);
@@ -220,6 +238,9 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Document doc) {
             super.onPostExecute(doc);//이 부분에서 날씨 이미지를 출력해줌
+            //주간
+            arr_wwif = wwp.GetArr_wwif();
+            //일간
             String s = "";
 
             int nowTime = -100;
@@ -280,6 +301,9 @@ public class MainActivity extends AppCompatActivity {
 
     public WeatherEvent getWeatherInfo(){
         return wev;
+    }
+    public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
+        return arr_wwif;
     }
 
 
