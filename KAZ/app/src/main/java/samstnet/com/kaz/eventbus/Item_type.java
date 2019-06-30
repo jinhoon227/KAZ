@@ -5,12 +5,21 @@ public class Item_type {
     String name;
     String mobile;
     int resId;
+    boolean wear;
 
-
-    public Item_type(String name, String mobile, int resId) {
+    public Item_type(String name, String mobile, int resId,boolean wear) {
         this.name = name;
         this.mobile = mobile;
         this.resId = resId;
+        this.wear = wear;
+    }
+
+    public boolean isWear() {
+        return wear;
+    }
+
+    public void setWear(boolean wear) {
+        this.wear = wear;
     }
 
     public String getName() {

@@ -135,7 +135,7 @@ public class Inventory_Fragment extends Fragment {
             public void onClick(View v) {
                 name=editText1.getText().toString();
                 mobile=editText2.getText().toString();
-                adapter.addItem(new Item_type(name, mobile, R.drawable.img1));
+                adapter.addItem(new Item_type(name, mobile, R.drawable.img1,false));
                 adapter.notifyDataSetChanged();
             }
         });
@@ -148,7 +148,7 @@ public class Inventory_Fragment extends Fragment {
         String name=itt.getName();
         String mobile=itt.getMobile();
         int redit = itt.getResId();
-        adapter.addItem(new Item_type(name,mobile,redit));
+        adapter.addItem(new Item_type(name,mobile,redit,false));
 
     }
 }

@@ -1,28 +1,29 @@
-package samstnet.com.kaz.menu2_store;
+ package samstnet.com.kaz.menu2_store;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.support.annotation.NonNull;
+        import android.support.annotation.Nullable;
+        import android.support.v4.app.Fragment;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.AdapterView;
+        import android.widget.BaseAdapter;
+        import android.widget.ListView;
+        import android.widget.Toast;
 
-import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
+        import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+        import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+        import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
-import samstnet.com.kaz.MainActivity;
-import samstnet.com.kaz.R;
-import samstnet.com.kaz.eventbus.BusProvider;
-import samstnet.com.kaz.eventbus.Item_type;
+        import samstnet.com.kaz.MainActivity;
+        import samstnet.com.kaz.R;
+        import samstnet.com.kaz.eventbus.BusProvider;
+        import samstnet.com.kaz.eventbus.Item_type;
 
 public class Menu2FragStore extends Fragment {
     MainActivity activity;
@@ -132,20 +133,26 @@ public class Menu2FragStore extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Item_type item = (Item_type) StAdapter.getItem(position);//index 할당
                 Toast.makeText(getActivity(),"선택 "+item.getName(),Toast.LENGTH_SHORT).show();//toast 메세지 출력
+                Intent intent = new Intent(getActivity(), PopupActivity.class);
+                if(item.isWear())
+                {
+                    intent.putExtra("data", position+" 장착 해제");
+                    startActivityForResult(intent, 1);
+                    BusProvider.getInstance().post(item);
+                    item.setWear(false);
+                }
+                else{
+                intent.putExtra("data", position+" 장착");
+                startActivityForResult(intent, 1);
                 BusProvider.getInstance().post(item);
-
+                item.setWear(true);
             }
+
+        }
         });
-        StAdapter.addItem(new Item_type("1","01035925006",R.drawable.img1));
-        StAdapter.addItem(new Item_type("2","01035925006",R.drawable.img2));
-        StAdapter.addItem(new Item_type("3","01035925006",R.drawable.img3));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
-        StAdapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
+
+        StAdapter.addItem(new Item_type("1","01035925006",R.drawable.img1,false));
+
         return rootView;
     }
 }

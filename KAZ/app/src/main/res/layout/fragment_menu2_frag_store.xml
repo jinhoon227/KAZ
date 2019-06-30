@@ -28,33 +28,32 @@
         android:layout_below="@id/treeImageView"
         android:orientation="horizontal">
 
-
         <Button
-            android:id="@+id/select1"
+            android:id="@+id/selectButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="버튼1" />
 
         <Button
-            android:id="@+id/select2"
+            android:id="@+id/selectButton2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="버튼2" />
 
         <Button
-            android:id="@+id/select3"
+            android:id="@+id/selectButton3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="버튼3" />
 
         <Button
-            android:id="@+id/select4"
+            android:id="@+id/selectButton4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="버튼4" />
     </LinearLayout>
     <ListView
         android:id="@+id/storeListView"

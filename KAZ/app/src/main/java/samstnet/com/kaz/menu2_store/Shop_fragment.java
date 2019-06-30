@@ -44,6 +44,8 @@ public class Shop_fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
+
     class Adapter extends BaseAdapter {
 
         ArrayList<Item_type> items = new ArrayList<>();
@@ -108,11 +110,6 @@ public class Shop_fragment extends Fragment {
 
             }
         });
-
-        adapter.addItem(new Item_type("1","01035925006",R.drawable.img1));
-        adapter.addItem(new Item_type("2","01035925006",R.drawable.img2));
-        adapter.addItem(new Item_type("3","01035925006",R.drawable.img3));
-        adapter.addItem(new Item_type("4","01035925006",R.drawable.img4));
         return rootView;
     }
 }

@@ -13,13 +13,13 @@ public class Item_View1 extends LinearLayout {
     TextView textView2,textView;
     ImageView imageView;
     public Item_View1(Context context) {
-        super(context);
-        init(context);
-    }
+            super(context);
+            init(context);
+        }
 
     public Item_View1(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+            super(context, attrs);
+            init(context);
     }
     public void init(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
