@@ -2,19 +2,16 @@ package samstnet.com.kaz;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,8 +23,6 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,6 +34,10 @@ import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.gps.ConverterGridGps;
 import samstnet.com.kaz.gps.GpsInfo;
 import samstnet.com.kaz.gps.LatXLngY;
+import samstnet.com.kaz.menu2_store.Inventory_Fragment;
+import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
+import samstnet.com.kaz.menu2_store.Menu2FragStore;
+import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,15 +69,23 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> time = new ArrayList<>();
 
 
+    //growth 프래그먼트 인벤토리 , 메인 화면
+    Inventory_Fragment fragmentivent = new Inventory_Fragment();
+    growth_Fragment fragmentgrowth = new growth_Fragment();
+    //store 프래그먼트
+        //store part-1
+    Shop_fragment fragmentshop = new Shop_fragment();
+    FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
         // 프래그먼트 초기 추가
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
         //transaction.attach(menu1FragGrowth);
         //transaction.attach(menu2FragStore);
         //transaction.attach(menu3FragWeather);
@@ -278,10 +285,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     public WeatherEvent getWeatherInfo(){
         return wev;
     }
 
-
+    //Grwoth-inventory눌럿을떄 fragment 를 전환 해주는 함수 index : 0 growth || index 1 : inventory
+    public void onFragmentChange(int index) {
+        if (index == 0) {
+            Log.d("MainActivity","fragmentgrowth 들어감");
+            getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentgrowth).commit();
+        } else if (index == 1) {
+            Log.d("MainActivity","fragmentivent 들어감");
+            getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentivent).commit();
+        }
+        Log.d("MainActivity","들어감");
+    }
 
 }
