@@ -11,12 +11,28 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.squareup.otto.Subscribe;
+
 import java.util.ArrayList;
 
+import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.WeatherEvent;
+
 public class DailyWeather extends Fragment {
+    WeatherEvent weatherinfo = null;
+    ArrayList<String> wtstate = new ArrayList<>();
+    ArrayList<String> tempor = new ArrayList<>();
+    ArrayList<Integer> time = new ArrayList<>();
+    int img[]=new int[15];
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if( ((MainActivity)getActivity()).getWeatherInfo() != null){
+            weatherinfo = new WeatherEvent(((MainActivity)getActivity()).getWeatherInfo());
+            wtstate.addAll(weatherinfo.getWstate());
+            tempor.addAll(weatherinfo.getTempor());
+            time.addAll(weatherinfo.getTime());
+        }
     }
     @Nullable
     @Override
@@ -24,11 +40,30 @@ public class DailyWeather extends Fragment {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.dailyweather,container,false);
         ListView listView=rootView.findViewById(R.id.list);
         SingerAdapter adapter=new SingerAdapter();
-        adapter.addItem(new WeatherItem("소녀시대","010-1000-1000",R.drawable.bts2));
-        adapter.addItem(new WeatherItem("걸스데이","010-2000-1000",R.drawable.bts3));
-        adapter.addItem(new WeatherItem("에이핑크","010-3000-1000",R.drawable.drawable1));
-        adapter.addItem(new WeatherItem("블랙핑크","010-4000-1000",R.drawable.drawable2));
-        adapter.addItem(new WeatherItem("아이즈원","010-5000-1000",R.drawable.bts2));
+        int j=0;
+        for(int i=0;i<15;i++){
+            if(wtstate.get(i)=="sun"){
+                img[j]=R.drawable.sunny;
+            }
+            else if(wtstate.get(j)=="fewcloud"){
+                img[j]=R.drawable.cloudy;
+            }
+            else if(wtstate.get(j)=="manycloud"){
+                img[j]=R.drawable.cloudy2;
+            }
+            else if(wtstate.get(j)=="rain"){
+                img[j]=R.drawable.rainy;
+            }
+            else if(wtstate.get(j)=="snow"){
+                img[j]=R.drawable.snowy;
+            }
+            j++;
+        }
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(0))+"시",tempor.get(0),wtstate.get(0),img[0]));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(1))+"시",tempor.get(1),wtstate.get(1),img[1]));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(2))+"시",tempor.get(2),wtstate.get(2),img[2]));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(3))+"시",tempor.get(3),wtstate.get(3),img[3]));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(4))+"시",tempor.get(4),wtstate.get(4),img[4]));
         listView.setAdapter(adapter);
         return rootView;
     }
@@ -56,18 +91,25 @@ public class DailyWeather extends Fragment {
             WeatherItemView view=new WeatherItemView(getActivity().getApplicationContext());
 
             WeatherItem item=items.get(position);
-            view.setName(item.getName());
-            view.setMobile(item.getMobile());
+            view.setTime(item.getTime());
+            view.setTempor(item.getTempor());
+            view.setWtstate(item.getWtstate());
             view.setImage(item.getResId());
             return view;
         }
     }
-
+    @Subscribe
+    public void FinishLoad(WeatherEvent mWeatherEvent) {
+        weatherinfo = new WeatherEvent(mWeatherEvent);
+        wtstate.addAll(mWeatherEvent.getWstate());
+        tempor.addAll(mWeatherEvent.getTempor());
+        time.addAll(mWeatherEvent.getTime());
+    }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
-        Log.d("what","the");
+        BusProvider.getInstance().unregister(this);
     }
 
 

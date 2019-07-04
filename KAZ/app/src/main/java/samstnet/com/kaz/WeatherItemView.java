@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class WeatherItemView extends LinearLayout {
     TextView textView2;
     TextView textView;
+    TextView textView3;
     ImageView imageView;
     public WeatherItemView(Context context) {
         super(context);
@@ -27,13 +28,15 @@ public class WeatherItemView extends LinearLayout {
         inflater.inflate(R.layout.weather_item,this,true);
         textView=(TextView)findViewById(R.id.textView);
         textView2=(TextView)findViewById(R.id.textView2);
+        textView3=(TextView)findViewById(R.id.textView3);
         imageView=(ImageView)findViewById(R.id.imageView);
     }
-    public void setName(String name){
-        textView.setText(name);
+    public void setTime(String time){
+        textView3.setText(time);
     }
-    public void setMobile(String mobile){
-        textView2.setText(mobile);
+    public void setTempor(String tempor){textView.setText(tempor);}
+    public void setWtstate(String wtstate){
+        textView2.setText(wtstate);
     }
     public void setImage(int resId){
         imageView.setImageResource(resId);
