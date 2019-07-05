@@ -1,13 +1,39 @@
 package samstnet.com.kaz;
 
 public class WeatherItem {
-    String name;
-    String mobile;
+    String time;
+    String tempor;
+    String wtstate;
     int resId;
-    public WeatherItem(String name, String mobile, int resId) {
-        this.name = name;
-        this.mobile = mobile;
+    public WeatherItem(String time, String tempor,String wtstate, int resId) {
+        this.time = time;
+        this.tempor = tempor;
+        this.wtstate=wtstate;
         this.resId=resId;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTempor() {
+        return tempor;
+    }
+
+    public void setTempor(String tempor) {
+        this.tempor = tempor;
+    }
+
+    public String getWtstate() {
+        return wtstate;
+    }
+
+    public void setWtstate(String wtstate) {
+        this.wtstate = wtstate;
     }
 
     public int getResId() {
@@ -18,27 +44,12 @@ public class WeatherItem {
         this.resId = resId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     @Override
     public String toString() {
         return "WeatherItem{" +
-                "name='" + name + '\'' +
-                ", mobile='" + mobile + '\'' +
+                "time='" + time + '\'' +
+                ", tempor='" + tempor + '\'' +
+                ", wtstate='" + wtstate + '\'' +
                 '}';
     }
 }
