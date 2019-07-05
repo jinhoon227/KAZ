@@ -27,6 +27,7 @@ public class DailyWeather extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BusProvider.getInstance().register(this);
         if( ((MainActivity)getActivity()).getWeatherInfo() != null){
             weatherinfo = new WeatherEvent(((MainActivity)getActivity()).getWeatherInfo());
             wtstate.addAll(weatherinfo.getWstate());
