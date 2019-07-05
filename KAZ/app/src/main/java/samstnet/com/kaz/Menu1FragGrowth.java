@@ -20,6 +20,7 @@ public class Menu1FragGrowth extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth, container, false);
+        /*
         Button button1 = (Button) rootView.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +38,7 @@ public class Menu1FragGrowth extends Fragment {
 
             }
         });
+        */
 
         return rootView;
 
@@ -45,7 +47,9 @@ public class Menu1FragGrowth extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        /*
         ((MainActivity)getActivity()).onFragmentChange(0);
+        */
         super.onCreate(savedInstanceState);
     }
 }

@@ -13,9 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,14 +31,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.gps.ConverterGridGps;
 import samstnet.com.kaz.gps.GpsInfo;
 import samstnet.com.kaz.gps.LatXLngY;
-import samstnet.com.kaz.menu2_store.Inventory_Fragment;
 import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
-import samstnet.com.kaz.menu2_store.Item_View2;
 import samstnet.com.kaz.menu2_store.Menu2FragStore;
 import samstnet.com.kaz.menu2_store.Shop_fragment;
 
@@ -67,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
     private LatXLngY grid;
     private ConverterGridGps converterGridGps;
 
-    //for store
+    //for store(2019-07-03)
     ArrayList<Item_type> items = new ArrayList<Item_type>();
-    Item_type[] item = new Item_type[500];
+    Customer customer = new Customer();
+    Item_type []item = new Item_type[100];
+
 
 
 
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     //growth 프래그먼트 인벤토리 , 메인 화면
-    Inventory_Fragment fragmentivent = new Inventory_Fragment();
     growth_Fragment fragmentgrowth = new growth_Fragment();
     //store 프래그먼트
         //store part-1
@@ -172,21 +169,6 @@ public class MainActivity extends AppCompatActivity {
         //권한을 수락했다면 위치정보 가져오기
         if(isAccessFineLocation){
             UsingGps();
-        }
-
-        //처음에 store 데이터 저장한다(2019-6-30)
-        item[0]= new Item_type("1","01035925006",R.drawable.img1,false);
-        item[1]= new Item_type("2","01035925006",R.drawable.img2,false);
-        item[2]= new Item_type("3","01035925006",R.drawable.img3,false);
-        item[3]= new Item_type("4","01035925006",R.drawable.img4,false);
-        item[4]= new Item_type("5","01035925006",R.drawable.img5,false);
-        item[5]= new Item_type("6","01035925006",R.drawable.img6,false);
-        item[6]= new Item_type("7","01035925006",R.drawable.img6,false);
-        item[7]= new Item_type("8","01035925006",R.drawable.img6,false);
-        for(int i=0;i<500;i++) {
-            if(item[i]!=null) {
-                items.add(item[i]);
-            }
         }
 
 
@@ -323,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Grwoth-inventory눌럿을떄 fragment 를 전환 해주는 함수 index : 0 growth || index 1 : inventory
-    public void onFragmentChange(int index) {
+    /*public void onFragmentChange(int index) {
         if (index == 0) {
             Log.d("들어감","들어감");
             getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentgrowth).commit();
@@ -333,6 +315,5 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentivent).commit();
         }
         Log.d("들어감","들어감");
-    }
-
+    }*/
 }

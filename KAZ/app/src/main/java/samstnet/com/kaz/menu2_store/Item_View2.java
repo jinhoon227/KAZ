@@ -10,7 +10,7 @@ import android.widget.TextView;
 import samstnet.com.kaz.R;
 
 public class Item_View2 extends LinearLayout {
-    TextView textView2,textView;
+    TextView textView2,textView,textView3;
     ImageView imageView;
     public Item_View2(Context context) {
         super(context);
@@ -26,6 +26,7 @@ public class Item_View2 extends LinearLayout {
         inflater.inflate(R.layout.list_item,this ,true);
         textView = (TextView) findViewById(R.id.textView);
         textView2 = (TextView) findViewById(R.id.textView2);
+        textView3 = (TextView) findViewById(R.id.textView3);
         imageView= (ImageView) findViewById(R.id.imageView);
 
     }
@@ -37,6 +38,7 @@ public class Item_View2 extends LinearLayout {
     {
         textView2.setText(mobile);
     }
+    public void setwear(String wear){textView3.setText(wear);}
     public void setImage(int resId)
     {
         imageView.setImageResource(resId);

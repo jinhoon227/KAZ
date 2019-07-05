@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
 
 public class Shop_fragment extends Fragment {
@@ -97,6 +98,8 @@ public class Shop_fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_grow_inventory, container, false);
         //인덱스 참고 함수
+        //2019-07-03 전역 변수 데이터 가져옴
+        Item_type[] storeitem = Customer.item;
 
         ListView listview =  rootView.findViewById(R.id.ListView);
         adapter = new Adapter();
