@@ -299,8 +299,8 @@ public class growth_Fragment extends Fragment {
 
 
     //이미지 변경 규칙 (3번)
-        //날씨에 따라서 얼굴 바뀌는거 해야함 + 날씨에 따른 만족도?
-        //(비료, 물뿌리개는 일정 시간이 지나야지만 다시 줄 수 있게 바꿔야 함, 이건 plant 객체에서 바꿔야함)
+    //날씨에 따라서 얼굴 바뀌는거 해야함 + 날씨에 따른 만족도?
+    //(비료, 물뿌리개는 일정 시간이 지나야지만 다시 줄 수 있게 바꿔야 함, 이건 plant 객체에서 바꿔야함)
     public void set1Image(int _index){
         if(wtstate.isEmpty()) {
             wtstate.add("empty");

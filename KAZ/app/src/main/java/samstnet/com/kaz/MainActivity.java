@@ -1,48 +1,47 @@
-package samstnet.com.kaz;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
+        package samstnet.com.kaz;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+        import android.Manifest;
+        import android.content.pm.PackageManager;
+        import android.os.AsyncTask;
+        import android.os.Build;
+        import android.support.annotation.NonNull;
+        import android.support.design.widget.BottomNavigationView;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentTransaction;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.MenuItem;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
+        import org.w3c.dom.Document;
+        import org.w3c.dom.Element;
+        import org.w3c.dom.Node;
+        import org.w3c.dom.NodeList;
+        import org.xml.sax.InputSource;
+        import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+        import java.io.IOException;
+        import java.net.MalformedURLException;
+        import java.net.URL;
+        import java.util.ArrayList;
 
-import samstnet.com.kaz.eventbus.BusProvider;
-import samstnet.com.kaz.eventbus.WeatherEvent;
-import samstnet.com.kaz.gps.ConverterGridGps;
-import samstnet.com.kaz.gps.GpsInfo;
-import samstnet.com.kaz.gps.LatXLngY;
+        import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.DocumentBuilderFactory;
+        import javax.xml.parsers.ParserConfigurationException;
 
-import samstnet.com.kaz.weekweather.FindShortestReigon;
-import samstnet.com.kaz.weekweather.WeekWeatherInfo;
-import samstnet.com.kaz.weekweather.WeekWeatherParser;
+        import samstnet.com.kaz.eventbus.BusProvider;
+        import samstnet.com.kaz.eventbus.WeatherEvent;
+        import samstnet.com.kaz.gps.ConverterGridGps;
+        import samstnet.com.kaz.gps.GpsInfo;
+        import samstnet.com.kaz.gps.LatXLngY;
 
-import samstnet.com.kaz.menu2_store.Inventory_Fragment;
-import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
-import samstnet.com.kaz.menu2_store.Menu2FragStore;
-import samstnet.com.kaz.menu2_store.Shop_fragment;
+        import samstnet.com.kaz.weekweather.WeekWeatherInfo;
+        import samstnet.com.kaz.weekweather.WeekWeatherParser;
+
+        import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
+        import samstnet.com.kaz.menu2_store.Menu2FragStore;
+        import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -80,10 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     //growth 프래그먼트 인벤토리 , 메인 화면
-    Inventory_Fragment fragmentivent = new Inventory_Fragment();
     growth_Fragment fragmentgrowth = new growth_Fragment();
     //store 프래그먼트
-        //store part-1
+    //store part-1
     Shop_fragment fragmentshop = new Shop_fragment();
     FragmentTransaction transaction = fragmentManager.beginTransaction();
 
@@ -143,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-           UsingGps();
+            UsingGps();
         }
     }
 
@@ -319,9 +317,8 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
         return arr_wwif;
     }
-
     //Grwoth-inventory눌럿을떄 fragment 를 전환 해주는 함수 index : 0 growth || index 1 : inventory
-    public void onFragmentChange(int index) {
+  /*  public void onFragmentChange(int index) {
         if (index == 0) {
             Log.d("MainActivity","fragmentgrowth 들어감");
             getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentgrowth).commit();
@@ -331,5 +328,5 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.d("MainActivity","들어감");
     }
-
+    */
 }

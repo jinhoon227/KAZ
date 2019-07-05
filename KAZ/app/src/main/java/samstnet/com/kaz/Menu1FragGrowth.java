@@ -9,20 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
 
 public class Menu1FragGrowth extends Fragment {
-
     @Nullable
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth, container, false);
         getFragmentManager().beginTransaction().add(R.id.change, new growth_Fragment()).commit();
-
-        Button button1 = (Button) rootView.findViewById(R.id.button1);
+    /*    Button button1 = (Button) rootView.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,12 +37,10 @@ public class Menu1FragGrowth extends Fragment {
 
             }
         });
-        // ((MainActivity)getActivity()).onFragmentChange(0);
-
+*/
         return rootView;
 
     }
-
     public  void onStart(){
         super.onStart();
         Log.d("Menu1FragGrowth", "onStart");
