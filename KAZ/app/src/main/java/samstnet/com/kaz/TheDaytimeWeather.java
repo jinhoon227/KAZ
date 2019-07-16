@@ -1,5 +1,6 @@
 package samstnet.com.kaz;
 
+import android.graphics.Color;
 import android.icu.text.AlphabeticIndex;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,60 +29,109 @@ import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
 public class TheDaytimeWeather extends Fragment {
     ArrayList<WeekWeatherInfo> arr_wwif = new ArrayList<>();
+    LineChart lineChart;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.thedaytimeweather,container,false);
+        lineChart = (LineChart) rootView.findViewById(R.id.chart);
+
         if( ((MainActivity)getActivity()).getWeekWeatherInfo() != null){
             arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
-            Log.d("getWeather :","true");
-
-
+            makeChart();
         }
-        LineChart lineChart = (LineChart) rootView.findViewById(R.id.chart);
+
+        return rootView;
+    }
+
+    private void makeChart(){
+
+        //차트 설정
+        lineChart.setTouchEnabled(false);
+        lineChart.setBackgroundColor((Color.rgb(000,191,255)));
+        lineChart.setDrawGridBackground(false);
+        lineChart.setDescription("기상청");
+        lineChart.setDescriptionTextSize(1f);
+
 
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(4f, 0));
-        entries.add(new Entry(8f, 1));
-        entries.add(new Entry(6f, 2));
-        entries.add(new Entry(2f, 3));
-        entries.add(new Entry(18f, 4));
-        entries.add(new Entry(9f, 5));
-        entries.add(new Entry(16f, 6));
-        entries.add(new Entry(5f, 7));
-        entries.add(new Entry(3f, 8));
-        entries.add(new Entry(7f, 10));
-        entries.add(new Entry(9f, 11));
+        for(int i=0;i<arr_wwif.size();i++){
+            entries.add(new Entry(Float.parseFloat(arr_wwif.get(i).getmTmx()),i));
+        }
+        LineDataSet dataset = new LineDataSet(entries, "최고기온");
 
-        LineDataSet dataset = new LineDataSet(entries, "# of Calls");
+        ArrayList<Entry> entries2 = new ArrayList<>();
+        for(int i=0;i<arr_wwif.size();i++){
+            entries2.add(new Entry(Float.parseFloat(arr_wwif.get(i).getmTmn()),i));
+        }
+        LineDataSet dataset2 = new LineDataSet(entries, "최저기온");
+
+
+        //줄 색깔 및 동그라미 색깔
+        //dataset.setLineWidth(1.75f);
+        dataset.setCircleRadius(5f);
+        dataset.setColor(Color.WHITE);
+        dataset.setCircleColor(Color.WHITE);
+        dataset.setHighLightColor(Color.WHITE);
+
+        //점 위에 값 크기 및 색깔
+        dataset.setValueTextSize(12f);
+        dataset.setValueTextColor(Color.BLUE);
+
+        //선 크기
+        dataset2.setLineWidth(3f);
+
+        //줄 색깔 및 동그라미 색깔
+        //dataset.setLineWidth(1.75f);
+        dataset2.setCircleRadius(5f);
+        dataset2.setColor(Color.WHITE);
+        dataset2.setCircleColor(Color.WHITE);
+        dataset2.setHighLightColor(Color.WHITE);
+
+        //점 위에 값 크기 및 색깔
+        dataset2.setValueTextSize(12f);
+        dataset2.setValueTextColor(Color.BLUE);
+
+        //선 크기
+        dataset2.setLineWidth(3f);
+
 
         ArrayList<String> labels = new ArrayList<String>();
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-        labels.add("July");
-        labels.add("August");
-        labels.add("September");
-        labels.add("October");
-        labels.add("November");
-        labels.add("December");
+        for(int i=0;i<arr_wwif.size();i++){
+            labels.add(arr_wwif.get(i).getDay());
+        }
 
-        LineData data = new LineData(labels, dataset);
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+        LineData data = new LineData(labels, dataset, dataset2);
+        //dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
            /*dataset.setDrawCubic(true); //선 둥글게 만들기
             dataset.setDrawFilled(true); //그래프 밑부분 색칠*/
 
         lineChart.setData(data);
-        lineChart.animateY(5000);
+
+        // get the legend (only possible after setting data)
+        Legend l = lineChart.getLegend();
+        l.setEnabled(false);
+
+        //아마 선없애기? 또는 마진추가
+        lineChart.getAxisLeft().setEnabled(false);
+        lineChart.getAxisLeft().setSpaceTop(40);
+        lineChart.getAxisLeft().setSpaceBottom(40);
+        lineChart.getAxisRight().setEnabled(false);
+
+        //격자줄 없애기
+        lineChart.getAxisRight().setDrawGridLines(false);
+        // lineChart.getAxisRight().setDrawAxisLine(false);
+        lineChart.getXAxis().setDrawAxisLine(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+
+        //x축 줄 폰트 크기 및 색깔
+        lineChart.getXAxis().setTextSize(15f);
+        lineChart.getXAxis().setSpaceBetweenLabels(2);
+        lineChart.getXAxis().setTextColor(Color.WHITE);
 
 
-        return rootView;
-
-
+        lineChart.animateX(2500);
     }
 
 

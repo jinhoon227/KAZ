@@ -41,25 +41,27 @@ public class DailyWeather extends Fragment {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.dailyweather,container,false);
         ListView listView=rootView.findViewById(R.id.list);
         SingerAdapter adapter=new SingerAdapter();
-        int j=0;
-        for(int i=0;i<15;i++){
-            if(wtstate.get(i)=="sun"){
-                img[j]=R.drawable.sunny;
-            }
-            else if(wtstate.get(j)=="fewcloud"){
-                img[j]=R.drawable.cloudy;
-            }
-            else if(wtstate.get(j)=="manycloud"){
-                img[j]=R.drawable.cloudy2;
-            }
-            else if(wtstate.get(j)=="rain"){
-                img[j]=R.drawable.rainy;
-            }
-            else if(wtstate.get(j)=="snow"){
-                img[j]=R.drawable.snowy;
-            }
-            j++;
-        }
+       if(((MainActivity)getActivity()).getWeatherInfo() != null){
+           int j=0;
+           for(int i=0;i<14;i++){
+               if(wtstate.get(j)=="sun"){
+                   img[j]=R.drawable.sunny;
+               }
+               else if(wtstate.get(j)=="fewcloud"){
+                   img[j]=R.drawable.cloudy;
+               }
+               else if(wtstate.get(j)=="manycloud"){
+                   img[j]=R.drawable.cloudy2;
+               }
+               else if(wtstate.get(j)=="rain"){
+                   img[j]=R.drawable.rainy;
+               }
+               else if(wtstate.get(j)=="snow"){
+                   img[j]=R.drawable.snowy;
+               }
+               j++;
+           }
+       }
         adapter.addItem(new WeatherItem(String.valueOf(time.get(0))+"시",tempor.get(0),wtstate.get(0),img[0]));
         adapter.addItem(new WeatherItem(String.valueOf(time.get(1))+"시",tempor.get(1),wtstate.get(1),img[1]));
         adapter.addItem(new WeatherItem(String.valueOf(time.get(2))+"시",tempor.get(2),wtstate.get(2),img[2]));
