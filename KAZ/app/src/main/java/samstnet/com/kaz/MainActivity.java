@@ -36,6 +36,7 @@
         import samstnet.com.kaz.gps.GpsInfo;
         import samstnet.com.kaz.gps.LatXLngY;
 
+        import samstnet.com.kaz.lockscreen.Menu4FragConfig;
         import samstnet.com.kaz.weekweather.WeekWeatherInfo;
         import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
