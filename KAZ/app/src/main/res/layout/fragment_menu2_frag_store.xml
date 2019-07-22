@@ -1,14 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Menu2FragStore">
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Menu2" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/treeImageView"
+        >
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/treeImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignStart="@+id/treeImageView"
+            android:layout_alignTop="@+id/treeImageView"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/imgexamtree"
+            android:layout_alignLeft="@+id/treeImageView" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/selectButtonVIew"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/treeImageView"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/selectButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="버튼1" />
+
+        <Button
+            android:id="@+id/selectButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="버튼2" />
+
+        <Button
+            android:id="@+id/selectButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="버튼3" />
+
+        <Button
+            android:id="@+id/selectButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="버튼4" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/storeListView"
+        android:layout_width="match_parent"
+        android:layout_height="486dp"
+        android:layout_below="@+id/selectButtonVIew"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="-5dp" />
+
+    <TextView
+        android:id="@+id/textView_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="312dp"
+        android:layout_marginLeft="312dp"
+        android:layout_marginTop="18dp"
+        android:text="TextView"
+        android:textSize="20dp" />
+
+</RelativeLayout>

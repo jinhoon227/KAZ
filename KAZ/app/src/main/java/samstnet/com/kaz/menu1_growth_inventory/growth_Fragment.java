@@ -1,4 +1,4 @@
-package samstnet.com.kaz;
+package samstnet.com.kaz.menu1_growth_inventory;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -32,7 +32,7 @@ import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 
 
-public class Menu1FragGrowth extends Fragment {
+public class growth_Fragment extends Fragment {
 
 
     int n=6; //아이템 개수    ( 우산, 비료 등등)
@@ -119,6 +119,7 @@ public class Menu1FragGrowth extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //소현------------------------------------------------------------------------------------
         // Register ourselves so that we can provide the initial value.
         BusProvider.getInstance().register(this);
 
@@ -132,8 +133,7 @@ public class Menu1FragGrowth extends Fragment {
             tempor.addAll(weatherinfo.getTempor());
             time.addAll(weatherinfo.getTime());
         }
-
-        Log.d("growth_Fragment","onCreate");
+        //--------------------------------------------------------------------------------------
 
     }
     @Nullable
@@ -328,6 +328,7 @@ public class Menu1FragGrowth extends Fragment {
             index=0;
             imageView_1.setImageResource(R.drawable.spring);
             textview_1.setText("manycloud");
+
         }
         else if(wtstate.get(0)=="fewcloud"){
             index=1;
@@ -361,9 +362,6 @@ public class Menu1FragGrowth extends Fragment {
                 buttons[i].setVisibility(View.VISIBLE);
             }
         }
-
-        //변경을 다 했다면 FragGrowth보여주기
-        frame1.setVisibility(View.VISIBLE);
 
     }
 

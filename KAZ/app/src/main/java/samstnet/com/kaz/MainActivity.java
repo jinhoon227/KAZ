@@ -1,44 +1,55 @@
-package samstnet.com.kaz;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
+        package samstnet.com.kaz;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+        import android.Manifest;
+        import android.annotation.TargetApi;
+        import android.content.Context;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.content.pm.PackageManager;
+        import android.net.ConnectivityManager;
+        import android.net.NetworkInfo;
+        import android.os.AsyncTask;
+        import android.os.Build;
+        import android.support.annotation.NonNull;
+        import android.support.design.widget.BottomNavigationView;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentTransaction;
+        import android.support.v7.app.AlertDialog;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.util.Log;
+        import android.view.MenuItem;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+        import org.w3c.dom.Document;
+        import org.w3c.dom.Element;
+        import org.w3c.dom.Node;
+        import org.w3c.dom.NodeList;
+        import org.xml.sax.InputSource;
+        import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+        import java.io.IOException;
+        import java.net.MalformedURLException;
+        import java.net.URL;
+        import java.util.ArrayList;
 
-import samstnet.com.kaz.eventbus.BusProvider;
-import samstnet.com.kaz.eventbus.WeatherEvent;
-import samstnet.com.kaz.gps.ConverterGridGps;
-import samstnet.com.kaz.gps.GpsInfo;
-import samstnet.com.kaz.gps.LatXLngY;
+        import javax.xml.parsers.DocumentBuilder;
+        import javax.xml.parsers.DocumentBuilderFactory;
+        import javax.xml.parsers.ParserConfigurationException;
+
+        import samstnet.com.kaz.eventbus.BusProvider;
+        import samstnet.com.kaz.eventbus.WeatherEvent;
+        import samstnet.com.kaz.gps.ConverterGridGps;
+        import samstnet.com.kaz.gps.GpsInfo;
+        import samstnet.com.kaz.gps.LatXLngY;
+
+        import samstnet.com.kaz.weekweather.WeekWeatherInfo;
+        import samstnet.com.kaz.weekweather.WeekWeatherParser;
+
+        import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
+        import samstnet.com.kaz.menu2_store.Menu2FragStore;
+        import samstnet.com.kaz.menu2_store.Shop_fragment;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,23 +80,39 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
 
+    //주간 날씨 저장
+    ArrayList<WeekWeatherInfo> arr_wwif = null;
+    WeekWeatherParser wwp;
+
+
+    //growth 프래그먼트 인벤토리 , 메인 화면
+    growth_Fragment fragmentgrowth = new growth_Fragment();
+    //store 프래그먼트
+    //store part-1
+    Shop_fragment fragmentshop = new Shop_fragment();
+    FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+    //네트워크 연결 상태 확인
+    ConnectivityManager connectivityManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
-        // 프래그먼트 초기 추가
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        // 프래그먼트 초기 추가
+        // 하지만 해당 프래그먼트 이동시 초기 데이터를 가져오기로 해놨기 때문에 필요없어보임
+        // 프래그먼트 초기 추가
         //transaction.attach(menu1FragGrowth);
         //transaction.attach(menu2FragStore);
         //transaction.attach(menu3FragWeather);
         //transaction.attach(menu4FragConfig);
         // 첫 화면 추가
         transaction.replace(R.id.frame_layout, menu1FragGrowth).commitAllowingStateLoss();
-
         // bottomNavigationView의 아이템이 선택될 때 호출될 리스너 등록
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -93,12 +120,10 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.navigation_menu1: {
-                        Log.d("sss : ","menu1");
                         transaction.replace(R.id.frame_layout, menu1FragGrowth).commitAllowingStateLoss();
                         break;
                     }
                     case R.id.navigation_menu2: {
-                        Log.d("sss : ","menu2");
                         transaction.replace(R.id.frame_layout, menu2FragStore).commitAllowingStateLoss();
                         break;
                     }
@@ -116,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if(!isNetworkConnected(this)){
+            new AlertDialog.Builder(this);
+        }
+
+
         // 권한 요청을 해야 함
         if (!isPermission) {
             callPermission();
@@ -124,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else {
-           UsingGps();
+            UsingGps();
         }
     }
 
@@ -177,17 +207,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    double latitude;
+    double longitude;
     private void UsingGps(){
         GetXMLTask task = new GetXMLTask();
         gps = new GpsInfo(MainActivity.this);
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+            Log.d("latitude",Double.toString(latitude));
+            Log.d("latitudeddd",Double.toString(longitude));
             converterGridGps = new ConverterGridGps();
             grid = converterGridGps.getGridValue(TO_GRID, latitude, longitude);
             Log.d("ddd","당신의 위치 - " + grid.x + "    " + grid.y);
+
             task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=" + grid.x + "&gridy=" + grid.y);
 
         } else {
@@ -196,9 +230,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private class GetXMLTask extends AsyncTask<String, Void, Document> {
         @Override
         protected Document doInBackground(String... urls) {
+            //주간날씨
+
+            wwp = new WeekWeatherParser(latitude, longitude);
+            wwp.StartParsing();
+
+            //일간날시
             URL url;
             try {
                 url = new URL(urls[0]);
@@ -220,6 +261,9 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Document doc) {
             super.onPostExecute(doc);//이 부분에서 날씨 이미지를 출력해줌
+            //주간
+            arr_wwif = wwp.GetArr_wwif();
+            //일간
             String s = "";
 
             int nowTime = -100;
@@ -278,9 +322,52 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     public WeatherEvent getWeatherInfo(){
         return wev;
     }
+    public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
+        return arr_wwif;
+    }
+
+
+
+    //접속시 네트워크 상태 확인
+    /*private void checkInternetState(Context context){
+        connectivityManager=(ConnectivityManager)context.getSystemService(CONNECTIVITY_SERVICE);
+        assert connectivityManager!=null;
+        if(!(connectivityManager.getActiveNetworkInfo()!=null&&connectivityManager.getActiveNetworkInfo().isConnected())){
+            Log.d("Network","Not connected");
+            new AlertDialog.Builder(this).setMessage("인터넷과 연결되어 있지 않습니다.")
+                    .setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finishAffinity();
+                }
+            }).show();
+        }
+        else{
+            Log.d("Network","connected");
+        }
+    }*/
+
+    public boolean isNetworkConnected(Context context){
+        boolean isConnected=false;
+        ConnectivityManager manager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile=manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi=manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        if(mobile.isConnected()||wifi.isConnected()){
+            isConnected=true;
+        }else{
+            isConnected=false;
+        }
+        return isConnected;
+    }
+
+
 
 
 
