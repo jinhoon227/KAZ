@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.plant_info;
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class growth_Fragment extends Fragment {
     TextView resultTextView;
     ImageView imageView=null;
     String level_string, exp_string;
-    plant_info plant1=new plant_info(1,0,"PLANT1",1,n);
+    Customer cus ;
 
 
     //소현----------------------------------------------------------------
@@ -116,6 +117,7 @@ public class growth_Fragment extends Fragment {
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cus = (Customer)getActivity().getApplication();
         //소현------------------------------------------------------------------------------------
         // Register ourselves so that we can provide the initial value.
         BusProvider.getInstance().register(this);
@@ -145,16 +147,16 @@ public class growth_Fragment extends Fragment {
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
         textView.setText(level_string);
         textView2.setText(exp_string);
-        if(plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
-        else if(plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
-        else if(plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
+        if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
+        else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
+        else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExpUp(plant1);
+                ExpUp(cus.plant1);
 
-                exp_string=plant1.getExp()+"";
-                level_string=plant1.getLevel()+"";
+                exp_string=cus.plant1.getExp()+"";
+                level_string=cus.plant1.getLevel()+"";
 
                 textView.setText(level_string);
                 textView2.setText(exp_string);
@@ -243,37 +245,37 @@ public class growth_Fragment extends Fragment {
                 case R.id.sprinklerButton:
                     itemImage[0].setVisibility(View.VISIBLE);
                     buttons[0].setVisibility(View.GONE);
-                    plant1.setItems(0);
+                    cus.plant1.setItems(0);
                     break;
                 //비료 선택
                 case R.id.FertilizerButton:
                     itemImage[1].setVisibility(View.VISIBLE);
                     buttons[1].setVisibility(View.GONE);
-                    plant1.setItems(1);
+                    cus.plant1.setItems(1);
                     break;
                 //우산 선택
                 case R.id.unbrellaButton:
                     itemImage[2].setVisibility(View.VISIBLE);
                     buttons[2].setVisibility(View.GONE);
-                    plant1.setItems(2);
+                    cus.plant1.setItems(2);
                     break;
                 //모자 선택
                 case R.id.hatButton:
                     itemImage[3].setVisibility(View.VISIBLE);
                     buttons[3].setVisibility(View.GONE);
-                    plant1.setItems(3);
+                    cus.plant1.setItems(3);
                     break;
                 //옷 선택
                 case R.id.coatButton:
                     itemImage[4].setVisibility(View.VISIBLE);
                     buttons[4].setVisibility(View.GONE);
-                    plant1.setItems(4);
+                    cus.plant1.setItems(4);
                     break;
             }
 
-            ExpUp(plant1);
-            exp_string=plant1.getExp()+"";
-            level_string=plant1.getLevel()+"";
+            ExpUp(cus.plant1);
+            exp_string=cus.plant1.getExp()+"";
+            level_string=cus.plant1.getLevel()+"";
 
             textView.setText(level_string);
             textView2.setText(exp_string);
@@ -338,7 +340,7 @@ public class growth_Fragment extends Fragment {
         }
 
         for(int i=0;i<n;i++){
-            if(items[index][i]&&!(plant1.getItems(i))){
+            if(items[index][i]&&!(cus.plant1.getItems(i))){
                 buttons[i].setVisibility(View.VISIBLE);
             }
         }

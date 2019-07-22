@@ -2,6 +2,7 @@
         package samstnet.com.kaz;
 
         import android.Manifest;
+        import android.content.SharedPreferences;
         import android.content.pm.PackageManager;
         import android.os.AsyncTask;
         import android.os.Build;
@@ -31,6 +32,8 @@
         import javax.xml.parsers.ParserConfigurationException;
 
         import samstnet.com.kaz.eventbus.BusProvider;
+        import samstnet.com.kaz.eventbus.Customer;
+        import samstnet.com.kaz.eventbus.Item_type;
         import samstnet.com.kaz.eventbus.WeatherEvent;
         import samstnet.com.kaz.gps.ConverterGridGps;
         import samstnet.com.kaz.gps.GpsInfo;
@@ -317,6 +320,64 @@ public class MainActivity extends AppCompatActivity {
     }
     public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
         return arr_wwif;
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Customer cus = (Customer)getApplication();
+        SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE); // 선언
+        SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
+        String tmparr2;
+        for(int i=0;i<4;i++) {
+            tmparr2= Customer.item[i].getName()+ "&" + Customer.item[i].getMobile() + "&" +Customer.item[i].getResId() + "&" +Customer.item[i].getPrice()+ "&" + Customer.item[i].isWear() + "&" + Customer.item[i].isBuy();
+
+            Log.d("끝날때 여기 저장됨",tmparr2);
+            editor.putString("item"+i , tmparr2); //item1라는 key값으로 item 데이터를 저장한다.
+            editor.putInt("money",cus.getMoney());//money 라는 key값으로 고객 돈 데이터 저장
+
+        }
+        editor.commit(); //완료한다.
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Customer cus = (Customer)getApplication();
+        //2019-07-17 강제 종료시 저장한 데이터 가져오기
+        String itemtmp[] = new String [50];
+        String tmparr[];
+        Log.d("강제 종료시 복원 데이터","복원데이터");
+        if(savedInstanceState!=null)
+        {
+            Log.d("강제 종료시 복원 데이터","saveinstance1");
+            Bundle bundle = savedInstanceState.getParcelable("saveBundle");
+            if(bundle!=null)
+            {
+                Log.d("강제 종료시 복원 데이터","bundle");
+                for(int i=0;i<4;i++) {
+                    itemtmp[i]=bundle.getString("item"+i,null);
+                    Log.d("강제 종료시 복원 데이터"+i,itemtmp[i]);
+                    tmparr = itemtmp[i].split("&");
+                    Customer.item[i] = new Item_type(tmparr[0], tmparr[1], Integer.parseInt(tmparr[2]), Integer.parseInt(tmparr[3]), Boolean.valueOf(tmparr[4]), Boolean.valueOf(tmparr[5]));
+                    bundle.putInt("money",cus.getMoney());
+                }
+
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Bundle bundle = new Bundle();
+        String tmparr2;
+
+        for (int i = 0; i < 4; i++) {
+            tmparr2 = Customer.item[i].getName() + "&" + Customer.item[i].getMobile() + "&" + Customer.item[i].getResId() + "&" + Customer.item[i].getPrice() + "&" + Customer.item[i].isWear() + "&" + Customer.item[i].isBuy();
+            Log.d("강제로 끝날때 여기 저장됨", tmparr2);
+            bundle.putString("item" + i, tmparr2); //item1라는 key값으로 id 데이터를 저장한다.
+        }
+        outState.putParcelable("saveBundle", bundle);
     }
     //Grwoth-inventory눌럿을떄 fragment 를 전환 해주는 함수 index : 0 growth || index 1 : inventory
   /*  public void onFragmentChange(int index) {

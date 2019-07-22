@@ -1,43 +1,48 @@
 
- package samstnet.com.kaz.menu2_store;
+package samstnet.com.kaz.menu2_store;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.annotation.Nullable;
-        import android.support.v4.app.Fragment;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.BaseAdapter;
-        import android.widget.ListView;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-        import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-        import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-        import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
+import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
+import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
+import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
 
-        import java.util.ArrayList;
+import java.util.ArrayList;
 
-        import samstnet.com.kaz.MainActivity;
-        import samstnet.com.kaz.R;
-        import samstnet.com.kaz.eventbus.BusProvider;
-        import samstnet.com.kaz.eventbus.Customer;
-        import samstnet.com.kaz.eventbus.Item_type;
+import samstnet.com.kaz.MainActivity;
+import samstnet.com.kaz.R;
+import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.Customer;
+import samstnet.com.kaz.eventbus.Item_type;
 
-        import static android.app.Activity.RESULT_OK;
+import static android.app.Activity.RESULT_OK;
 
- public class Menu2FragStore extends Fragment {
+public class Menu2FragStore extends Fragment {
     MainActivity activity;
     StoreAdapter StAdapter;
     ListView listview;
-    TextView moneyview;
+    EditText moneyview;
     //listview 에니메이션 기능 구현
     AlphaInAnimationAdapter animationAdapter;
+    Customer cus;
+
 
 
 
@@ -62,7 +67,7 @@
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BusProvider.getInstance().register(this);
-
+        cus =(Customer)getActivity().getApplication();
     }
 
     class StoreAdapter extends BaseAdapter {
@@ -102,10 +107,10 @@
             }
             else
             {
-            view=(Item_View2) convertView;
-        }
+                view=(Item_View2) convertView;
+            }
 
-        Item_type item = items.get(position);
+            Item_type item = items.get(position);
             view.setName(item.getName());
             view.setMobile(item.getMobile());
             view.setImage(item.getResId());
@@ -135,11 +140,12 @@
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu2_frag_store, container, false);
         Item_type[] storeitem = Customer.item;
-
+        int money=cus.getMoney();
         //남은 돈 출력
-        moneyview=rootView.findViewById(R.id.textView_money);
-        moneyview.setText(Customer.getInstance().getMoney()+" 씨앗");
-        Log.d("","씨앗"+Customer.getInstance().getMoney());
+        moneyview=(EditText)rootView.findViewById(R.id.textView_money);
+        moneyview.addTextChangedListener(textWatcher);
+        moneyview.setText(money+" 씨앗");
+        Log.d("","씨앗"+cus.getMoney());
         //인덱스 참고 함수
 
         //에니메이션을 위해 dynamiclistview 사용
@@ -156,33 +162,33 @@
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    moneyview.setText(Customer.getInstance().getMoney()+" 씨앗");
-                    Item_type item = (Item_type) StAdapter.getItem(position);//index 할당
-                                Toast.makeText(getActivity(),"선택 "+item.getName(),Toast.LENGTH_SHORT).show();//toast 메세지 출력
-                                //팝업 메세지 출력
-                                Intent intent = new Intent(getActivity(), PopupActivity.class);
-                                if (item.isBuy()) {
-                                    if (item.isWear()) {
-                                        intent.putExtra("data", item.getName() + " 장착 해제 합니다");
-                                        item.setWear(false);
-                            } else {
-                                intent.putExtra("data", item.getName() + " 장착 합니다");
-                                item.setWear(true);
-                            }
-                        } else {
-                            intent.putExtra("data", "아이탬 : " + item.getName() + "를 " + item.getPrice() + "씨앗에 구매하시겠습니까?");
-                        }
-                                Customer.getInstance().setPosition(position);
-                        startActivityForResult(intent, 1);
-                        BusProvider.getInstance().post(item);
 
-        }
+                Item_type item = (Item_type) StAdapter.getItem(position);//index 할당
+                Toast.makeText(getActivity(),"선택 "+item.getName(),Toast.LENGTH_SHORT).show();//toast 메세지 출력
+                //팝업 메세지 출력
+                Intent intent = new Intent(getActivity(), PopupActivity.class);
+                if (item.isBuy()) {
+                    if (item.isWear()) {
+                        intent.putExtra("data", item.getName() + " 장착 해제 합니다");
+                        item.setWear(false);
+                    } else {
+                        intent.putExtra("data", item.getName() + " 장착 합니다");
+                        item.setWear(true);
+                    }
+                } else {
+                    intent.putExtra("data", "아이탬 : " + item.getName() + "를 " + item.getPrice() + "씨앗에 구매하시겠습니까?");
+                }
+                cus.setPosition(position);
+                startActivityForResult(intent, 1);
+                BusProvider.getInstance().post(item);
+
+            }
         });
         for(int i=0;i<storeitem.length;i++) {
             if(storeitem[i]!=null) {
                 StAdapter.addItem(storeitem[i]);
             }
-            }
+        }
         return rootView;
     }
     @Override
@@ -193,14 +199,16 @@
                 //데이터 받기
                 String result = data.getStringExtra("result");
                 Log.d("result ","result 값:"+result);
-                position=Customer.getInstance().getPosition();
+                position=cus.getPosition();
                 if(result.equals("confirm"))
                 {
                     Log.d("","포지션"+position);
-                    Customer.item[position].setBuy(true);
                     if(!Customer.item[position].isBuy())
                     {
-                        Customer.getInstance().setMoney(Customer.getInstance().getMoney()-Customer.item[position].getPrice());
+                        Customer.item[position].setBuy(true);
+                        cus.setMoney(cus.getMoney()-cus.item[position].getPrice());
+                        moneyview.setText(cus.getMoney()+" 씨앗");
+                        Log.d("isbuy","들어감 : 돈"+cus.getMoney());
                     }
                 }
             }
@@ -212,4 +220,22 @@
         super.onResume();
         StAdapter.notifyDataSetChanged();
     }
+    //2019 07-19 데이터 변화시 글자 바뀌는 함수
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void afterTextChanged(Editable edit) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+
+        }
+    };
+
 }
