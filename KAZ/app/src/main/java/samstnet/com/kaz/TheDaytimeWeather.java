@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -17,27 +18,51 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
 public class TheDaytimeWeather extends Fragment {
     ArrayList<WeekWeatherInfo> arr_wwif = new ArrayList<>();
+    ArrayList<WeekWeatherInfo> sorted_high_tempor = new ArrayList<>();
     LineChart lineChart;
+    TextView weekWeatherContent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.thedaytimeweather,container,false);
         lineChart = (LineChart) rootView.findViewById(R.id.chart);
+        weekWeatherContent = rootView.findViewById(R.id.weekWeatherContent);
 
         if( ((MainActivity)getActivity()).getWeekWeatherInfo() != null){
             arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
             makeChart();
+
+            sorted_high_tempor = (((MainActivity)getActivity()).getWeekWeatherInfo());
+            Collections.sort(sorted_high_tempor,myComparator);
+            Collections.reverse(sorted_high_tempor);
+            weekWeatherContent.setText(sorted_high_tempor.get(0).getDay() + "일에는 너무 더워요!");
         }
 
         return rootView;
     }
+
+    private final static Comparator<WeekWeatherInfo> myComparator= new Comparator<WeekWeatherInfo>() {
+
+        private final Collator collator = Collator.getInstance();
+
+        @Override
+
+        public int compare(WeekWeatherInfo object1, WeekWeatherInfo object2) {
+            return collator.compare(object1.getmTmx(), object2.getmTmx());
+
+        }
+    };
+
 
     private void makeChart(){
 
@@ -77,7 +102,7 @@ public class TheDaytimeWeather extends Fragment {
             //줄 색깔 및 동그라미 색깔
             //dataset.setLineWidth(1.75f);
             dataset.setCircleRadius(5f);
-            dataset.setColor(Color.WHITE);
+            dataset.setColor(Color.BLUE);
             dataset.setCircleColor(Color.WHITE);
             dataset.setHighLightColor(Color.WHITE);
 
@@ -92,7 +117,7 @@ public class TheDaytimeWeather extends Fragment {
             //줄 색깔 및 동그라미 색깔
             //dataset.setLineWidth(1.75f);
             dataset2.setCircleRadius(5f);
-            dataset2.setColor(Color.WHITE);
+            dataset2.setColor(Color.RED);
             dataset2.setCircleColor(Color.WHITE);
             dataset2.setHighLightColor(Color.WHITE);
 
@@ -156,3 +181,6 @@ public class TheDaytimeWeather extends Fragment {
         Log.d("what","hell");
     }
 }
+
+
+
