@@ -336,6 +336,9 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt("money",cus.getMoney());//money 라는 key값으로 고객 돈 데이터 저장
 
         }
+        tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
+
+        editor.putString("setting",tmparr2);
         editor.commit(); //완료한다.
     }
 
@@ -346,6 +349,8 @@ public class MainActivity extends AppCompatActivity {
         //2019-07-17 강제 종료시 저장한 데이터 가져오기
         String itemtmp[] = new String [50];
         String tmparr[];
+        String tmparr2;
+
         Log.d("강제 종료시 복원 데이터","복원데이터");
         if(savedInstanceState!=null)
         {
@@ -361,6 +366,9 @@ public class MainActivity extends AppCompatActivity {
                     Customer.item[i] = new Item_type(tmparr[0], tmparr[1], Integer.parseInt(tmparr[2]), Integer.parseInt(tmparr[3]), Boolean.valueOf(tmparr[4]), Boolean.valueOf(tmparr[5]));
                     bundle.putInt("money",cus.getMoney());
                 }
+                tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
+                bundle.putString("setting",tmparr2);
+
 
             }
         }

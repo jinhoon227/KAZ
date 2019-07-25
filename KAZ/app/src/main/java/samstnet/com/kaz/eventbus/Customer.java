@@ -13,6 +13,9 @@ public class Customer extends Application {
 
     public static plant_info plant1;
 
+    public static SettingEvent setting1;
+
+
     private int money;
 
     private int position;
@@ -49,9 +52,13 @@ public class Customer extends Application {
         this.item = item;
     }
 
+    public static SettingEvent getSetting1() {
+        return setting1;
+    }
 
-
-
+    public static void setSetting1(SettingEvent setting1) {
+        Customer.setting1 = setting1;
+    }
 
     public void onCreate() {
         super.onCreate();
@@ -60,6 +67,8 @@ public class Customer extends Application {
         position=0;
         String itemtmp[] = new String [100];
         String planttmp;
+        String settmp;
+
         SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE); // 선언
         SharedPreferences prefs= getSharedPreferences("pref", MODE_PRIVATE); // 선언
         SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
@@ -74,6 +83,7 @@ public class Customer extends Application {
             editor.putString("item1", "우비&비를 피할 수 있는 우비를 씌워 줍니다&" + R.drawable.img2 + "&20&false&false"); //item1라는 key값으로 id 데이터를 저장한다.
             editor.putString("item2", "선풍기&더위를 피할 수 있게 선풍기를 틉니다.&" + R.drawable.img3 + "&50&false&false"); //item1라는 key값으로 id 데이터를 저장한다.
             editor.putString("item3", "난로&추위를 피할 수 있게 난로를 틉니다&" + R.drawable.img4 + "&60&false&false"); //item1라는 key값으로 id 데이터를 저장한다.
+            editor.putString("setting","false&false&false&false&false");
             editor.commit(); //완료한다.
         }
         for(int i=0;i<4;i++) {
@@ -86,11 +96,10 @@ public class Customer extends Application {
         tmparr=planttmp.split("&");
         plant1 = new plant_info(Integer.parseInt(tmparr[0]),Integer.parseInt(tmparr[1]),tmparr[2],Integer.parseInt(tmparr[3]),Integer.parseInt(tmparr[4]));
         money=prefs.getInt("money",0);
+        settmp = prefs.getString("setting",null);
+        tmparr = settmp.split("&");
+        setting1 =  new SettingEvent(Boolean.valueOf(tmparr[0]),Boolean.valueOf(tmparr[1]),Boolean.valueOf(tmparr[2]),Boolean.valueOf(tmparr[3]));
         Log.d("고객 돈 :", ""+money);
-
-
-
-
 
         /*
             item[0]= new Item_type("우산","비를 피할 수 있는 우산을 씌워 줍니다",R.drawable.img1,10,false,false);
