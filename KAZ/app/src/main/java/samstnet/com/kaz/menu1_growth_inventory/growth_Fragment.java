@@ -56,6 +56,7 @@ public class growth_Fragment extends Fragment {
     ImageView imageView_1;
     TextView textview_1;
     FrameLayout framelayout;
+    FrameLayout frame1;
 
     int indexs[];
     int index=0;
@@ -145,6 +146,9 @@ public class growth_Fragment extends Fragment {
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
         textView2=(TextView) rootView.findViewById(R.id.ExpResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
+        frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
+
+
         textView.setText(level_string);
         textView2.setText(exp_string);
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
@@ -344,6 +348,9 @@ public class growth_Fragment extends Fragment {
                 buttons[i].setVisibility(View.VISIBLE);
             }
         }
+
+        //변경을 다 했다면 FragGrowth보여주기
+        frame1.setVisibility(View.VISIBLE);
 
     }
 

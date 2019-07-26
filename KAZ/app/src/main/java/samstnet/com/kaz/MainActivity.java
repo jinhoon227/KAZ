@@ -2,14 +2,19 @@
         package samstnet.com.kaz;
 
         import android.Manifest;
+        import android.annotation.TargetApi;
+        import android.content.DialogInterface;
         import android.content.SharedPreferences;
         import android.content.pm.PackageManager;
+        import android.net.ConnectivityManager;
+        import android.net.NetworkInfo;
         import android.os.AsyncTask;
         import android.os.Build;
         import android.support.annotation.NonNull;
         import android.support.design.widget.BottomNavigationView;
         import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentTransaction;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
@@ -90,10 +95,22 @@ public class MainActivity extends AppCompatActivity {
     FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 
+    //네트워크 연결 상태 확인
+    ConnectivityManager connectivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        NetworkInfo mNetworkState=getNetworkInfo();
+
+        if(mNetworkState!=null&&mNetworkState.isConnected()){
+            if(mNetworkState.getType()==ConnectivityManager.TYPE_WIFI){
+                Log.d("Network","WIFI");
+            }else if(mNetworkState.getType()==ConnectivityManager.TYPE_MOBILE){
+                Log.d("Network","3G/LTE");
+            }
+
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
@@ -146,6 +163,17 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             UsingGps();
+        }
+        }else{
+            Log.d("Network","Not connected");
+            new AlertDialog.Builder(this).setMessage("인터넷과 연결되어 있지 않습니다.")
+                    .setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finishAffinity();
+                }
+            }).show();
         }
     }
 
@@ -321,6 +349,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
         return arr_wwif;
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -387,16 +416,14 @@ public class MainActivity extends AppCompatActivity {
         }
         outState.putParcelable("saveBundle", bundle);
     }
-    //Grwoth-inventory눌럿을떄 fragment 를 전환 해주는 함수 index : 0 growth || index 1 : inventory
-  /*  public void onFragmentChange(int index) {
-        if (index == 0) {
-            Log.d("MainActivity","fragmentgrowth 들어감");
-            getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentgrowth).commit();
-        } else if (index == 1) {
-            Log.d("MainActivity","fragmentivent 들어감");
-            getSupportFragmentManager().beginTransaction().replace(R.id.change, fragmentivent).commit();
-        }
-        Log.d("MainActivity","들어감");
+
+
+    //접속시 네트워크 상태 확인
+    private NetworkInfo getNetworkInfo(){
+        ConnectivityManager connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
+        return networkInfo;
     }
-    */
+
+
 }
