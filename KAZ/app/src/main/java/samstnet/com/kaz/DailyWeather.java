@@ -41,7 +41,6 @@ public class DailyWeather extends Fragment {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.dailyweather,container,false);
         ListView listView=rootView.findViewById(R.id.list);
         SingerAdapter adapter=new SingerAdapter();
-
         for(int i=0;i<14;i++){
             if(wtstate.get(i)=="sun"){
                 img[i]=R.drawable.sunny;

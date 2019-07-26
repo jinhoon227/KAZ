@@ -46,4 +46,10 @@ public class WeekWeatherInfo {
     public void setmReliability(String mReliability) {
         this.mReliability = mReliability;
     }
+
+    // 해당일 잘라서 날짜얻기
+    public String getDay(){
+        String day[] = this.mTmEf.split("-");
+        return day[2];
+    }
 }
