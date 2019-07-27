@@ -1,87 +1,177 @@
 package samstnet.com.kaz;
 
-import android.icu.text.AlphabeticIndex;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.Collator;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
 public class TheDaytimeWeather extends Fragment {
     ArrayList<WeekWeatherInfo> arr_wwif = new ArrayList<>();
+    ArrayList<WeekWeatherInfo> sorted_high_tempor = new ArrayList<>();
+    LineChart lineChart;
+    TextView weekWeatherContent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.thedaytimeweather,container,false);
+        lineChart = (LineChart) rootView.findViewById(R.id.chart);
+        weekWeatherContent = rootView.findViewById(R.id.weekWeatherContent);
+
         if( ((MainActivity)getActivity()).getWeekWeatherInfo() != null){
             arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
-            Log.d("getWeather :","true");
+            makeChart();
 
+            sorted_high_tempor = (((MainActivity)getActivity()).getWeekWeatherInfo());
+            Collections.sort(sorted_high_tempor,myComparator);
+            Collections.reverse(sorted_high_tempor);
+            weekWeatherContent.setText(sorted_high_tempor.get(0).getDay() + "일에는 너무 더워요!");
+        }
+
+        return rootView;
+    }
+
+    private final static Comparator<WeekWeatherInfo> myComparator= new Comparator<WeekWeatherInfo>() {
+
+        private final Collator collator = Collator.getInstance();
+
+        @Override
+
+        public int compare(WeekWeatherInfo object1, WeekWeatherInfo object2) {
+            return collator.compare(object1.getmTmx(), object2.getmTmx());
 
         }
-        LineChart lineChart = (LineChart) rootView.findViewById(R.id.chart);
+    };
+
+
+    private void makeChart(){
+
+        //차트 설정
+        lineChart.setTouchEnabled(false);
+        //lineChart.setBackgroundColor((Color.rgb(000,191,255)));
+        lineChart.setDrawGridBackground(false);
+        //구버전
+        //lineChart.setDescription("기상청");
+        lineChart.getDescription().setEnabled(false);
+
 
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(4f, 0));
-        entries.add(new Entry(8f, 1));
-        entries.add(new Entry(6f, 2));
-        entries.add(new Entry(2f, 3));
-        entries.add(new Entry(18f, 4));
-        entries.add(new Entry(9f, 5));
-        entries.add(new Entry(16f, 6));
-        entries.add(new Entry(5f, 7));
-        entries.add(new Entry(3f, 8));
-        entries.add(new Entry(7f, 10));
-        entries.add(new Entry(9f, 11));
+        for(int i=0;i<arr_wwif.size();i++){
+            entries.add(new Entry(i,Float.parseFloat(arr_wwif.get(i).getmTmx())));
 
-        LineDataSet dataset = new LineDataSet(entries, "# of Calls");
+        }
+        LineDataSet dataset = new LineDataSet(entries, "최고기온");
 
-        ArrayList<String> labels = new ArrayList<String>();
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-        labels.add("July");
-        labels.add("August");
-        labels.add("September");
-        labels.add("October");
-        labels.add("November");
-        labels.add("December");
+        ArrayList<Entry> entries2 = new ArrayList<>();
+        for(int i=0;i<arr_wwif.size();i++){
+            entries2.add(new Entry(i,Float.parseFloat(arr_wwif.get(i).getmTmn())));
 
-        LineData data = new LineData(labels, dataset);
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+        }
+        LineDataSet dataset2 = new LineDataSet(entries2, "최저기온");
+
+        ArrayList<ILineDataSet> dataGroup = new ArrayList<>();
+        if (lineChart.getData() != null &&
+                lineChart.getData().getDataSetCount() > 0) {
+            dataset = (LineDataSet) lineChart.getData().getDataSetByIndex(0);
+            dataset2 = (LineDataSet) lineChart.getData().getDataSetByIndex(1);
+            dataset.setValues(entries);
+            dataset2.setValues(entries2);
+            lineChart.getData().notifyDataChanged();
+            lineChart.notifyDataSetChanged();
+        } else {
+            //줄 색깔 및 동그라미 색깔
+            //dataset.setLineWidth(1.75f);
+            dataset.setCircleRadius(5f);
+            dataset.setColor(Color.BLUE);
+            dataset.setCircleColor(Color.WHITE);
+            dataset.setHighLightColor(Color.WHITE);
+
+            //점 위에 값 크기 및 색깔
+            dataset.setValueFormatter(new ChartValueFormatter());
+            dataset.setValueTextSize(12f);
+            dataset.setValueTextColor(Color.BLUE);
+
+            //선 크기
+            dataset.setLineWidth(3f);
+
+            //줄 색깔 및 동그라미 색깔
+            //dataset.setLineWidth(1.75f);
+            dataset2.setCircleRadius(5f);
+            dataset2.setColor(Color.RED);
+            dataset2.setCircleColor(Color.WHITE);
+            dataset2.setHighLightColor(Color.WHITE);
+
+            //점 위에 값 크기 및 색깔
+            dataset2.setValueFormatter(new ChartValueFormatter());
+            dataset2.setValueTextSize(12f);
+            dataset2.setValueTextColor(Color.BLUE);
+
+            //선 크기
+            dataset2.setLineWidth(3f);
+
+            dataGroup.add(dataset);
+            dataGroup.add(dataset2);
+            LineData data = new LineData(dataGroup);
+            //dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
            /*dataset.setDrawCubic(true); //선 둥글게 만들기
             dataset.setDrawFilled(true); //그래프 밑부분 색칠*/
 
-        lineChart.setData(data);
-        lineChart.animateY(5000);
+            lineChart.setData(data);
+        }
 
+        // get the legend (only possible after setting data)
+        Legend l = lineChart.getLegend();
+        l.setEnabled(false);
 
-        return rootView;
+        //아마 선없애기? 또는 마진추가
+        lineChart.getAxisLeft().setEnabled(false);
+        lineChart.getAxisLeft().setSpaceTop(40);
+        lineChart.getAxisLeft().setSpaceBottom(40);
+        lineChart.getAxisRight().setEnabled(false);
 
+        //격자줄 없애기
+        lineChart.getAxisRight().setDrawGridLines(false);
+        // lineChart.getAxisRight().setDrawAxisLine(false);
+        //lineChart.getXAxis().setDrawAxisLine(false);
+        lineChart.getXAxis().setDrawGridLines(false);
 
+        //x축 줄 폰트 크기 및 색깔
+        lineChart.getXAxis().setTextSize(15f);
+        //lineChart.getXAxis().setSpaceBetweenLabels(2);
+        lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.getXAxis().setLabelCount(6,true);
+
+        //맨 상단의 라벨 넣어주기
+        ArrayList<String> labels = new ArrayList<String>();
+        for(int i=0;i<arr_wwif.size();i++){
+            labels.add(arr_wwif.get(i).getDay());
+        }
+        lineChart.getXAxis().setValueFormatter(new ChartXAxisFormatter(labels));
+
+        //패딩
+        lineChart.setExtraTopOffset(5f);
+
+        lineChart.animateX(2500);
     }
 
 
@@ -91,3 +181,6 @@ public class TheDaytimeWeather extends Fragment {
         Log.d("what","hell");
     }
 }
+
+
+
