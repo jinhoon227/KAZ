@@ -72,5 +72,10 @@
         android:paddingRight="40dp"
         android:text="잠금설정"
         android:textSize="24sp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="startService"
+        android:text="Start Service" />
 
 </LinearLayout>

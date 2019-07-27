@@ -9,7 +9,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:usesCleartextTraffic="true"
@@ -33,6 +34,7 @@
 
         <activity android:name=".MainActivity">
         </activity>
+
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
        <!-- <activity
 
@@ -53,8 +55,16 @@
         </activity>
     -->
         <activity android:name=".lockscreen.LockScreenActivity" />
-        <service android:name=".lockscreen.ScreenService" />
-        <receiver android:name=".lockscreen.ScreenReceiver" />
+        <service android:name=".Service.ExampleService" />
+        <receiver
+            android:name=".Service.BootReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".Service.ExampleService"/>
     </application>
 
 </manifest>

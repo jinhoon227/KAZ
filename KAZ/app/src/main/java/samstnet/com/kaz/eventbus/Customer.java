@@ -1,8 +1,11 @@
 package samstnet.com.kaz.eventbus;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.util.Log;
 
 import samstnet.com.kaz.R;
@@ -14,6 +17,8 @@ public class Customer extends Application {
     public static plant_info plant1;
 
     public static SettingEvent setting1;
+
+    public static final String CHANNEL_ID = "exampleServiceChannel";
 
 
     private int money;
@@ -62,6 +67,7 @@ public class Customer extends Application {
 
     public void onCreate() {
         super.onCreate();
+        createNotificationChannel();
         plant1 = new plant_info(1,0,"PLANT1",1,5);
         String []tmparr;
         position=0;
@@ -136,6 +142,20 @@ public class Customer extends Application {
         return "Customer{" +
                 "item=" + item +
                 '}';
+    }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Example Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
     }
 
 }

@@ -4,6 +4,7 @@
         import android.Manifest;
         import android.annotation.TargetApi;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.content.SharedPreferences;
         import android.content.pm.PackageManager;
         import android.net.ConnectivityManager;
@@ -14,11 +15,13 @@
         import android.support.design.widget.BottomNavigationView;
         import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentTransaction;
+        import android.support.v4.content.ContextCompat;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.util.Log;
         import android.view.MenuItem;
+        import android.view.View;
 
         import org.w3c.dom.Document;
         import org.w3c.dom.Element;
@@ -36,6 +39,7 @@
         import javax.xml.parsers.DocumentBuilderFactory;
         import javax.xml.parsers.ParserConfigurationException;
 
+        import samstnet.com.kaz.Service.ExampleService;
         import samstnet.com.kaz.eventbus.BusProvider;
         import samstnet.com.kaz.eventbus.Customer;
         import samstnet.com.kaz.eventbus.Item_type;
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     Document doc = null;
 
-    WeatherEvent wev = null;
+    static WeatherEvent wev = null;
     ArrayList<String> wtstate = new ArrayList<>();
     ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
@@ -343,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public WeatherEvent getWeatherInfo(){
+    public static WeatherEvent getWeatherInfo(){
         return wev;
     }
     public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
@@ -424,6 +428,15 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
         return networkInfo;
     }
+    public void startService(View v) {
+        Intent serviceIntent = new Intent(this, ExampleService.class);
+        ContextCompat.startForegroundService(this, serviceIntent);
+    }
+    public void stopService(View v) {
+        Intent serviceIntent = new Intent(this, ExampleService.class);
+        stopService(serviceIntent);
+    }
+
 
 
 }
