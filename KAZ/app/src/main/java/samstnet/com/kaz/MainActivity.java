@@ -40,6 +40,7 @@
         import samstnet.com.kaz.eventbus.Customer;
         import samstnet.com.kaz.eventbus.Item_type;
         import samstnet.com.kaz.eventbus.WeatherEvent;
+        import samstnet.com.kaz.eventbus.plant_info;
         import samstnet.com.kaz.gps.ConverterGridGps;
         import samstnet.com.kaz.gps.GpsInfo;
         import samstnet.com.kaz.gps.LatXLngY;
@@ -50,7 +51,7 @@
 
         import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
         import samstnet.com.kaz.menu2_store.Menu2FragStore;
-        import samstnet.com.kaz.menu2_store.Shop_fragment;
+       // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     growth_Fragment fragmentgrowth = new growth_Fragment();
     //store 프래그먼트
     //store part-1
-    Shop_fragment fragmentshop = new Shop_fragment();
+   // Shop_fragment fragmentshop = new Shop_fragment();
     FragmentTransaction transaction = fragmentManager.beginTransaction();
 
 
@@ -353,20 +354,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        String items[];
         Customer cus = (Customer)getApplication();
         SharedPreferences pref= getSharedPreferences("pref", MODE_PRIVATE); // 선언
         SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
-        String tmparr2;
-        for(int i=0;i<4;i++) {
+        String tmparr2="";
+        String tmparr3="";
+        for(int i=0;i<5;i++) {
             tmparr2= Customer.item[i].getName()+ "&" + Customer.item[i].getMobile() + "&" +Customer.item[i].getResId() + "&" +Customer.item[i].getPrice()+ "&" + Customer.item[i].isWear() + "&" + Customer.item[i].isBuy();
 
             Log.d("끝날때 여기 저장됨",tmparr2);
             editor.putString("item"+i , tmparr2); //item1라는 key값으로 item 데이터를 저장한다.
             editor.putInt("money",cus.getMoney());//money 라는 key값으로 고객 돈 데이터 저장
-
+            tmparr3 = tmparr3+Boolean.valueOf(cus.plant1.items[i])+"&";
         }
+        editor.putString("itemwear",tmparr3);
+        tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum();
+        editor.putString("plant",tmparr2);
         tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
-
         editor.putString("setting",tmparr2);
         editor.commit(); //완료한다.
     }
@@ -388,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
             if(bundle!=null)
             {
                 Log.d("강제 종료시 복원 데이터","bundle");
-                for(int i=0;i<4;i++) {
+                for(int i=0;i<5;i++) {
                     itemtmp[i]=bundle.getString("item"+i,null);
                     Log.d("강제 종료시 복원 데이터"+i,itemtmp[i]);
                     tmparr = itemtmp[i].split("&");
@@ -397,6 +402,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
                 bundle.putString("setting",tmparr2);
+                tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum();
+                bundle.putString("plant",tmparr2);
 
 
             }

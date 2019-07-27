@@ -2,12 +2,13 @@ package samstnet.com.kaz.eventbus;
 //이거슨 아이탬 정보
 public class Item_type {
 
-    String name;
-    String mobile;
-    int resId;
-    boolean wear;
-    int price;
-    boolean buy;
+    String name;    //이름
+    String mobile;  //내용
+    int resId;      //그림
+    boolean wear;   //장착여부
+    int price;      //가격
+    boolean buy;    //구매여부
+
 
     public Item_type(String name, String mobile, int resId,int price, boolean wear,boolean buy) {
         this.name = name;

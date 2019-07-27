@@ -10,22 +10,23 @@ public class plant_info {
 
     // items   : 1. 물뿌리개   2. 비료     3. 우산 4. 모자 5. 옷
     // wtstate : 1. manycloud 2. fewcloud 3. sun 4. rain 5. snow
-    static boolean[] items;
+    // 아이템을 사용 했는지 여부, 3시간마다 false로 리셋해주어야 함.
+    public static boolean[] items;
     static int itemNum;
 
 
     //----------------------------------------------------------------------------------
 
-    public plant_info(int level, int exp, String name, int state, int itemNum){
+    public plant_info(int level, int exp, String name, int state, int itemNum,boolean[] items){
     this.level=level;
     this.exp=exp;
     this.name=name;
     this.state=state;
-
+    this.items=items;
     //소현--------------------------------
         this.itemNum=itemNum;
         items=new boolean[itemNum];
-        //이쪽부분은 db랑 연결해서 데이터 받아올 수 있게 되면 바꿔야함
+
         for(int i=0;i<itemNum;i++){
             items[i]=false;
         }
@@ -80,5 +81,11 @@ public class plant_info {
         state++;
     }
 
+    public static int getItemNum() {
+        return itemNum;
+    }
 
+    public static boolean[] getItems() {
+        return items;
+    }
 }
