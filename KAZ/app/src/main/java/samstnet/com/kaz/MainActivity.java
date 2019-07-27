@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     Document doc = null;
 
-    WeatherEvent wev = null;
+    static WeatherEvent wev = null;
     ArrayList<String> wtstate = new ArrayList<>();
     ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public WeatherEvent getWeatherInfo(){
+    public static WeatherEvent getWeatherInfo(){
         return wev;
     }
     public ArrayList<WeekWeatherInfo> getWeekWeatherInfo(){
