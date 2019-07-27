@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
 import samstnet.com.kaz.eventbus.Customer;
@@ -30,8 +32,6 @@ import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.Item_type;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.WeatherEvent;
-
-
 
 
 public class Menu1FragGrowth extends Fragment {
@@ -73,10 +73,9 @@ public class Menu1FragGrowth extends Fragment {
 
     Button[] buttons;
     ImageView[] itemImage;
+    GlideDrawableImageViewTarget gifImage;
 
     //----------------------------------------------------------------
-
-
 
 
     @Override
@@ -99,11 +98,11 @@ public class Menu1FragGrowth extends Fragment {
 
         if(a.getLevel()==5 ){
             a.setState(a.getState()+1);
-            imageView.setImageResource(R.drawable.bean2);
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
         }
         else if(a.getLevel()==10){
             a.setState(a.getState()+1);
-            imageView.setImageResource(R.drawable.bean3);
+            Glide.with(this).load(R.drawable.happy).into(gifImage);
         }
 
     }
@@ -153,9 +152,24 @@ public class Menu1FragGrowth extends Fragment {
 
         textView.setText(level_string);
         textView2.setText(exp_string);
+
+        /*
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
         else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
         else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
+        */
+
+        gifImage=new GlideDrawableImageViewTarget(imageView);
+
+        if(cus.plant1.getState()==1)
+            Glide.with(this).load(R.drawable.sad).into(gifImage);
+        else if(cus.plant1.getState()==2)
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
+        else if(cus.plant1.getState()==3)
+            Glide.with(this).load(R.drawable.happy).into(gifImage);
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,7 +180,6 @@ public class Menu1FragGrowth extends Fragment {
 
                 textView.setText(level_string);
                 textView2.setText(exp_string);
-                //textView.setText("1");
 
             }});
 
@@ -186,13 +199,13 @@ public class Menu1FragGrowth extends Fragment {
         buttons[4]=(Button)rootView.findViewById(R.id.coatButton);
 
 
-        // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 모자 4. 옷
-        itemImage[0]=(ImageView)rootView.findViewById(R.id.sprinkler);
+        // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 썬글라스 4. 목도리
+       /* itemImage[0]=(ImageView)rootView.findViewById(R.id.sprinkler);
         itemImage[1]=(ImageView)rootView.findViewById(R.id.Fertilizer);
         itemImage[2]=(ImageView)rootView.findViewById(R.id.umbrella);
         itemImage[3]=(ImageView)rootView.findViewById(R.id.hat);
         itemImage[4]=(ImageView)rootView.findViewById(R.id.coat);
-
+       */
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
             getIndex();
         }
@@ -346,14 +359,14 @@ public class Menu1FragGrowth extends Fragment {
         }
 
         for(int i=0;i<n;i++){
-            if(items[index][i]&&!(cus.plant1.getItems(i))){
-                buttons[i].setVisibility(View.VISIBLE);
+            if(items[index][i]&&!cus.getPlant().getItems(i)){
+                if(cus._getItem(i).isWear()&&cus._getItem(i).isBuy())
+                    buttons[i].setVisibility(View.VISIBLE);
             }
         }
 
         //변경을 다 했다면 FragGrowth보여주기
         frame1.setVisibility(View.VISIBLE);
-        Log.d("frame","VISIBLE");
 
     }
 
