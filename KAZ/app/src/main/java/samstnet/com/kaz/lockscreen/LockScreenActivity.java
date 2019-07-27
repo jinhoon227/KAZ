@@ -1,12 +1,17 @@
 package samstnet.com.kaz.lockscreen;
 
 
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.KeyguardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,8 +28,12 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
+import java.lang.annotation.Documented;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
+import ng.max.slideview.SlideView;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.BusProvider;
@@ -41,12 +50,16 @@ public class LockScreenActivity extends Activity {
 
     MainActivity activity;
     Button button,Nolock;
-    TextView textView,textView2;
+    TextView textView,textView2,textView3,textView4;
     EditText editText;
     TextView resultTextView;
     ImageView imageView=null;
     String level_string, exp_string;
     Customer cus ;
+
+
+
+    private boolean isBind;
     private static Intent serviceIntent;
 
 
@@ -73,6 +86,26 @@ public class LockScreenActivity extends Activity {
 
     Button[] buttons;
     ImageView[] itemImage;
+
+    ServiceConnection sconn = new ServiceConnection() {
+        @Override //서비스가 실행될 때 호출
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // MyService.MyBinder myBinder = (MyService.MyBinder) service;
+            //  mService = myBinder.getService();
+
+            isBind = true;
+            Log.e("LOG", "onServiceConnected()");
+        }
+
+        @Override //서비스가 종료될 때 호출
+        public void onServiceDisconnected(ComponentName name) {
+
+            isBind = false;
+            Log.e("LOG", "onServiceDisconnected()");
+        }
+    };
+    public LockScreenActivity() {
+    }
 
     //----------------------------------------------------------------
 
@@ -106,6 +139,7 @@ public class LockScreenActivity extends Activity {
     public void onCreate(Bundle savedInstanceState){
 
         super.onCreate(savedInstanceState);
+
         KeyguardManager km=(KeyguardManager)getSystemService(KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock keyLock=km.newKeyguardLock(KEYGUARD_SERVICE);
         if (LockScreenActivity.serviceIntent==null) {
@@ -172,25 +206,38 @@ public class LockScreenActivity extends Activity {
 */
 
         // ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main2, container, false);
-        Nolock=(Button) findViewById(R.id.nolock);
+       // Nolock=(Button) findViewById(R.id.nolock);
         button=(Button) findViewById(R.id.button4);
         textView=(TextView) findViewById(R.id.LevelResult);
         textView2=(TextView) findViewById(R.id.ExpResult);
         imageView=(ImageView)findViewById(R.id.plant1);
-        textView.setText(level_string);
-        textView2.setText(exp_string);
+
+        textView3=(TextView)findViewById(R.id.temperResult);
+       // textView4=(TextView)findViewById(R.id.tvBclock);
+        SlideView slideView = (SlideView) findViewById(R.id.slider1);
+
 
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
         else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
         else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
-        Nolock.setOnClickListener(new View.OnClickListener() {
+       /* Nolock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //  keyLock.disableKeyguard();
                 finish();
             }
+        });*/
+        slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
+            @Override
+            public void onSlideComplete(SlideView slideView) {
+                // vibrate the device
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(100);
+
+                finish();
+            }
         });
-        button.setOnClickListener(new View.OnClickListener() {
+        /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ExpUp(cus.plant1);
@@ -203,7 +250,7 @@ public class LockScreenActivity extends Activity {
                 //textView.setText("1");
 
             }});
-
+*/
         //소현-----------------------------------------------------------------------------
         imageView_1=(ImageView)findViewById(R.id.imageView);
         textview_1=(TextView)findViewById(R.id.WeatherResult);
@@ -213,6 +260,7 @@ public class LockScreenActivity extends Activity {
         indexs=new int[indexMax];
         itemImage=new ImageView[n];
 
+        /*
         buttons[0]=(Button)findViewById(R.id.sprinklerButton);
         buttons[1]=(Button)findViewById(R.id.FertilizerButton);
         buttons[2]=(Button)findViewById(R.id.unbrellaButton);
@@ -227,10 +275,14 @@ public class LockScreenActivity extends Activity {
         itemImage[3]=(ImageView)findViewById(R.id.hat);
         itemImage[4]=(ImageView)findViewById(R.id.coat);
 
+
+        textView3.setText(tempor.get(0));
         if(MainActivity.getWeatherInfo() != null){
             getIndex();
         }
+        */
 
+        set1Image(0);
     }
 
 
@@ -382,12 +434,17 @@ public class LockScreenActivity extends Activity {
             textview_1.setText("empty");
         }
 
-        for(int i=0;i<n;i++){
+       /* for(int i=0;i<n;i++){
             if(items[index][i]&&!(cus.plant1.getItems(i))){
                 buttons[i].setVisibility(View.VISIBLE);
             }
-        }
+        }*/
+        exp_string=cus.plant1.getExp()+"";
+        level_string=cus.plant1.getLevel()+"";
 
+        textView.setText(level_string);
+        textView2.setText(exp_string);
+        textView3.setText(tempor.get(0));
     }
 
 

@@ -145,8 +145,7 @@ public class growth_Fragment extends Fragment {
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
         textView2=(TextView) rootView.findViewById(R.id.ExpResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
-        textView.setText(level_string);
-        textView2.setText(exp_string);
+
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
         else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
         else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
@@ -344,6 +343,12 @@ public class growth_Fragment extends Fragment {
                 buttons[i].setVisibility(View.VISIBLE);
             }
         }
+
+        exp_string=cus.plant1.getExp()+"";
+        level_string=cus.plant1.getLevel()+"";
+
+        textView.setText(level_string);
+        textView2.setText(exp_string);
 
     }
 
