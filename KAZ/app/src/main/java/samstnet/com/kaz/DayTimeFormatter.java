@@ -48,7 +48,7 @@ public class DayTimeFormatter {
                 nowTime=20;
         }else {
             for (int i = 2; i < tagetTime.length; i++) {
-                if(nowTime<tagetTime[i]){
+                if(nowTime<=tagetTime[i]){
                     nowTime=tagetTime[i-2];
                     break;
                 }

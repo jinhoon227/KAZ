@@ -263,7 +263,8 @@ public class MainActivity extends AppCompatActivity {
 
             String baseDate = daytimeformatter.getBaseTime(); // 자신이 조회하고싶은 날짜를 입력해주세요
             String baseTime = daytimeformatter.getNowTime(); //자신이 조회하고싶은 시간대를 입력해주세요
-            Log.d("zebak",baseTime);
+
+            Log.d("dsfa",baseTime);
             // 서비스 인증키입니다. 공공데이터포털에서 제공해준 인증키를 넣어주시면 됩니다.
             String serviceKey = "eT6LqyOyPldZj9CPLxXJVJFB75l9YoEkT%2FM5ujddCbGvXr2Ehb%2BiVHZfoLg4TPEF%2BGdjNGfjoN%2B4ax26AW0xwQ%3D%3D";
             // 정보를 모아서 URL정보를 만들면됩니다.
@@ -326,7 +327,6 @@ public class MainActivity extends AppCompatActivity {
                 String tmpfcst="";
                 int weatherValue;
                 boolean nonRain=true;
-                double fcst_Value=0;
                 JSONObject weather; // parse_item은 배열형태이기 때문에 하나씩 데이터를 하나씩 가져올때 사용합니다.
 
                 // 필요한 데이터만 가져오려고합니다.
@@ -366,7 +366,8 @@ public class MainActivity extends AppCompatActivity {
 
                     }else{
                         tmpfcst=fcstTime;
-                        time.add(Integer.parseInt(fcstTime));
+                        String tmpTime = fcstTime.substring(0,2);
+                        time.add(Integer.parseInt(tmpTime));
                         nonRain=true;
                         category = (String) weather.get("category");
                         if(category.equals("PTY")){
