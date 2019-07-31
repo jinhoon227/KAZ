@@ -1,8 +1,7 @@
 package samstnet.com.kaz.lockscreen;
 
-
-
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.KeyguardManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -11,8 +10,12 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,9 +53,9 @@ public class LockScreenActivity extends Activity {
     ImageView imageView = null;
     String level_string, exp_string;
     Customer cus;
-    GlideDrawableImageViewTarget gifImage;
+    GlideDrawableImageViewTarget gifImage, backgif;
 
-    public static boolean islock =false;
+
     private boolean isBind;
     private static Intent serviceIntent;
 
@@ -109,10 +112,10 @@ public class LockScreenActivity extends Activity {
 
         if (a.getLevel() == 5) {
             a.setState(a.getState() + 1);
-            imageView.setImageResource(R.drawable.bean2);
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
         } else if (a.getLevel() == 10) {
             a.setState(a.getState() + 1);
-            imageView.setImageResource(R.drawable.bean3);
+            Glide.with(this).load(R.drawable.happy).into(gifImage);
         }
 
     }
@@ -136,16 +139,13 @@ public class LockScreenActivity extends Activity {
 
         KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock keyLock = km.newKeyguardLock(KEYGUARD_SERVICE);
-        if (LockScreenActivity.serviceIntent == null ) {
+        if (LockScreenActivity.serviceIntent == null) {
             serviceIntent = new Intent(this, LockScreenActivity.class);
             startService(serviceIntent);
-            islock = true;
         } else {
             serviceIntent = LockScreenActivity.serviceIntent;//getInstance().getApplication();
             Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
-
         }
-
 
         //keyLock.reenableKeyguard();
         cus = (Customer) getApplication();
@@ -165,20 +165,20 @@ public class LockScreenActivity extends Activity {
         }
 
 
-            getWindow().addFlags(
-                    // 기본 잠금화면보다 우선출력
+        getWindow().addFlags(
+                // 기본 잠금화면보다 우선출력
 
-                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
 
 // 기본 잠금화면 해제시키기
-                            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                            | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                        | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
 
-                getWindow().setContentView(R.layout.fragment_menu1_frag_growth_main2);
-                cus = (Customer.getInstance());
-                cus.plant1.getLevel();
-                Log.d("레벨", "" + cus.plant1.getLevel());
+        getWindow().setContentView(R.layout.fragment_menu1_frag_growth_main2);
+        cus = (Customer.getInstance());
+        cus.plant1.getLevel();
+        Log.d("레벨", "" + cus.plant1.getLevel());
 
 
 
@@ -199,36 +199,47 @@ public class LockScreenActivity extends Activity {
 
 */
 
-            // ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main2, container, false);
-            // Nolock=(Button) findViewById(R.id.nolock);
-            button = (Button) findViewById(R.id.button4);
-            textView = (TextView) findViewById(R.id.LevelResult);
-            textView2 = (TextView) findViewById(R.id.ExpResult);
-            imageView = (ImageView) findViewById(R.id.plant1);
+        // ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main2, container, false);
 
-            textView3 = (TextView) findViewById(R.id.temperResult);
-            // textView4=(TextView)findViewById(R.id.tvBclock);
-            SlideView slideView = (SlideView) findViewById(R.id.slider1);
+        // Nolock=(Button) findViewById(R.id.nolock);
+        button = (Button) findViewById(R.id.button4);
+        textView = (TextView) findViewById(R.id.LevelResult);
+        textView2 = (TextView) findViewById(R.id.ExpResult);
+        imageView = (ImageView) findViewById(R.id.plant1);
 
-        gifImage=new GlideDrawableImageViewTarget(imageView);
 
-        if(cus.plant1.getState()==1)
+        textView3 = (TextView) findViewById(R.id.temperResult);
+        // textView4=(TextView)findViewById(R.id.tvBclock);
+        SlideView slideView = (SlideView) findViewById(R.id.slider1);
+
+
+
+       /* Nolock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  keyLock.disableKeyguard();
+                finish();
+            }
+        });*/
+        gifImage = new GlideDrawableImageViewTarget(imageView);
+
+        if (cus.plant1.getState() == 1)
             Glide.with(this).load(R.drawable.sad).into(gifImage);
-        else if(cus.plant1.getState()==2)
+        else if (cus.plant1.getState() == 2)
             Glide.with(this).load(R.drawable.normally).into(gifImage);
-        else if(cus.plant1.getState()==3)
+        else if (cus.plant1.getState() == 3)
             Glide.with(this).load(R.drawable.happy).into(gifImage);
 
-            slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
-                @Override
-                public void onSlideComplete(SlideView slideView) {
-                    // vibrate the device
-                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    vibrator.vibrate(100);
+        slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
+            @Override
+            public void onSlideComplete(SlideView slideView) {
+                // vibrate the device
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(100);
 
-                    finish();
-                }
-            });
+                finish();
+            }
+        });
         /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -243,16 +254,18 @@ public class LockScreenActivity extends Activity {
 
             }});
 */
-            //소현-----------------------------------------------------------------------------
-            imageView_1 = (ImageView) findViewById(R.id.imageView);
-            textview_1 = (TextView) findViewById(R.id.WeatherResult);
-            framelayout = (FrameLayout) findViewById(R.id.frame_layout);
+        //소현-----------------------------------------------------------------------------
+        imageView_1 = (ImageView) findViewById(R.id.imageView);
+        textview_1 = (TextView) findViewById(R.id.WeatherResult);
+        framelayout = (FrameLayout) findViewById(R.id.frame_layout);
 
-            buttons = new Button[n];
-            indexs = new int[indexMax];
-            itemImage = new ImageView[n];
+        buttons = new Button[n];
+        indexs = new int[indexMax];
+        itemImage = new ImageView[n];
+
 
         /*
+>>>>>>> 01c30a1246b6a9c7f586d32c42cd9a3cd270311e
         buttons[0]=(Button)findViewById(R.id.sprinklerButton);
         buttons[1]=(Button)findViewById(R.id.FertilizerButton);
         buttons[2]=(Button)findViewById(R.id.unbrellaButton);
@@ -267,180 +280,183 @@ public class LockScreenActivity extends Activity {
         itemImage[3]=(ImageView)findViewById(R.id.hat);
         itemImage[4]=(ImageView)findViewById(R.id.coat);
 
-
         textView3.setText(tempor.get(0));
         if(MainActivity.getWeatherInfo() != null){
             getIndex();
         }
         */
 
+        set1Image(0);
+    }
 
+
+    //소현----------------------------------------------------------------
+
+
+    public void onResume() {
+        super.onResume();
+        Log.d("growth_Fragment", "onResume");
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BusProvider.getInstance().unregister(this);
+        if (serviceIntent != null) {
+            stopService(serviceIntent);
+            serviceIntent = null;
         }
 
+        Log.d("growth_Fragment", "onDestroy");
+    }
 
-        //소현----------------------------------------------------------------
+    public void onPause() {
+        super.onPause();
+        Log.d("growth_Fragment", "onPause");
+    }
 
+    // 날씨 정보가 업데이트 되면 자동으로 정보를 가져옴
+    // using otto libary
+    @Subscribe
+    public void FinishLoad(WeatherEvent mWeatherEvent) {
+        weatherinfo = new WeatherEvent(mWeatherEvent);
+        wtstate.addAll(mWeatherEvent.getWstate());
+        tempor.addAll(mWeatherEvent.getTempor());
+        time.addAll(mWeatherEvent.getTime());
+        getIndex();
+    }
 
-        public void onResume () {
-            super.onResume();
-            Log.d("growth_Fragment", "onResume");
-        }
+    public void onStart() {
+        super.onStart();
+        Log.d("growth_Fragment", "onStart");
+    }
 
-        public void onStart () {
-            super.onStart();
-            Log.d("growth_Fragment", "onStart");
-        }
-
+    // 버튼 눌리면 아이템 변경
+    View.OnClickListener listener = new View.OnClickListener() {
         @Override
-        public void onDestroy () {
-            super.onDestroy();
-            BusProvider.getInstance().unregister(this);
-            if (serviceIntent != null) {
-                stopService(serviceIntent);
-                serviceIntent = null;
+        public void onClick(View view) {
+            switch (view.getId()) {
+                //물뿌리개 선택
+                case R.id.sprinklerButton:
+                    itemImage[0].setVisibility(View.VISIBLE);
+                    buttons[0].setVisibility(View.GONE);
+                    cus.plant1.setItems(0);
+                    break;
+                //비료 선택
+                case R.id.FertilizerButton:
+                    itemImage[1].setVisibility(View.VISIBLE);
+                    buttons[1].setVisibility(View.GONE);
+                    cus.plant1.setItems(1);
+                    break;
+                //우산 선택
+                case R.id.unbrellaButton:
+                    itemImage[2].setVisibility(View.VISIBLE);
+                    buttons[2].setVisibility(View.GONE);
+                    cus.plant1.setItems(2);
+                    break;
+                //모자 선택
+                case R.id.hatButton:
+                    itemImage[3].setVisibility(View.VISIBLE);
+                    buttons[3].setVisibility(View.GONE);
+                    cus.plant1.setItems(3);
+                    break;
+                //옷 선택
+                case R.id.coatButton:
+                    itemImage[4].setVisibility(View.VISIBLE);
+                    buttons[4].setVisibility(View.GONE);
+                    cus.plant1.setItems(4);
+                    break;
             }
 
-            Log.d("growth_Fragment", "onDestroy");
-        }
-
-        public void onPause () {
-            super.onPause();
-            Log.d("growth_Fragment", "onPause");
-        }
-
-        // 날씨 정보가 업데이트 되면 자동으로 정보를 가져옴
-        // using otto libary
-        @Subscribe
-        public void FinishLoad (WeatherEvent mWeatherEvent){
-            weatherinfo = new WeatherEvent(mWeatherEvent);
-            wtstate.addAll(mWeatherEvent.getWstate());
-            tempor.addAll(mWeatherEvent.getTempor());
-            time.addAll(mWeatherEvent.getTime());
-            getIndex();
-        }
-
-
-        // 버튼 눌리면 아이템 변경
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()) {
-                    //물뿌리개 선택
-                    case R.id.sprinklerButton:
-                        itemImage[0].setVisibility(View.VISIBLE);
-                        buttons[0].setVisibility(View.GONE);
-                        cus.plant1.setItems(0);
-                        break;
-                    //비료 선택
-                    case R.id.FertilizerButton:
-                        itemImage[1].setVisibility(View.VISIBLE);
-                        buttons[1].setVisibility(View.GONE);
-                        cus.plant1.setItems(1);
-                        break;
-                    //우산 선택
-                    case R.id.unbrellaButton:
-                        itemImage[2].setVisibility(View.VISIBLE);
-                        buttons[2].setVisibility(View.GONE);
-                        cus.plant1.setItems(2);
-                        break;
-                    //모자 선택
-                    case R.id.hatButton:
-                        itemImage[3].setVisibility(View.VISIBLE);
-                        buttons[3].setVisibility(View.GONE);
-                        cus.plant1.setItems(3);
-                        break;
-                    //옷 선택
-                    case R.id.coatButton:
-                        itemImage[4].setVisibility(View.VISIBLE);
-                        buttons[4].setVisibility(View.GONE);
-                        cus.plant1.setItems(4);
-                        break;
-                }
-
-                ExpUp(cus.plant1);
-                exp_string = cus.plant1.getExp() + "";
-                level_string = cus.plant1.getLevel() + "";
-
-                textView.setText(level_string);
-                textView2.setText(exp_string);
-
-            }
-        };
-
-        //날씨정보로 다시 수정해야함
-        //날씨 정보를 받아오는 함수 (1번)
-        public void getIndex () {
-            for (int i = 0; i < n; i++) {
-                buttons[i].setVisibility(View.GONE);
-                buttons[i].setOnClickListener(listener);
-            }
-
-            ImageChange();
-        }
-
-        //이미지를 변경하는 함수 (2번)
-        public void ImageChange () {
-            set1Image(index);
-        }
-
-
-        //이미지 변경 규칙 (3번)
-        //날씨에 따라서 얼굴 바뀌는거 해야함 + 날씨에 따른 만족도?
-        //(비료, 물뿌리개는 일정 시간이 지나야지만 다시 줄 수 있게 바꿔야 함, 이건 plant 객체에서 바꿔야함)
-        public void set1Image ( int _index){
-            if (wtstate.isEmpty()) {
-                wtstate.add("empty");
-            }
-            if (wtstate.get(0) == "manycloud") {
-                index = 0;
-                imageView_1.setImageResource(R.drawable.spring);
-                textview_1.setText("manycloud");
-
-            } else if (wtstate.get(0) == "fewcloud") {
-                index = 1;
-                imageView_1.setImageResource(R.drawable.autumn);
-                textview_1.setText("fewcloud");
-            } else if (wtstate.get(0) == "sun") {
-                index = 2;
-                imageView_1.setImageResource(R.drawable.summer);
-                textview_1.setText("sun");
-            } else if (wtstate.get(0) == "rain") {
-                index = 3;
-                imageView_1.setImageResource(R.drawable.winter);
-                textview_1.setText("rain");
-            } else if (wtstate.get(0) == "snow") {
-                index = 4;
-                imageView_1.setImageResource(R.drawable.sunny1);
-                textview_1.setText("snow");
-            } else if (wtstate.get(0) == "empty") {
-                index = 0;
-                imageView_1.setImageResource(R.drawable.xkon);
-                textview_1.setText("empty");
-            }
-
-       /* for(int i=0;i<n;i++){
-            if(items[index][i]&&!(cus.plant1.getItems(i))){
-                buttons[i].setVisibility(View.VISIBLE);
-            }
-        }*/
+            ExpUp(cus.plant1);
             exp_string = cus.plant1.getExp() + "";
             level_string = cus.plant1.getLevel() + "";
 
             textView.setText(level_string);
             textView2.setText(exp_string);
-            textView3.setText(tempor.get(0));
 
+        }
+    };
+
+    //날씨정보로 다시 수정해야함
+    //날씨 정보를 받아오는 함수 (1번)
+    public void getIndex() {
+        for (int i = 0; i < n; i++) {
+            buttons[i].setVisibility(View.GONE);
+            buttons[i].setOnClickListener(listener);
+        }
+
+        ImageChange();
+    }
+
+    //이미지를 변경하는 함수 (2번)
+    public void ImageChange() {
+        set1Image(index);
+    }
+
+
+    //이미지 변경 규칙 (3번)
+    //날씨에 따라서 얼굴 바뀌는거 해야함 + 날씨에 따른 만족도?
+    //(비료, 물뿌리개는 일정 시간이 지나야지만 다시 줄 수 있게 바꿔야 함, 이건 plant 객체에서 바꿔야함)
+    public void set1Image(int _index) {
+        backgif = new GlideDrawableImageViewTarget(imageView_1);
+
+        if (wtstate.isEmpty()) {
+            wtstate.add("empty");
+        }
+        if (wtstate.get(0) == "manycloud") {
+            index = 0;
+            //imageView_1.setImageResource(R.drawable.spring);
+            Glide.with(this).load(R.drawable.many_cloud).into(backgif);
+            textview_1.setText("manycloud");
+
+
+        } else if (wtstate.get(0) == "fewcloud") {
+            index = 1;
+            //imageView_1.setImageResource(R.drawable.autumn);
+            Glide.with(this).load(R.drawable.fewcloud).into(backgif);
+
+            textview_1.setText("fewcloud");
+        } else if (wtstate.get(0) == "sun") {
+            index = 2;
+            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
+
+            //imageView_1.setImageResource(R.drawable.summer);
+            textview_1.setText("sun");
+        } else if (wtstate.get(0) == "rain") {
+            index = 3;
+            //imageView_1.setImageResource(R.drawable.winter);
+            Glide.with(this).load(R.drawable.rain).into(backgif);
+
+            textview_1.setText("rain");
+        } else if (wtstate.get(0) == "snow") {
+            index = 4;
+            //imageView_1.setImageResource(R.drawable.sunny);
+            Glide.with(this).load(R.drawable.snow).into(backgif);
+
+            textview_1.setText("snow");
+        } else if (wtstate.get(0) == "empty") {
+            index = 0;
+            imageView_1.setImageResource(R.drawable.xkon);
+            textview_1.setText("empty");
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (items[index][i] && !cus.getPlant().getItems(i)) {
+                if (cus._getItem(i).isWear() && cus._getItem(i).isBuy())
+                    buttons[i].setVisibility(View.VISIBLE);
+            }
         }
 
 
         //아이템 적용 함수
-
         //----------------------------------------------------------------
 
 
     }
 
-
+}
 
 
 

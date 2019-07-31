@@ -147,7 +147,6 @@ public class growth_Fragment extends Fragment {
 
         textView.setText(level_string);
         textView2.setText(exp_string);
-
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
         else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
         else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
@@ -186,7 +185,7 @@ public class growth_Fragment extends Fragment {
        // itemImage[1]=(ImageView)rootView.findViewById(R.id.Fertilizer);
         //itemImage[2]=(ImageView)rootView.findViewById(R.id.umbrella);
         //itemImage[3]=(ImageView)rootView.findViewById(R.id.hat);
-        //itemImage[4]=(ImageView)rootView.findViewById(R.id.coat);
+        // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 모자 4. 옷;
 
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
             getIndex();
@@ -331,7 +330,7 @@ public class growth_Fragment extends Fragment {
         }
         else if(wtstate.get(0)=="snow"){
             index=4;
-            imageView_1.setImageResource(R.drawable.sunny1);
+            imageView_1.setImageResource(R.drawable.sunny);
             textview_1.setText("snow");
         }
         else if(wtstate.get(0)=="empty"){

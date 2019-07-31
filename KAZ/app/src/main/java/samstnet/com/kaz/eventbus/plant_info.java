@@ -5,6 +5,7 @@ public class plant_info {
     int exp;//경험치
     String name;//이름
     int state;//1,2,3 따라 식물 진화
+    int love;//슬픔 평범 기쁨 이 수치의 의해 결정됨
 
     //소현------------------------------------------------------------------------------
 
@@ -17,12 +18,14 @@ public class plant_info {
 
     //----------------------------------------------------------------------------------
 
-    public plant_info(int level, int exp, String name, int state, int itemNum,boolean[] items){
+    public plant_info(int level, int exp, String name, int state, int itemNum,boolean[] items,int love){
     this.level=level;
     this.exp=exp;
     this.name=name;
     this.state=state;
     this.items=items;
+    this.love = love;
+
     //소현--------------------------------
         this.itemNum=itemNum;
         items=new boolean[itemNum];
@@ -87,5 +90,13 @@ public class plant_info {
 
     public static boolean[] getItems() {
         return items;
+    }
+
+    public int getLove() {
+        return love;
+    }
+
+    public void setLove(int love) {
+        this.love = love;
     }
 }

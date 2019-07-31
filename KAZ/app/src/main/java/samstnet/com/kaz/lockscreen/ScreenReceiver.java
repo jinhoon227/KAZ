@@ -5,6 +5,10 @@ import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.widget.Toast;
+
+import samstnet.com.kaz.Service.ExampleService;
 
 public class ScreenReceiver extends BroadcastReceiver {
     private KeyguardManager km = null;
@@ -18,12 +22,10 @@ public class ScreenReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 
-        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) && LockScreenActivity.islock==false) {
-
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)||intent.getAction().equals(intent.ACTION_BOOT_COMPLETED)) {
             if (km == null)
 
                 km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-
 
 
             if (keyLock == null)
@@ -35,12 +37,20 @@ public class ScreenReceiver extends BroadcastReceiver {
             disableKeyguard();
 
 
-
             Intent i = new Intent(context, LockScreenActivity.class);
 
             i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
             context.startActivity(i);
+
+            Intent j = new Intent(context , ExampleService.class);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Toast.makeText(context, "핸드폰이 켜졋당.", Toast.LENGTH_LONG).show();
+                context.startForegroundService(j);
+            }
+            else {
+                context.startService(j);
+            }
 
         }
 
@@ -61,6 +71,7 @@ public class ScreenReceiver extends BroadcastReceiver {
         keyLock.disableKeyguard();
 
     }
+
 
 
 }

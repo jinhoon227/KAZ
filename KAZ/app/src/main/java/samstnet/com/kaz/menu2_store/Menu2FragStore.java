@@ -16,10 +16,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
 import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
@@ -39,8 +42,10 @@ public class Menu2FragStore extends Fragment {
     StoreAdapter StAdapter;
     ListView listview;
     EditText moneyview;
+    ImageView treeview;
     //listview 에니메이션 기능 구현
     AlphaInAnimationAdapter animationAdapter;
+    GlideDrawableImageViewTarget gifImage;
     Customer cus;
 
 
@@ -159,6 +164,18 @@ public class Menu2FragStore extends Fragment {
         //wrapping
         listview.setAdapter(animationAdapter);
 
+        //treeview
+        treeview = rootView.findViewById(R.id.treeImage);
+
+        gifImage=new GlideDrawableImageViewTarget(treeview);
+
+        if(cus.plant1.getState()==1)
+            Glide.with(this).load(R.drawable.sad).into(gifImage);
+        else if(cus.plant1.getState()==2)
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
+        else if(cus.plant1.getState()==3)
+            Glide.with(this).load(R.drawable.happy).into(gifImage);
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -174,6 +191,26 @@ public class Menu2FragStore extends Fragment {
                     } else {
                         intent.putExtra("data", item.getName() + " 장착 합니다");
                         item.setWear(true);
+                        switch (position) {
+                            case 0:
+                                Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
+                                break;
+                            case 1:
+                                Glide.with(getActivity()).load(R.drawable.happy).into(gifImage);
+                                break;
+                            case 2:
+                                Glide.with(getActivity()).load(R.drawable.happy).into(gifImage);
+                                break;
+                            case 3:
+                                Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
+                                break;
+                            case 4:
+                                Glide.with(getActivity()).load(R.drawable.scarf).into(gifImage);
+                                break;
+                            default:
+                                Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
+                        }
+
                     }
                 } else {
                     intent.putExtra("data", "아이탬 : " + item.getName() + "를 " + item.getPrice() + "씨앗에 구매하시겠습니까?");

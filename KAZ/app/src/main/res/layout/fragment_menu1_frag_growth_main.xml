@@ -44,6 +44,7 @@
                     <TextView
                         android:id="@+id/level3"
                         android:layout_width="150dp"
+
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dip"
                         android:layout_marginLeft="10dip"
@@ -52,7 +53,7 @@
                         android:layout_marginRight="10dip"
                         android:layout_marginBottom="10dip"
                         android:layout_weight="1"
-                        android:text="레벨 : LV"
+                        android:text="LV"
                         android:textSize="15sp" />
 
                     <TextView

@@ -346,9 +346,9 @@ public class Menu1FragGrowth extends Fragment {
         }
         else if(wtstate.get(0)=="sun"){
             index=2;
-            Glide.with(this).load(R.drawable.sunny1).into(backgif);
+            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
 
-            //  imageView_1.setImageResource(R.drawable.summer);
+            //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("sun");
         }
         else if(wtstate.get(0)=="rain"){
