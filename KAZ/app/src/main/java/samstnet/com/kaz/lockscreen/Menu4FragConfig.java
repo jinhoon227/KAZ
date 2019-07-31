@@ -86,6 +86,8 @@ public class Menu4FragConfig extends Fragment {
         //잠금 설정
         if(!cus.setting1.isScreen()){
             screen.setChecked(true);
+            Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
+            getActivity().startService(intent);
         }else{
             screen.setChecked(false);
         }

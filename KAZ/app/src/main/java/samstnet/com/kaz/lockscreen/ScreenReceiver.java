@@ -18,7 +18,7 @@ public class ScreenReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
 
-        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+        if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF) && LockScreenActivity.islock==false) {
 
             if (km == null)
 

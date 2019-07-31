@@ -7,12 +7,21 @@
     android:layout_height="match_parent"
     android:visibility="visible"
     tools:visibility="visible">
+    <ImageView
+        android:id="@+id/imageView"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_vertical"
+        android:layout_weight="1"
+        android:src="@drawable/spring" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".Menu1FragGrowth">
+
 
         <FrameLayout
             android:id="@+id/frame1"
@@ -119,13 +128,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|center_vertical"
-                android:layout_weight="1"
-                android:src="@drawable/spring" />
+
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -133,12 +136,12 @@
 
                 <ImageView
                     android:id="@+id/plant1"
-                    android:layout_width="318dp"
-                    android:layout_height="209dp"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="58dp"
-                    android:layout_marginLeft="58dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="70dp"
                     app:srcCompat="@drawable/bean1" />
 
                 <LinearLayout
