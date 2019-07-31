@@ -146,11 +146,7 @@ public class growth_Fragment extends Fragment {
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
         textView2=(TextView) rootView.findViewById(R.id.ExpResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
-        frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
 
-
-        textView.setText(level_string);
-        textView2.setText(exp_string);
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
         else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
         else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
@@ -184,12 +180,7 @@ public class growth_Fragment extends Fragment {
         buttons[4]=(Button)rootView.findViewById(R.id.coatButton);
 
 
-        // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 모자 4. 옷
-        itemImage[0]=(ImageView)rootView.findViewById(R.id.sprinkler);
-        itemImage[1]=(ImageView)rootView.findViewById(R.id.Fertilizer);
-        itemImage[2]=(ImageView)rootView.findViewById(R.id.umbrella);
-        itemImage[3]=(ImageView)rootView.findViewById(R.id.hat);
-        itemImage[4]=(ImageView)rootView.findViewById(R.id.coat);
+        // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 모자 4. 옷;
 
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
             getIndex();
@@ -349,8 +340,12 @@ public class growth_Fragment extends Fragment {
             }
         }
 
-        //변경을 다 했다면 FragGrowth보여주기
-        frame1.setVisibility(View.VISIBLE);
+        exp_string=cus.plant1.getExp()+"";
+        level_string=cus.plant1.getLevel()+"";
+
+        textView.setText(level_string);
+        textView2.setText(exp_string);
+
 
     }
 

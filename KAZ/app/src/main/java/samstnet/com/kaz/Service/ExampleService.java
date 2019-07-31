@@ -13,6 +13,7 @@ import samstnet.com.kaz.R;
 
 import static samstnet.com.kaz.eventbus.Customer.CHANNEL_ID;
 
+
 public class ExampleService extends Service {
 
     @Override
@@ -30,8 +31,8 @@ public class ExampleService extends Service {
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Example Service")
-                .setContentText("안녕")
-                .setSmallIcon(R.drawable.img1)
+                .setContentText(input)
+                .setSmallIcon(R.drawable.bean1)
                 .setContentIntent(pendingIntent)
                 .build();
 

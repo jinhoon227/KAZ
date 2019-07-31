@@ -26,11 +26,9 @@ import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 
-import java.lang.annotation.Documented;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
+import ng.max.slideview.SlideView;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.BusProvider;
@@ -147,8 +145,6 @@ public class LockScreenActivity extends Activity {
             Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
         }
 
-
-
         //keyLock.reenableKeyguard();
         cus = (Customer)getApplication();
         //소현------------------------------------------------------------------------------------
@@ -178,7 +174,7 @@ public class LockScreenActivity extends Activity {
 
 
 
-        getWindow().setContentView(R.layout.fragment_menu1_frag_growth_main);
+        getWindow().setContentView(R.layout.fragment_menu1_frag_growth_main2);
         cus = (Customer.getInstance());
         cus.plant1.getLevel();
         Log.d("레벨",""+cus.plant1.getLevel());
@@ -203,15 +199,17 @@ public class LockScreenActivity extends Activity {
 */
 
         // ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main2, container, false);
-        // Nolock=(Button) findViewById(R.id.nolock);
+
+       // Nolock=(Button) findViewById(R.id.nolock);
         button=(Button) findViewById(R.id.button4);
         textView=(TextView) findViewById(R.id.LevelResult);
         textView2=(TextView) findViewById(R.id.ExpResult);
         imageView=(ImageView)findViewById(R.id.plant1);
-        textView.setText(level_string);
-        textView2.setText(exp_string);
-        // textView4=(TextView)findViewById(R.id.tvBclock);
-        // SlideView slideView = (SlideView) findViewById(R.id.slider1);
+
+
+        textView3=(TextView)findViewById(R.id.temperResult);
+       // textView4=(TextView)findViewById(R.id.tvBclock);
+        SlideView slideView = (SlideView) findViewById(R.id.slider1);
 
 
         if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
@@ -221,6 +219,16 @@ public class LockScreenActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //  keyLock.disableKeyguard();
+                finish();
+            }
+        });*/
+        slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
+            @Override
+            public void onSlideComplete(SlideView slideView) {
+                // vibrate the device
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(100);
+
                 finish();
             }
         });
@@ -247,6 +255,9 @@ public class LockScreenActivity extends Activity {
         indexs=new int[indexMax];
         itemImage=new ImageView[n];
 
+
+        /*
+>>>>>>> 01c30a1246b6a9c7f586d32c42cd9a3cd270311e
         buttons[0]=(Button)findViewById(R.id.sprinklerButton);
         buttons[1]=(Button)findViewById(R.id.FertilizerButton);
         buttons[2]=(Button)findViewById(R.id.unbrellaButton);
@@ -261,12 +272,13 @@ public class LockScreenActivity extends Activity {
         itemImage[3]=(ImageView)findViewById(R.id.hat);
         itemImage[4]=(ImageView)findViewById(R.id.coat);
 
-
-        //textView3.setText(tempor.get(0));
+        textView3.setText(tempor.get(0));
         if(MainActivity.getWeatherInfo() != null){
             getIndex();
         }
+        */
 
+        set1Image(0);
     }
 
 
@@ -280,10 +292,6 @@ public class LockScreenActivity extends Activity {
         Log.d("growth_Fragment","onResume");
     }
 
-    public  void onStart(){
-        super.onStart();
-        Log.d("growth_Fragment","onStart");
-    }
 
     @Override
     public void onDestroy() {
@@ -313,7 +321,10 @@ public class LockScreenActivity extends Activity {
         getIndex();
     }
 
-
+    public  void onStart(){
+        super.onStart();
+        Log.d("growth_Fragment","onStart");
+    }
     // 버튼 눌리면 아이템 변경
     View.OnClickListener listener=new View.OnClickListener()
     {
@@ -417,19 +428,23 @@ public class LockScreenActivity extends Activity {
             imageView_1.setImageResource(R.drawable.xkon);
             textview_1.setText("empty");
         }
+        exp_string=cus.plant1.getExp()+"";
+        level_string=cus.plant1.getLevel()+"";
 
-        for(int i=0;i<n;i++){
-            if(items[index][i]&&!(cus.plant1.getItems(i))){
-                buttons[i].setVisibility(View.VISIBLE);
-            }
-        }
-
+        textView.setText(level_string);
+        textView2.setText(exp_string);
+        textView3.setText(tempor.get(0));
     }
 
 
     //아이템 적용 함수
-
     //----------------------------------------------------------------
 
 
 }
+
+
+
+
+
+

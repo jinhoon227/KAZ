@@ -1,14 +1,11 @@
 package samstnet.com.kaz.lockscreen;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.AudioManager;
-import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,11 +13,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -29,7 +24,6 @@ import android.widget.TextView;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
-import samstnet.com.kaz.Service.ExampleService;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 
@@ -89,8 +83,6 @@ public class Menu4FragConfig extends Fragment {
         if(!cus.setting1.isScreen()){
             screen.setChecked(true);
             Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
-//                cus.setting1.setScreenon(true);
-//                cus.setting1.setScreenoff(false);
             getActivity().startService(intent);
 
         }else{
@@ -264,7 +256,6 @@ public class Menu4FragConfig extends Fragment {
     }
     private void removeNotification() {
         // Notification 제거
-
         NotificationManagerCompat.from(getView().getContext()).cancel(1);
     }
 //    private void soundNotification(){

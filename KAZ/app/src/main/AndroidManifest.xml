@@ -6,11 +6,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:usesCleartextTraffic="true"
@@ -34,37 +35,31 @@
 
         <activity android:name=".MainActivity">
         </activity>
-
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
-       <!-- <activity
-
-            android:name=".MainActivity"
-
-            android:label="@string/app_name" >
-
-            <intent-filter>
-
-                <action android:name="android.intent.action.MAIN" />
-
-
-
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
-
-        </activity>
-    -->
+        <!-- <activity
+             android:name=".MainActivity"
+             android:label="@string/app_name" >
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+     -->
         <activity android:name=".lockscreen.LockScreenActivity" />
+        <service android:name=".lockscreen.ScreenService" />
         <service android:name=".Service.ExampleService" />
+        <!-- BackgroundService -->
         <receiver
-            android:name=".Service.BootReceiver"
+            android:name=".lockscreen.ScreenReceiver"
+            android:exported="false"
             android:enabled="true"
-            android:exported="false" >
+            android:directBootAware="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service android:name=".Service.ExampleService"/>
     </application>
+
 
 </manifest>
