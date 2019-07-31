@@ -91,4 +91,12 @@ public class plant_info {
     public static boolean[] getItems() {
         return items;
     }
+
+    public int getLove() {
+        return love;
+    }
+
+    public void setLove(int love) {
+        this.love = love;
+    }
 }

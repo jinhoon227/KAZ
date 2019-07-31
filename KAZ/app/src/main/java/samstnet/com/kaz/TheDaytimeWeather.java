@@ -42,7 +42,7 @@ public class TheDaytimeWeather extends Fragment {
             arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
             makeChart();
 
-            sorted_high_tempor = (((MainActivity)getActivity()).getWeekWeatherInfo());
+            sorted_high_tempor.addAll(arr_wwif);
             Collections.sort(sorted_high_tempor,myComparator);
             Collections.reverse(sorted_high_tempor);
             weekWeatherContent.setText(sorted_high_tempor.get(0).getDay() + "일에는 너무 더워요!");

@@ -44,12 +44,12 @@ public class ConverterGridGps {
             if (theta > Math.PI) theta -= 2.0 * Math.PI;
             if (theta < -Math.PI) theta += 2.0 * Math.PI;
             theta *= sn;
-            rs.x = Math.floor(ra * Math.sin(theta) + XO + 0.5);
-            rs.y = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+            rs.x = (int)Math.floor(ra * Math.sin(theta) + XO + 0.5);
+            rs.y = (int)Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
         }
         else {
-            rs.x = lat_X;
-            rs.y = lng_Y;
+            rs.x = (int)lat_X;
+            rs.y = (int)lng_Y;
             double xn = lat_X - XO;
             double yn = ro - lng_Y + YO;
             double ra = Math.sqrt(xn * xn + yn * yn);
