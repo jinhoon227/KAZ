@@ -13,7 +13,7 @@ public class plant_info {
     // wtstate : 1. manycloud 2. fewcloud 3. sun 4. rain 5. snow
     // 아이템을 사용 했는지 여부, 3시간마다 false로 리셋해주어야 함.
     public static boolean[] items;
-    static int itemNum;
+    public static int itemNum;
 
 
     //----------------------------------------------------------------------------------

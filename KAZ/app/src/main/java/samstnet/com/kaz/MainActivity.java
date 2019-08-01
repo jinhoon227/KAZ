@@ -13,7 +13,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+        import android.support.annotation.RequiresApi;
+        import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -95,13 +96,11 @@ public class MainActivity extends AppCompatActivity {
     static public Intent intent;
     Customer cus;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent2;
-        intent2 = new Intent(getApplicationContext(),//현재제어권자
-                mAlarm.class); // 이동할 컴포넌트
-        startService(intent2);
+
         NetworkInfo mNetworkState=getNetworkInfo();
 
         if(mNetworkState!=null&&mNetworkState.isConnected()){
@@ -183,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 mAlarm.class); // 이동할 컴포넌트
         if (!cus.setting1.isCreateevent()) {
             Log.d("MainActivity","startService");
+            //startForegroundService(intent);
             startService(intent);
         }
 

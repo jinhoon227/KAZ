@@ -32,14 +32,14 @@ public class TheDaytimeWeather extends Fragment {
     ArrayList<WeekWeatherInfo> arr_wwif = new ArrayList<>();
     ArrayList<WeekWeatherInfo> sorted_high_tempor = new ArrayList<>();
     LineChart lineChart;
-    //TextView weekWeatherDay;
+    TextView weekWeatherDay;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.thedaytimeweather,container,false);
         lineChart = (LineChart) rootView.findViewById(R.id.chart);
-        //weekWeatherDay = rootView.findViewById(R.id.weekWeatherDay);
+        weekWeatherDay = rootView.findViewById(R.id.weekWeatherDay);
 
         if( ((MainActivity)getActivity()).getWeekWeatherInfo() != null){
             arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
@@ -87,7 +87,7 @@ public class TheDaytimeWeather extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            //weekWeatherDay.setText(convertedString);
+            weekWeatherDay.setText(convertedString);
         }
 
         return rootView;

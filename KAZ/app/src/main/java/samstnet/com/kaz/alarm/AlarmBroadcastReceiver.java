@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
-import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -22,6 +21,7 @@ import java.util.Date;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.eventbus.Customer;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -33,6 +33,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     static int timeCount=0;
     Uri ringtoneUri;
     NotificationCompat.Builder builder;
+    Customer cus;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -40,6 +42,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Log.d("AlarmBroadcastReceiver","onReceive");
 
         builder=new NotificationCompat.Builder(context,"default");
+        cus=new Customer();
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
@@ -67,7 +70,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         builder.setSound(ringtoneUri);
 
-
         long[] vibrate={0,100,200,300};     //진동
         builder.setVibrate(vibrate);
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
@@ -80,7 +82,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
                     NotificationManager.IMPORTANCE_DEFAULT));
         }
-
+        resetItem();
         mAlarm.manager.notify(1,builder.build());
     }
 
@@ -127,5 +129,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         AlarmTitle=getTime;
     }
 
-
+    public void resetItem(){
+       for(int i=0;i<cus.plant1.itemNum;i++){
+           cus.plant1.items[i]=false;
+       }
+    }
 }
