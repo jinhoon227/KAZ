@@ -1,6 +1,7 @@
 package samstnet.com.kaz;
 
 import android.content.Context;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -73,7 +74,7 @@ public class Menu1FragGrowth extends Fragment {
 
     Button[] buttons;
     ImageView[] itemImage;
-    GlideDrawableImageViewTarget gifImage;
+    GlideDrawableImageViewTarget gifImage,backgif;
 
     //----------------------------------------------------------------
 
@@ -253,6 +254,10 @@ public class Menu1FragGrowth extends Fragment {
         getIndex();
     }
 
+    public void setCharacterImage(int url){
+        Glide.with(this).load(url).into(gifImage);
+    }
+
 
     // 버튼 눌리면 아이템 변경
     View.OnClickListener listener=new View.OnClickListener()
@@ -262,31 +267,31 @@ public class Menu1FragGrowth extends Fragment {
             switch (view.getId()){
                 //물뿌리개 선택
                 case R.id.sprinklerButton:
-                    itemImage[0].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.sprinkler);
                     buttons[0].setVisibility(View.GONE);
                     cus.plant1.setItems(0);
                     break;
                 //비료 선택
                 case R.id.FertilizerButton:
-                    itemImage[1].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.scarf);
                     buttons[1].setVisibility(View.GONE);
                     cus.plant1.setItems(1);
                     break;
                 //우산 선택
                 case R.id.unbrellaButton:
-                    itemImage[2].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.sunglasses);
                     buttons[2].setVisibility(View.GONE);
                     cus.plant1.setItems(2);
                     break;
-                //모자 선택
+                //썬글라스 선택
                 case R.id.hatButton:
-                    itemImage[3].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.sunglasses);
                     buttons[3].setVisibility(View.GONE);
                     cus.plant1.setItems(3);
                     break;
-                //옷 선택
+                //목도리 선택
                 case R.id.coatButton:
-                    itemImage[4].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.scarf);
                     buttons[4].setVisibility(View.GONE);
                     cus.plant1.setItems(4);
                     break;
@@ -323,33 +328,45 @@ public class Menu1FragGrowth extends Fragment {
     //날씨에 따라서 얼굴 바뀌는거 해야함 + 날씨에 따른 만족도?
     //(비료, 물뿌리개는 일정 시간이 지나야지만 다시 줄 수 있게 바꿔야 함, 이건 plant 객체에서 바꿔야함)
     public void set1Image(int _index){
+        backgif=new GlideDrawableImageViewTarget(imageView_1);
+
         if(wtstate.isEmpty()) {
             wtstate.add("empty");
         }
         if(wtstate.get(0)=="manycloud"){
             index=0;
-            imageView_1.setImageResource(R.drawable.spring);
+            //imageView_1.setImageResource(R.drawable.spring);
+            Glide.with(this).load(R.drawable.many_cloud).into(backgif);
             textview_1.setText("manycloud");
+
 
         }
         else if(wtstate.get(0)=="fewcloud"){
             index=1;
-            imageView_1.setImageResource(R.drawable.autumn);
+            //imageView_1.setImageResource(R.drawable.autumn);
+            Glide.with(this).load(R.drawable.fewcloud).into(backgif);
+
             textview_1.setText("fewcloud");
         }
         else if(wtstate.get(0)=="sun"){
             index=2;
-            imageView_1.setImageResource(R.drawable.summer);
+            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
+
+            //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("sun");
         }
         else if(wtstate.get(0)=="rain"){
             index=3;
-            imageView_1.setImageResource(R.drawable.winter);
+            //imageView_1.setImageResource(R.drawable.winter);
+            Glide.with(this).load(R.drawable.rain).into(backgif);
+
             textview_1.setText("rain");
         }
         else if(wtstate.get(0)=="snow"){
             index=4;
-            imageView_1.setImageResource(R.drawable.sunny);
+            //imageView_1.setImageResource(R.drawable.sunny);
+            Glide.with(this).load(R.drawable.snow).into(backgif);
+
             textview_1.setText("snow");
         }
         else if(wtstate.get(0)=="empty"){

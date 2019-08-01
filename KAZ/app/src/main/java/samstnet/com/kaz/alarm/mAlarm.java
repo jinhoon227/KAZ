@@ -56,7 +56,7 @@ public class mAlarm extends Service {
         TimePickerFragment.time=0;
         AlarmBroadcastReceiver.timeCount=0;
         stopService(intent);
-}
+    }
 
     @Override
     public void onDestroy() {
