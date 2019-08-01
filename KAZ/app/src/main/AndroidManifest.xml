@@ -44,7 +44,6 @@
 
         <service android:name=".alarm.mAlarm"/>
         <service android:name=".alarm.TimePickerFragment"/>
-        <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
 
         <service android:name=".Service.ExampleService" />
         <!-- BackgroundService -->
