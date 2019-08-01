@@ -103,7 +103,6 @@
                                     android:paddingRight="10dp"
                                     android:font="@font/bamin"
                                     android:text="수요일"
-                                    android:textFontWeight="bold"
                                     android:textSize="20dp" />
 
                                 <TextView
