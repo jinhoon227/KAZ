@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
     private class PassingWeather extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
+
             //주간날씨
             wwp = new WeekWeatherParser(latitude, longitude);
             wwp.StartParsing();
