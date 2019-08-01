@@ -13,8 +13,8 @@ import samstnet.com.kaz.eventbus.Customer;
 
 public class mAlarm extends Service {
 
-    AlarmBroadcastReceiver alarmBroadcastReceiver;
-    TimePickerFragment timePickerFragment;
+    static AlarmBroadcastReceiver alarmBroadcastReceiver;
+    static TimePickerFragment timePickerFragment;
     static NotificationManager manager;
     //알람 서비스
     static Intent intent;
@@ -61,7 +61,5 @@ public class mAlarm extends Service {
     public void onDestroy() {
         super.onDestroy();
         stopAlarm();
-        if(!cus.setting1.isCreateevent()){
-        }
     }
 }

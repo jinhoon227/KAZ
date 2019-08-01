@@ -40,8 +40,6 @@
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
 
         <activity android:name=".lockscreen.LockScreenActivity" />
-        <service android:name=".lockscreen.ScreenService" />
-        <receiver android:name=".lockscreen.ScreenReceiver" />
 
         <service android:name=".alarm.mAlarm"/>
         <service android:name=".alarm.TimePickerFragment"/>

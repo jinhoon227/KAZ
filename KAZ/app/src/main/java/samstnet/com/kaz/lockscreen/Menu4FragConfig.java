@@ -142,8 +142,6 @@ public class Menu4FragConfig extends Fragment {
                 if(cus.setting1.isSoundevent()){
                     Log.d("Menu4FragConfig","sound on");
                     cus.setting1.setSoundevent(false);
-                    //builder.setDefaults(Notification.DEFAULT_SOUND);
-                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL|AudioManager.RINGER_MODE_VIBRATE);
                 }
                 //소리 오프
                 else{

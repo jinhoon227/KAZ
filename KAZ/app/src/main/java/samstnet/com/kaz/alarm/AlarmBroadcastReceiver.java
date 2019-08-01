@@ -30,6 +30,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     String AlarmTitle=new String();
     String AlarmText=new String();
     static int timeCount=0;
+    Uri ringtoneUri;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -59,9 +60,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setLargeIcon(largeIcon);
         builder.setColor(Color.RED);
 
-        Uri ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
+        ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
                 RingtoneManager.TYPE_NOTIFICATION); //기본 알람 효과음, 내가 원하는 음악의 uri를 지정할 수 있음
         builder.setSound(ringtoneUri);
+        builder.setSound(ringtoneUri);
+
 
         long[] vibrate={0,100,200,300};     //진동
         builder.setVibrate(vibrate);
@@ -122,4 +125,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         AlarmTitle=getTime;
     }
 
+    public Uri getRingtoneUri() {
+        return ringtoneUri;
+    }
 }
