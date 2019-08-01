@@ -20,7 +20,7 @@ public class ScreenReceiver extends BroadcastReceiver {
 
     @Override
 
-    public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, Intent intent) {
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)||intent.getAction().equals(intent.ACTION_BOOT_COMPLETED)) {
             if (km == null)
@@ -44,13 +44,6 @@ public class ScreenReceiver extends BroadcastReceiver {
             context.startActivity(i);
 
             Intent j = new Intent(context , ExampleService.class);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Toast.makeText(context, "핸드폰이 켜졋당.", Toast.LENGTH_LONG).show();
-                context.startForegroundService(j);
-            }
-            else {
-                context.startService(j);
-            }
 
         }
 

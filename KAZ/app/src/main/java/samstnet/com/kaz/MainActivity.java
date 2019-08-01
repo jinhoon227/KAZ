@@ -43,7 +43,7 @@
         import javax.xml.parsers.DocumentBuilder;
         import javax.xml.parsers.DocumentBuilderFactory;
         import javax.xml.parsers.ParserConfigurationException;
-
+        import samstnet.com.kaz.Service.ExampleService;
         import samstnet.com.kaz.alarm.mAlarm;
         import samstnet.com.kaz.eventbus.BusProvider;
         import samstnet.com.kaz.eventbus.Customer;
@@ -115,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent2;
+        intent2 = new Intent(getApplicationContext(),//현재제어권자
+                mAlarm.class); // 이동할 컴포넌트
+        startService(intent2);
         NetworkInfo mNetworkState=getNetworkInfo();
 
         if(mNetworkState!=null&&mNetworkState.isConnected()){
