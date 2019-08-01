@@ -448,7 +448,11 @@ public class LockScreenActivity extends Activity {
                     buttons[i].setVisibility(View.VISIBLE);
             }
         }
+        exp_string=cus.plant1.getExp()+"";
+        level_string=cus.plant1.getLevel()+"";
 
+        textView.setText(level_string);
+        textView2.setText(exp_string);
 
         //아이템 적용 함수
         //----------------------------------------------------------------

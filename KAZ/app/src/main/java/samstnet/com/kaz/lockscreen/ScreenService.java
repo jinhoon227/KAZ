@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 
 public class ScreenService extends Service {
 
@@ -27,7 +28,7 @@ public class ScreenService extends Service {
     public void onCreate() {
 
         super.onCreate();
-
+        Log.d("잠금화면 실행","실행중");
 
 
         mReceiver = new ScreenReceiver();
