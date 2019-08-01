@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#47BDBD</color>
     <color name="colorAccent">#D81B60</color>
     <color name="lightblue">#F0DAAA</color>
-    <color name="white">#FFFFFF</color>
-    <color name="weekbackground">#CEFBC9</color>
+    <color name="white">#28412A</color>
+    <color name="weekbackground">#9DCDB3</color>
     <color name="weekchart">#FFE08C</color>
 </resources>

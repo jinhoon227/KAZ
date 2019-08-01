@@ -253,6 +253,10 @@ public class Menu1FragGrowth extends Fragment {
         getIndex();
     }
 
+    public void setCharacterImage(int url){
+        Glide.with(this).load(url).into(gifImage);
+    }
+
 
     // 버튼 눌리면 아이템 변경
     View.OnClickListener listener=new View.OnClickListener()
@@ -262,31 +266,31 @@ public class Menu1FragGrowth extends Fragment {
             switch (view.getId()){
                 //물뿌리개 선택
                 case R.id.sprinklerButton:
-                    itemImage[0].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.sprinkler);
                     buttons[0].setVisibility(View.GONE);
                     cus.plant1.setItems(0);
                     break;
                 //비료 선택
                 case R.id.FertilizerButton:
-                    itemImage[1].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.scarf);
                     buttons[1].setVisibility(View.GONE);
                     cus.plant1.setItems(1);
                     break;
                 //우산 선택
                 case R.id.unbrellaButton:
-                    itemImage[2].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.sunglasses);
                     buttons[2].setVisibility(View.GONE);
                     cus.plant1.setItems(2);
                     break;
-                //모자 선택
+                //썬글라스 선택
                 case R.id.hatButton:
-                    itemImage[3].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.sunglasses);
                     buttons[3].setVisibility(View.GONE);
                     cus.plant1.setItems(3);
                     break;
-                //옷 선택
+                //목도리 선택
                 case R.id.coatButton:
-                    itemImage[4].setVisibility(View.VISIBLE);
+                    setCharacterImage(R.drawable.scarf);
                     buttons[4].setVisibility(View.GONE);
                     cus.plant1.setItems(4);
                     break;

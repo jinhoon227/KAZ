@@ -3,7 +3,9 @@
 
         import android.Manifest;
         import android.annotation.TargetApi;
+        import android.app.NotificationManager;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.content.SharedPreferences;
         import android.content.pm.PackageManager;
         import android.net.ConnectivityManager;
@@ -19,6 +21,7 @@
         import android.os.Bundle;
         import android.util.Log;
         import android.view.MenuItem;
+        import android.view.View;
 
         import org.w3c.dom.Document;
         import org.w3c.dom.Element;
@@ -36,6 +39,7 @@
         import javax.xml.parsers.DocumentBuilderFactory;
         import javax.xml.parsers.ParserConfigurationException;
 
+        import samstnet.com.kaz.alarm.mAlarm;
         import samstnet.com.kaz.eventbus.BusProvider;
         import samstnet.com.kaz.eventbus.Customer;
         import samstnet.com.kaz.eventbus.Item_type;
@@ -49,8 +53,7 @@
         import samstnet.com.kaz.weekweather.WeekWeatherInfo;
         import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
-        import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
-        import samstnet.com.kaz.menu2_store.Menu2FragStore;
+       import samstnet.com.kaz.menu2_store.Menu2FragStore;
        // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
@@ -88,9 +91,7 @@ public class MainActivity extends AppCompatActivity {
     WeekWeatherParser wwp;
 
 
-    //growth 프래그먼트 인벤토리 , 메인 화면
-    growth_Fragment fragmentgrowth = new growth_Fragment();
-    //store 프래그먼트
+   //store 프래그먼트
     //store part-1
    // Shop_fragment fragmentshop = new Shop_fragment();
     FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -98,6 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
     //네트워크 연결 상태 확인
     ConnectivityManager connectivityManager;
+
+    //알람 서비스
+    static public Intent intent;
+    Customer cus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,6 +181,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
+
+        //알람 설정
+        intent = new Intent(getApplicationContext(),//현재제어권자
+                mAlarm.class); // 이동할 컴포넌트
+        if (!cus.setting1.isCreateevent()) {
+            Log.d("MainActivity","startService");
+            startService(intent);
+        }
+
     }
 
 

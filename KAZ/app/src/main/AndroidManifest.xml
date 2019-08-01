@@ -23,8 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,27 +37,15 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
-       <!-- <activity
 
-            android:name=".MainActivity"
-
-            android:label="@string/app_name" >
-
-            <intent-filter>
-
-                <action android:name="android.intent.action.MAIN" />
-
-
-
-                <category android:name="android.intent.category.LAUNCHER" />
-
-            </intent-filter>
-
-        </activity>
-    -->
         <activity android:name=".lockscreen.LockScreenActivity" />
         <service android:name=".lockscreen.ScreenService" />
         <receiver android:name=".lockscreen.ScreenReceiver" />
+
+        <service android:name=".alarm.mAlarm"/>
+        <service android:name=".alarm.TimePickerFragment"/>
+        <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
+
     </application>
 
 </manifest>

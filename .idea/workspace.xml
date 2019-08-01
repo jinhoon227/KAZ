@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0068647-2cb1-457f-bb8e-6c5f8b47358a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/lockscreen/LockScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/lockscreen/LockScreenActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/alarm/AlarmBroadcastReceiver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/alarm/TimePickerFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/alarm/mAlarm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable-v24/growth.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/radius.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/KAZ/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/.idea/caches/gradle_models.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/Menu1FragGrowth.java" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/Menu1FragGrowth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/SplashActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/SplashActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/lockscreen/Menu4FragConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/lockscreen/Menu4FragConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/menu1_growth_inventory/growth_Fragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/Sunglasses.gif" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/res/drawable/sunglasses.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/KAZ/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/KAZ/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,13 +26,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="dev" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/lockscreen/LockScreenActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+            <state relative-caret-position="114">
+              <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -43,10 +62,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="776" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="775" />
     <option name="width" value="1150" />
-    <option name="height" value="1039" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -57,38 +76,38 @@
         <subPane>
           <expand>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
@@ -96,8 +115,8 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
@@ -106,8 +125,8 @@
               <item name="samstnet" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
@@ -117,8 +136,8 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="KAZ" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KAZ" type="462c0819:PsiDirectoryNode" />
+              <item name="dev" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dev" type="462c0819:PsiDirectoryNode" />
               <item name="KAZ" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
@@ -132,8 +151,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -165,24 +184,34 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="621" y="0" width="920" height="831" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.499187" visible="true" weight="0.3216308" />
-      <window_info id="Structure" order="2" sideWeight="0.500813" side_tool="true" weight="0.43953487" />
-      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.498" visible="true" weight="0.18770654" />
+      <window_info id="Structure" order="2" sideWeight="0.502" side_tool="true" weight="0.18770654" />
+      <window_info id="Favorites" order="3" sideWeight="0.502" side_tool="true" weight="0.18770654" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
       <window_info id="Designer" order="6" />
-      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Resources Explorer" order="7" weight="0.32980832" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Find" />
+      <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.4990086" visible="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Logcat" order="1" />
-      <window_info anchor="bottom" id="TODO" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" visible="true" weight="0.11891118" />
+      <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.4990086" weight="0.32885906" />
+      <window_info anchor="bottom" id="Terminal" order="3" sideWeight="0.49966952" weight="0.32885906" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5009914" side_tool="true" visible="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
@@ -190,11 +219,37 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
     </layout>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/KAZ/app/src/main/java/samstnet/com/kaz/lockscreen/LockScreenActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+        <state relative-caret-position="114">
+          <caret line="6" column="35" lean-forward="true" selection-start-line="6" selection-start-column="35" selection-end-line="6" selection-end-column="35" />
         </state>
       </provider>
     </entry>
