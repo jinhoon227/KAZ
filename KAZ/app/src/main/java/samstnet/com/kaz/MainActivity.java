@@ -13,8 +13,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-        import android.support.annotation.RequiresApi;
-        import android.support.design.widget.BottomNavigationView;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -32,8 +32,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-import samstnet.com.kaz.alarm.mAlarm;
-import samstnet.com.kaz.eventbus.BusProvider;
+        import samstnet.com.kaz.alarm.mAlarm;
+        import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
 import samstnet.com.kaz.eventbus.WeatherEvent;
@@ -74,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
     String data_info = null;
 
     static WeatherEvent wev = null;
-    ArrayList<String> wtstate = new ArrayList<>();
-    ArrayList<String> tempor = new ArrayList<>();
+
+    static public ArrayList<String> wtstate = new ArrayList<>();
+    static public ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
 
     //주간 날씨 저장
@@ -177,12 +178,11 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         }
 
-        //알람 설정
         intent = new Intent(getApplicationContext(),//현재제어권자
                 mAlarm.class); // 이동할 컴포넌트
+        //알람 설정
         if (!cus.setting1.isCreateevent()) {
             Log.d("MainActivity","startService");
-            //startForegroundService(intent);
             startService(intent);
         }
 

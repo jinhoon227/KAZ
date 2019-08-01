@@ -76,7 +76,6 @@ public class Menu1FragGrowth extends Fragment {
         super.onAttach(context);
         activity = (MainActivity) getActivity();
 
-
     }
     @Override
     public void onDetach() {
@@ -145,13 +144,6 @@ public class Menu1FragGrowth extends Fragment {
 
         textView.setText(level_string);
         textView2.setText(exp_string);
-
-        /*
-        if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
-        else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
-        else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
-        */
-
         gifImage=new GlideDrawableImageViewTarget(imageView);
 
         if(cus.plant1.getState()==1)
@@ -322,7 +314,6 @@ public class Menu1FragGrowth extends Fragment {
             //imageView_1.setImageResource(R.drawable.spring);
             Glide.with(this).load(R.drawable.many_cloud).into(backgif);
             textview_1.setText("manycloud");
-
 
         }
         else if(wtstate.get(0)=="fewcloud"){

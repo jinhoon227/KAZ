@@ -2,16 +2,8 @@ package samstnet.com.kaz;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.Image;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.os.Handler;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -36,8 +28,6 @@ public class SplashActivity extends Activity {
         hd.postDelayed(new splashhandler(), 3000); // 1초 후에 hd handler 실행  3000ms = 3초
 
     }
-
-
 
 
     private class splashhandler implements Runnable{

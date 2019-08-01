@@ -67,7 +67,7 @@ public class ExampleService extends Service {
 
             operation[i] = PendingIntent.getBroadcast(this, i, intent, 0);
             //mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation[i]);
-            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 10, operation[i]);
+            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , operation[i]);
 
             time++;
         }

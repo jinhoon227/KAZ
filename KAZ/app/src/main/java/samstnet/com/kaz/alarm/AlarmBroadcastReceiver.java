@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -17,11 +16,13 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import java.util.Date;
+import com.squareup.otto.Subscribe;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
+import samstnet.com.kaz.eventbus.WeatherEvent;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -45,9 +46,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         cus=new Customer();
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
+        BusProvider.getInstance().register(this);
 
-        //제목 설정
-        setTitle();
         setText();
 
         builder.setContentTitle(AlarmTitle);
@@ -88,45 +88,49 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setText(){
-        switch (timeCount){
-            case 1:
-                AlarmText="두번째 알람";
-                break;
-            case 2:
-                AlarmText="세번째 알람";
-                break;
-            case 3:
-                AlarmText="네번째 알람";
-                break;
-            case 4:
-                AlarmText="다섯번째 알람";
-                break;
-            case 5:
-                AlarmText="여섯번째 알람";
-                break;
-            case 6:
-                AlarmText="일곱번째 알람";
-                break;
-            case 7:
-                AlarmText="마지막 알람";
-                timeCount=0;
-                break;
-            case 0:
-                AlarmText="첫번째 알람";
-                break;
+        String temp=new String();
+        if(MainActivity.tempor.size()!=0&&MainActivity.wtstate!=null) {
+            temp = MainActivity.tempor.get(0);
         }
-        timeCount++;
+        else {
+             temp="날씨정보 못받아왔다 마";
+        }
+        AlarmTitle = temp;
+
+        if(MainActivity.wtstate.size()==0&&MainActivity.wtstate==null){
+            AlarmText="새로고침해라, 너무 빨리 움직이지 말아라 핸드폰아";
+        }
+        else if(MainActivity.wtstate.get(0)=="manycloud"){
+            //AlarmTitle="흐림";
+            AlarmText="구름이 많아요! 흐린 날씨에 주의하세요";
+        }
+        else if(MainActivity.wtstate.get(0)=="fewcloud"){
+            //AlarmTitle="구름";
+            AlarmText="지금은 구름이 좀 있어요.";
+        }
+        else if(MainActivity.wtstate.get(0)=="sun"){
+            //AlarmTitle="태양";
+            AlarmText="햇빛이 쨍쨍한 날이에요. 함께 나가요";
+        }
+        else if(MainActivity.wtstate.get(0)=="rain"){
+            //AlarmTitle="비";
+            AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
+        }
+        else if(MainActivity.wtstate.get(0)=="snow"){
+            //AlarmTitle="눈";
+            AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
+        }
+        else {
+            AlarmText="저는 집에 갈 수 없어요ㅜㅜ";
+        }
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setTitle(){
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH시 mm분");
-        String getTime = sdf.format(date);
+    // 날씨 정보가 업데이트 되면 자동으로 정보를 가져옴
+    // using otto libary
+    @Subscribe
+    public void FinishLoad(WeatherEvent mWeatherEvent) {
 
-        AlarmTitle=getTime;
     }
 
     public void resetItem(){
@@ -134,4 +138,5 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
            cus.plant1.items[i]=false;
        }
     }
+
 }
