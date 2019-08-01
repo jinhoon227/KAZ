@@ -3,6 +3,7 @@
 
         import android.Manifest;
         import android.annotation.TargetApi;
+        import android.app.NotificationManager;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.SharedPreferences;
@@ -20,7 +21,11 @@
         import android.os.Bundle;
         import android.util.Log;
         import android.view.MenuItem;
+        import android.view.View;
 
+        import org.json.simple.JSONArray;
+        import org.json.simple.JSONObject;
+        import org.json.simple.parser.JSONParser;
         import org.w3c.dom.Document;
         import org.w3c.dom.Element;
         import org.w3c.dom.Node;
@@ -28,7 +33,9 @@
         import org.xml.sax.InputSource;
         import org.xml.sax.SAXException;
 
+        import java.io.BufferedReader;
         import java.io.IOException;
+        import java.io.InputStreamReader;
         import java.net.MalformedURLException;
         import java.net.URL;
         import java.util.ArrayList;
@@ -37,6 +44,7 @@
         import javax.xml.parsers.DocumentBuilderFactory;
         import javax.xml.parsers.ParserConfigurationException;
 
+        import samstnet.com.kaz.alarm.mAlarm;
         import samstnet.com.kaz.eventbus.BusProvider;
         import samstnet.com.kaz.eventbus.Customer;
         import samstnet.com.kaz.eventbus.Item_type;
@@ -52,8 +60,7 @@
         import samstnet.com.kaz.weekweather.WeekWeatherInfo;
         import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
-        import samstnet.com.kaz.menu1_growth_inventory.growth_Fragment;
-        import samstnet.com.kaz.menu2_store.Menu2FragStore;
+       import samstnet.com.kaz.menu2_store.Menu2FragStore;
        // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
@@ -80,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private ConverterGridGps converterGridGps;
 
     Document doc = null;
+    String data_info = null;
 
     static WeatherEvent wev = null;
     ArrayList<String> wtstate = new ArrayList<>();
@@ -91,9 +99,7 @@ public class MainActivity extends AppCompatActivity {
     WeekWeatherParser wwp;
 
 
-    //growth 프래그먼트 인벤토리 , 메인 화면
-    growth_Fragment fragmentgrowth = new growth_Fragment();
-    //store 프래그먼트
+   //store 프래그먼트
     //store part-1
    // Shop_fragment fragmentshop = new Shop_fragment();
     FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -101,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
     //네트워크 연결 상태 확인
     ConnectivityManager connectivityManager;
+
+    //알람 서비스
+    static public Intent intent;
+    Customer cus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +191,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
+
+        //알람 설정
+        intent = new Intent(getApplicationContext(),//현재제어권자
+                mAlarm.class); // 이동할 컴포넌트
+        if (!cus.setting1.isCreateevent()) {
+            Log.d("MainActivity","startService");
+            startService(intent);
+        }
+
     }
 
 
@@ -235,7 +254,8 @@ public class MainActivity extends AppCompatActivity {
     double latitude;
     double longitude;
     private void UsingGps(){
-        GetXMLTask task = new GetXMLTask();
+        //GetXMLTask task = new GetXMLTask();
+        PassingWeather passingWeather = new PassingWeather();
         gps = new GpsInfo(MainActivity.this);
         // GPS 사용유무 가져오기
         if (gps.isGetLocation()) {
@@ -247,20 +267,35 @@ public class MainActivity extends AppCompatActivity {
             grid = converterGridGps.getGridValue(TO_GRID, latitude, longitude);
             Log.d("ddd","당신의 위치 - " + grid.x + "    " + grid.y);
 
-            task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=" + grid.x + "&gridy=" + grid.y);
+            //task.execute("http://www.kma.go.kr/wid/queryDFS.jsp?gridx=" + grid.x + "&gridy=" + grid.y);
 
+            //자신이 조회를 원하는 지역의 경도와 위도를 입력해주세요
+            String nx = grid.x+""; //경도
+            String ny = grid.y+""; //위도
+
+            DayTimeFormatter daytimeformatter=new DayTimeFormatter();
+
+            String baseDate = daytimeformatter.getBaseTime(); // 자신이 조회하고싶은 날짜를 입력해주세요
+            String baseTime = daytimeformatter.getNowTime(); //자신이 조회하고싶은 시간대를 입력해주세요
+
+            Log.d("dsfa",baseTime);
+            // 서비스 인증키입니다. 공공데이터포털에서 제공해준 인증키를 넣어주시면 됩니다.
+            String serviceKey = "eT6LqyOyPldZj9CPLxXJVJFB75l9YoEkT%2FM5ujddCbGvXr2Ehb%2BiVHZfoLg4TPEF%2BGdjNGfjoN%2B4ax26AW0xwQ%3D%3D";
+            // 정보를 모아서 URL정보를 만들면됩니다.
+            // 맨 마지막 "&_type=json"에 따라 반환 데이터의 형태가 정해집니다.
+            String urlStr = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?" + "serviceKey=" + serviceKey + "&base_date=" + baseDate + "&base_time=" + baseTime + "&nx="+ nx + "&ny=" + ny + "&numOfRows=100"+"&_type=json";
+            passingWeather.execute(urlStr);
         } else {
             // GPS 를 사용할수 없으므로
             gps.showSettingsAlert();
         }
     }
 
-
-    private class GetXMLTask extends AsyncTask<String, Void, Document> {
+    private class PassingWeather extends AsyncTask<String, Void, String> {
         @Override
-        protected Document doInBackground(String... urls) {
-            //주간날씨
+        protected String doInBackground(String... urls) {
 
+            //주간날씨
             wwp = new WeekWeatherParser(latitude, longitude);
             wwp.StartParsing();
 
@@ -268,80 +303,124 @@ public class MainActivity extends AppCompatActivity {
             URL url;
             try {
                 url = new URL(urls[0]);
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder db = dbf.newDocumentBuilder(); //XML문서 빌더 객체를 생성
-                doc = db.parse(new InputSource(url.openStream())); //XML문서를 파싱한다.
-                doc.getDocumentElement().normalize();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SAXException e) {
-                e.printStackTrace();
+                BufferedReader bf;
+                String line = "";
+                String result=""; //날씨 정보를 받아옵니다.
+                bf = new BufferedReader(new InputStreamReader(url.openStream()));
+
+                //버퍼에 있는 정보를 하나의 문자열로 변환.
+                while((line=bf.readLine())!=null){
+                    result=result.concat(line);
+                    data_info=result;
+                }
+
+
+            } catch(Exception e){
+                System.out.println(e.getMessage());
             }
-            return doc;
+            return data_info;
         }
 
-        protected void onPostExecute(Document doc) {
-            super.onPostExecute(doc);//이 부분에서 날씨 이미지를 출력해줌
+        protected void onPostExecute(String doc) {
+            super.onPostExecute(doc);
+            //이 부분에서 날씨 이미지를 출력해줌
             //주간
             arr_wwif = wwp.GetArr_wwif();
             //일간
-            String s = "";
 
-            int nowTime = -100;
-
-            //data 태그가 있는 노드를 찾아서 리스트 형태로 만들어서 반환
-            NodeList nodeList = doc.getElementsByTagName("data");
-            //data 태그를 가지는 노드를 찾음, 계층적인 노드 구조를 반환
-
-
-            for (int i = 0; i < 15; i++) {////////////////////////////////for문 시작
+            try {
                 //날씨 데이터를 추출
-                s = "";
-                Node node = nodeList.item(i); //data엘리먼트 노드
-                Element fstElmnt = (Element) node;
+                // Json parser를 만들어 만들어진 문자열 데이터를 객체화 합니다.
+                JSONParser parser = new JSONParser();
+                JSONObject obj = (JSONObject) parser.parse(doc); // Top레벨 단계인 response 키를 가지고 데이터를 파싱합니다.
+                JSONObject parse_response = (JSONObject) obj.get("response"); // response 로 부터 body 찾아옵니다.
+                JSONObject parse_body = (JSONObject) parse_response.get("body"); // body 로 부터 items 받아옵니다.
+                JSONObject parse_items = (JSONObject) parse_body.get("items"); // items로 부터 itemlist 를 받아오기 itemlist : 뒤에 [ 로 시작하므로 jsonarray이다
+                JSONArray parse_item = (JSONArray) parse_items.get("item");
+                String category="";
+                String fcstTime="";
+                String tmpfcst="";
+                int weatherValue;
+                boolean nonRain=true;
+                JSONObject weather; // parse_item은 배열형태이기 때문에 하나씩 데이터를 하나씩 가져올때 사용합니다.
 
-                NodeList timeList = fstElmnt.getElementsByTagName("hour");          //시간 timeList
-                s += timeList.item(0).getChildNodes().item(0).getNodeValue() + "시 ";
-                nowTime = Integer.parseInt(timeList.item(0).getChildNodes().item(0).getNodeValue());
-                NodeList nameList = fstElmnt.getElementsByTagName("temp");          //이름
-                Element nameElement = (Element) nameList.item(0);
-                nameList = nameElement.getChildNodes();
-
-                s += ((Node) nameList.item(0)).getNodeValue() + "°C\n\n";
-
-                NodeList websiteList = fstElmnt.getElementsByTagName("wfKor");
-                // s += websiteList.item(0).getChildNodes().item(0).getNodeValue() + "\n";
-                time.add(nowTime);
-                tempor.add(((Node) nameList.item(0)).getNodeValue() + "°C");
-                if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("구름 많음") || websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("흐림"))
-                {//구름 많을때
-                    wtstate.add("manycloud");
-                }
-                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("구름 조금"))
+                // 필요한 데이터만 가져오려고합니다.
+                for(int i = 0 ; i < parse_item.size(); i++)
                 {
-                    wtstate.add("fewcloud");
-                }
-                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("맑음"))
-                {
-                    wtstate.add("sun");
-                }
-                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("비"))
-                { //비
-                    wtstate.add("rain");
-                }
-                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("눈") || websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("눈/비"))
-                {//눈 올 때
-                    wtstate.add("snow");
-                }
+                    weather = (JSONObject) parse_item.get(i);
+                    fcstTime = weather.get("fcstTime").toString();
 
-                //Log.d("weather : ",wtstate.get(i));
-                //Log.d("tempor : ",tempor.get(i));
-                //Log.d("time : ",Integer.toString(time.get(i)));
+                    if(tmpfcst.equals(fcstTime)) {
+                        category = (String) weather.get("category");
+                        if(category.equals("PTY")){
+                            weatherValue=Integer.parseInt(weather.get("fcstValue").toString());
+                            //없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+                            if(weatherValue==1 || weatherValue==2 || weatherValue==4) {
+                                wtstate.add("rain");
+                                nonRain=false;
+                            }
+                            else if(weatherValue==3) {
+                                wtstate.add("snow");
+                                nonRain=false;
+                            }
+                        }else if(category.equals("SKY")&&nonRain){
+                            weatherValue=Integer.parseInt(weather.get("fcstValue").toString());
+                            //맑음(1), 구름많음(3), 흐림(4)
+                            if(weatherValue==1)
+                                wtstate.add("sun"); //맑음
+                            else if(weatherValue==3)
+                                wtstate.add("fewcloud"); //구름적음 , 기존버전 호환을위해 구름많음이 구름적음, 흐림이 구름많음으로
+                            else if(weatherValue==4)
+                                wtstate.add("manycloud");  //구름많음
+                        }else if(category.equals("T3H")){
+                            tempor.add(weather.get("fcstValue").toString());
+                        }
+                        // 출력합니다.
+                        //Log.d("f","배열의 "+i+"번째 요소");
+                        //Log.d("f"," category : "+ category);
+
+                    }else{
+                        tmpfcst=fcstTime;
+                        String tmpTime = fcstTime.substring(0,2);
+                        time.add(Integer.parseInt(tmpTime));
+                        nonRain=true;
+                        category = (String) weather.get("category");
+                        if(category.equals("PTY")){
+                            weatherValue=Integer.parseInt(weather.get("fcstValue").toString());
+                            //없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4)
+                            if(weatherValue==1 || weatherValue==2 || weatherValue==4) {
+                                wtstate.add("비");
+                                nonRain=false;
+                            }
+                            else if(weatherValue==3) {
+                                wtstate.add("눈");
+                                nonRain=false;
+                            }
+                        }else if(category.equals("SKY")&&nonRain){
+                            weatherValue=Integer.parseInt(weather.get("fcstValue").toString());
+                            //맑음(1), 구름많음(3), 흐림(4)
+                            if(weatherValue==1)
+                                wtstate.add("맑음");
+                            else if(weatherValue==3)
+                                wtstate.add("구름많음");
+                            else if(weatherValue==4)
+                                wtstate.add("흐림");
+                        }else if(category.equals("T3H")){
+                            tempor.add(weather.get("fcstValue").toString());
+                        }
+                    }
+
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
+            Log.d("End","eee");
+            for(String nm : wtstate)
+                Log.d("wtste: |",nm);
+            for(String nm : tempor)
+                Log.d("tempor: |",nm);
+            for(int nm : time)
+                Log.d("time: |",Integer.toString(nm));
             wev = new WeatherEvent(time,wtstate,tempor);
             BusProvider.getInstance().post(wev);
         }

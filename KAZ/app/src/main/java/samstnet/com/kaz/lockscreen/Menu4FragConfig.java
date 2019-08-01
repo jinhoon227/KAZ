@@ -78,13 +78,12 @@ public class Menu4FragConfig extends Fragment {
         create = rootView.findViewById(R.id.create);
         sound=rootView.findViewById(R.id.sound);
         screen=rootView.findViewById(R.id.screen);
+        final Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
 
         //잠금 설정
         if(!cus.setting1.isScreen()){
             screen.setChecked(true);
-            Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
             getActivity().startService(intent);
-
         }else{
             screen.setChecked(false);
         }
@@ -105,54 +104,16 @@ public class Menu4FragConfig extends Fragment {
             sound.setEnabled(false);
         }
 
-     //cus.setting1.
-      /*  onBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
-//                cus.setting1.setScreenon(true);
-//                cus.setting1.setScreenoff(false);
-                getActivity().startService(intent);
-
-//                tx=(TextView) getActivity().findViewById(R.id.textView4);
-//                tx.setText("0");
-            }
-        });
-        offBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-
-            public void onClick(View v) {
-
-                Intent intent = new Intent(getActivity().getApplication(),ScreenService.class);
-//                cus.setting1.setScreenoff(true);
-//                cus.setting1.setScreenon(false);
-                getActivity().stopService(intent);
-
-            }
-
-        });
-        */
         create.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                /*if (isChecked) {
-                    // The toggle is enabled
-                    createNotification();
-                } else {
-                    // The toggle is disabled
-                    removeNotification();
-                    sound.setChecked(false);
-                }*/
                 //알림을 켰을때
                 if (cus.setting1.isCreateevent()) {
                     // The toggle is enabled
                     Log.d("Menu4FragConfig","on");
                     cus.setting1.setCreateevent(false);
                     sound.setEnabled(true);
-                    createNotification();
+                    //createNotification();
+                    getContext().startService(MainActivity.intent);
 
                     if(!cus.setting1.isSoundevent()){
                         Log.d("sound","on");
@@ -168,7 +129,8 @@ public class Menu4FragConfig extends Fragment {
                     // The toggle is disabled
                     Log.d("Menu4FragConfig","off");
                     cus.setting1.setCreateevent(true);
-                    removeNotification();
+                    //removeNotification();
+                    getContext().stopService(MainActivity.intent);
                     sound.setEnabled(false);
                 }
             }
@@ -193,15 +155,17 @@ public class Menu4FragConfig extends Fragment {
 
         screen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //소리 온
+                //잠금 온
                 if(cus.setting1.isScreen()){
                     Log.d("Menu4FragConfig","screen on");
                     cus.setting1.setScreen(false);
+                    getActivity().startService(intent);
                     //builder.setDefaults(Notification.DEFAULT_SOUND);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL|AudioManager.RINGER_MODE_VIBRATE);
                 }
-                //소리 오프
+                //잠금 오프
                 else{
+                    getActivity().stopService(intent);
                     Log.d("Menu4FragConfig","screen off");
                     cus.setting1.setScreen(true);
                 }
@@ -212,17 +176,6 @@ public class Menu4FragConfig extends Fragment {
         return rootView;
     }
 
-
-
-//    class soundSwitchListner implements CompoundButton.OnCheckedChangeListener{
-//        @Override
-//        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-//            if(isChecked){
-//
-//            }
-//        }
-//
-//    }
 
     private void createNotification() {
 //        audioManager=(AudioManager)getContext().getSystemService(Context.AUDIO_SERVICE);
