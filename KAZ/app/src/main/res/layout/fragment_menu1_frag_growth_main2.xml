@@ -67,48 +67,56 @@
                         android:layout_width="46dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dip"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginTop="80dip"
+                        android:layout_marginLeft="50dip"
+                        android:layout_marginTop="120dip"
                         android:layout_marginEnd="10dip"
-
                         android:layout_marginBottom="10dip"
                         android:layout_weight="1"
-                        android:text="레벨 : LV"
-                        android:textSize="15sp" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/bamin"
+                        android:text="LV"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/LevelResult"
-                        android:layout_width="100dp"
+                        android:layout_width="146dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="80dip"
+
+                        android:layout_marginTop="120dip"
                         android:layout_weight="1"
+                        android:fontFamily="@font/bamin"
                         android:text=""
-                        android:textSize="15sp"
+                        android:textColor="#FFFF33"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
                         tools:text="12345" />
 
 
                     <TextView
                         android:id="@+id/EXP3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dip"
                         android:layout_marginLeft="6dip"
-                        android:layout_marginTop="80dip"
+                        android:layout_marginTop="120dip"
                         android:layout_marginEnd="10dip"
                         android:layout_marginRight="10dip"
                         android:layout_marginBottom="10dip"
                         android:layout_weight="1"
-                        android:text="경험치 :"
-                        android:textSize="15sp" />
+                        android:fontFamily="@font/bamin"
+                        android:text="EXP :"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/ExpResult"
                         android:layout_width="124dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="80dip"
+                        android:layout_marginTop="120dip"
                         android:layout_weight="1"
+
+                        android:fontFamily="@font/bamin"
                         android:text=""
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         tools:text="12345" />
 
                 </LinearLayout>
@@ -128,8 +136,9 @@
                         android:layout_marginEnd="10dip"
                         android:layout_marginRight="10dip"
                         android:layout_marginBottom="10dip"
+                        android:fontFamily="@font/bamin"
                         android:text="날씨 : "
-                        android:textSize="15sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/WeatherResult"
@@ -137,8 +146,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dip"
                         android:layout_weight="1"
+                        android:fontFamily="@font/bamin"
+
                         android:text=""
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         tools:text="12345" />
 
                     <TextView
@@ -151,17 +162,21 @@
                         android:layout_marginEnd="10dip"
                         android:layout_marginRight="10dip"
                         android:layout_marginBottom="10dip"
+                        android:fontFamily="@font/bamin"
+
                         android:text="현재 기온 : "
-                        android:textSize="15sp" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:id="@+id/temperResult"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dip"
+                        android:fontFamily="@font/bamin"
+
                         android:layout_weight="1"
                         android:text=""
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         tools:text="12345" />
                 </LinearLayout>
             </LinearLayout>
@@ -212,7 +227,7 @@
                                 app:sv_buttonBackgroundColor="#fff"
                                 app:sv_buttonImage="@drawable/ic_chevron_double_right_pink"
                                 app:sv_slideBackgroundColor="@color/colorPrimaryDark"
-                                app:sv_slideText="Accept" />
+                                app:sv_slideText="밀어서  잠금해제" />
                         </RelativeLayout>
                     </LinearLayout>
 
