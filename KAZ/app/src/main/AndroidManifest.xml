@@ -40,12 +40,10 @@
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
 
         <activity android:name=".lockscreen.LockScreenActivity" />
-        <service android:name=".lockscreen.ScreenService" />
 
         <service android:name=".alarm.mAlarm"/>
         <service android:name=".alarm.TimePickerFragment"/>
         <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
-
         <service android:name=".Service.ExampleService" />
         <!-- BackgroundService -->
         <receiver
@@ -58,9 +56,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".alarm.AlarmBroadcastReceiver" />
-        <service android:name=".alarm.mAlarm"/>
-        <service android:name=".alarm.TimePickerFragment"/>
     </application>
 
 

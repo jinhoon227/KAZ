@@ -2,18 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/layout_ui"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/ic_chevron_left_black_24dp"
-        android:layout_alignParentLeft="true"/>
-    <RelativeLayout
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical">
 
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_chevron_left_black_24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +34,6 @@
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:paddingBottom="20dp"
-            android:background="@drawable/layout_ui"
             android:orientation="vertical"
             android:gravity="center_horizontal">
 
@@ -89,10 +101,8 @@
                                     android:gravity="center"
                                     android:layout_marginBottom="8dp"
                                     android:paddingRight="10dp"
-                                    android:textStyle="bold"
                                     android:font="@font/bamin"
                                     android:text="수요일"
-                                    android:textFontWeight="bold"
                                     android:textSize="20dp" />
 
                                 <TextView
@@ -129,5 +139,5 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>

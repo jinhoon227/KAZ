@@ -2,65 +2,49 @@
         package samstnet.com.kaz;
 
         import android.Manifest;
-        import android.annotation.TargetApi;
-        import android.app.NotificationManager;
-        import android.content.DialogInterface;
-        import android.content.Intent;
-        import android.content.SharedPreferences;
-        import android.content.pm.PackageManager;
-        import android.net.ConnectivityManager;
-        import android.net.NetworkInfo;
-        import android.os.AsyncTask;
-        import android.os.Build;
-        import android.support.annotation.NonNull;
+import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+        import android.support.annotation.RequiresApi;
         import android.support.design.widget.BottomNavigationView;
-        import android.support.v4.app.FragmentManager;
-        import android.support.v4.app.FragmentTransaction;
-        import android.support.v7.app.AlertDialog;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.util.Log;
-        import android.view.MenuItem;
-        import android.view.View;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 
-        import org.json.simple.JSONArray;
-        import org.json.simple.JSONObject;
-        import org.json.simple.parser.JSONParser;
-        import org.w3c.dom.Document;
-        import org.w3c.dom.Element;
-        import org.w3c.dom.Node;
-        import org.w3c.dom.NodeList;
-        import org.xml.sax.InputSource;
-        import org.xml.sax.SAXException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.w3c.dom.Document;
 
-        import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStreamReader;
-        import java.net.MalformedURLException;
-        import java.net.URL;
-        import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
 
-        import javax.xml.parsers.DocumentBuilder;
-        import javax.xml.parsers.DocumentBuilderFactory;
-        import javax.xml.parsers.ParserConfigurationException;
-        import samstnet.com.kaz.Service.ExampleService;
-        import samstnet.com.kaz.alarm.mAlarm;
-        import samstnet.com.kaz.eventbus.BusProvider;
-        import samstnet.com.kaz.eventbus.Customer;
-        import samstnet.com.kaz.eventbus.Item_type;
-        import samstnet.com.kaz.eventbus.WeatherEvent;
-        import samstnet.com.kaz.eventbus.plant_info;
-        import samstnet.com.kaz.gps.ConverterGridGps;
-        import samstnet.com.kaz.gps.GpsInfo;
-        import samstnet.com.kaz.gps.LatXLngY;
-
-        import samstnet.com.kaz.lockscreen.LockScreenActivity;
-        import samstnet.com.kaz.lockscreen.Menu4FragConfig;
-        import samstnet.com.kaz.lockscreen.ScreenService;
-        import samstnet.com.kaz.weekweather.WeekWeatherInfo;
-        import samstnet.com.kaz.weekweather.WeekWeatherParser;
-
-       import samstnet.com.kaz.menu2_store.Menu2FragStore;
+import samstnet.com.kaz.alarm.mAlarm;
+import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.Customer;
+import samstnet.com.kaz.eventbus.Item_type;
+import samstnet.com.kaz.eventbus.WeatherEvent;
+import samstnet.com.kaz.eventbus.plant_info;
+import samstnet.com.kaz.gps.ConverterGridGps;
+import samstnet.com.kaz.gps.GpsInfo;
+import samstnet.com.kaz.gps.LatXLngY;
+import samstnet.com.kaz.lockscreen.Menu4FragConfig;
+import samstnet.com.kaz.menu2_store.Menu2FragStore;
+import samstnet.com.kaz.weekweather.WeekWeatherInfo;
+import samstnet.com.kaz.weekweather.WeekWeatherParser;
        // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
@@ -112,13 +96,11 @@ public class MainActivity extends AppCompatActivity {
     static public Intent intent;
     Customer cus;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent2;
-        intent2 = new Intent(getApplicationContext(),//현재제어권자
-                mAlarm.class); // 이동할 컴포넌트
-        startService(intent2);
+
         NetworkInfo mNetworkState=getNetworkInfo();
 
         if(mNetworkState!=null&&mNetworkState.isConnected()){
@@ -200,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 mAlarm.class); // 이동할 컴포넌트
         if (!cus.setting1.isCreateevent()) {
             Log.d("MainActivity","startService");
+            //startForegroundService(intent);
             startService(intent);
         }
 
@@ -456,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
             tmparr3 = tmparr3+Boolean.valueOf(cus.plant1.items[i])+"&";
         }
         editor.putString("itemwear",tmparr3);
-        tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum();
+        tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum()+"&"+cus.plant1.getLove();
         editor.putString("plant",tmparr2);
         tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
         editor.putString("setting",tmparr2);
@@ -489,7 +472,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
                 bundle.putString("setting",tmparr2);
-                tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum();
+                tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum()+"&"+cus.plant1.getLove();
                 bundle.putString("plant",tmparr2);
 
 

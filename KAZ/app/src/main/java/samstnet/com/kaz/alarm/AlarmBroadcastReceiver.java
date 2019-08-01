@@ -21,6 +21,7 @@ import java.util.Date;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.eventbus.Customer;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -30,13 +31,18 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     String AlarmTitle=new String();
     String AlarmText=new String();
     static int timeCount=0;
+    Uri ringtoneUri;
+    NotificationCompat.Builder builder;
+    Customer cus;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("AlarmBroadcastReceiver","onReceive");
 
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(context,"default");
+        builder=new NotificationCompat.Builder(context,"default");
+        cus=new Customer();
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
@@ -59,8 +65,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setLargeIcon(largeIcon);
         builder.setColor(Color.RED);
 
-        Uri ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
+        ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
                 RingtoneManager.TYPE_NOTIFICATION); //기본 알람 효과음, 내가 원하는 음악의 uri를 지정할 수 있음
+
         builder.setSound(ringtoneUri);
 
         long[] vibrate={0,100,200,300};     //진동
@@ -75,7 +82,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
                     NotificationManager.IMPORTANCE_DEFAULT));
         }
-
+        resetItem();
         mAlarm.manager.notify(1,builder.build());
     }
 
@@ -122,4 +129,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         AlarmTitle=getTime;
     }
 
+    public void resetItem(){
+       for(int i=0;i<cus.plant1.itemNum;i++){
+           cus.plant1.items[i]=false;
+       }
+    }
 }
