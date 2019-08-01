@@ -101,10 +101,8 @@
                                     android:gravity="center"
                                     android:layout_marginBottom="8dp"
                                     android:paddingRight="10dp"
-                                    android:textStyle="bold"
                                     android:font="@font/bamin"
                                     android:text="수요일"
-                                    android:textFontWeight="bold"
                                     android:textSize="20dp" />
 
                                 <TextView
