@@ -439,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
             tmparr3 = tmparr3+Boolean.valueOf(cus.plant1.items[i])+"&";
         }
         editor.putString("itemwear",tmparr3);
-        tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum();
+        tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum()+"&"+cus.plant1.getLove();
         editor.putString("plant",tmparr2);
         tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
         editor.putString("setting",tmparr2);
@@ -472,7 +472,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
                 bundle.putString("setting",tmparr2);
-                tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum();
+                tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum()+"&"+cus.plant1.getLove();
                 bundle.putString("plant",tmparr2);
 
 
