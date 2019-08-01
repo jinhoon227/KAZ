@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import samstnet.com.kaz.MainActivity;
+import samstnet.com.kaz.Service.ExampleService;
 import samstnet.com.kaz.eventbus.Customer;
 
 public class mAlarm extends Service {
@@ -30,7 +31,7 @@ public class mAlarm extends Service {
         timePickerFragment=new TimePickerFragment();
         manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         intent = new Intent(getApplicationContext(),//현재제어권자
-                TimePickerFragment.class); // 이동할 컴포넌트
+                ExampleService.class); // 이동할 컴포넌트
         cus=new Customer();
 
         //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음

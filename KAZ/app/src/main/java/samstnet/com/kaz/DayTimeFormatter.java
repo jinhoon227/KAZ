@@ -75,7 +75,6 @@ public class DayTimeFormatter {
         }
         return nowTime_str;
     }
-
     String getBaseTime(){
         return this.baseTime;
     }

@@ -169,12 +169,6 @@ public class Menu2FragStore extends Fragment {
 
         gifImage=new GlideDrawableImageViewTarget(treeview);
 
-        if(cus.plant1.getState()==1)
-            Glide.with(this).load(R.drawable.sad).into(gifImage);
-        else if(cus.plant1.getState()==2)
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
-        else if(cus.plant1.getState()==3)
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

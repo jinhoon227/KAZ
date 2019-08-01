@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -31,13 +32,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     String AlarmText=new String();
     static int timeCount=0;
     Uri ringtoneUri;
+    NotificationCompat.Builder builder;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("AlarmBroadcastReceiver","onReceive");
 
-        NotificationCompat.Builder builder=new NotificationCompat.Builder(context,"default");
+        builder=new NotificationCompat.Builder(context,"default");
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
 
@@ -62,7 +64,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
                 RingtoneManager.TYPE_NOTIFICATION); //기본 알람 효과음, 내가 원하는 음악의 uri를 지정할 수 있음
-        builder.setSound(ringtoneUri);
+
         builder.setSound(ringtoneUri);
 
 
@@ -125,7 +127,5 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         AlarmTitle=getTime;
     }
 
-    public Uri getRingtoneUri() {
-        return ringtoneUri;
-    }
+
 }
