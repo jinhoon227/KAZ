@@ -1,5 +1,7 @@
 package samstnet.com.kaz.weekweather;
 
+import android.util.Log;
+
 public class WeekWeatherInfo {
     String mTmEf; //해당일.
     String mWf; //날씨.

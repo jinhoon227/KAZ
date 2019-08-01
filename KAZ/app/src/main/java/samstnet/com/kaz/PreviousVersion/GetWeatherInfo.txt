@@ -1,0 +1,90 @@
+ private class GetXMLTask extends AsyncTask<String, Void, Document> {
+        @Override
+        protected Document doInBackground(String... urls) {
+            //주간날씨
+
+            wwp = new WeekWeatherParser(latitude, longitude);
+            wwp.StartParsing();
+
+            //일간날시
+            URL url;
+            try {
+                url = new URL(urls[0]);
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder(); //XML문서 빌더 객체를 생성
+                doc = db.parse(new InputSource(url.openStream())); //XML문서를 파싱한다.
+                doc.getDocumentElement().normalize();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
+            return doc;
+        }
+
+        protected void onPostExecute(Document doc) {
+            super.onPostExecute(doc);//이 부분에서 날씨 이미지를 출력해줌
+            //주간
+            arr_wwif = wwp.GetArr_wwif();
+            //일간
+            String s = "";
+
+            int nowTime = -100;
+
+            //data 태그가 있는 노드를 찾아서 리스트 형태로 만들어서 반환
+            NodeList nodeList = doc.getElementsByTagName("data");
+            //data 태그를 가지는 노드를 찾음, 계층적인 노드 구조를 반환
+
+
+            for (int i = 0; i < 15; i++) {////////////////////////////////for문 시작
+                //날씨 데이터를 추출
+                s = "";
+                Node node = nodeList.item(i); //data엘리먼트 노드
+                Element fstElmnt = (Element) node;
+
+                NodeList timeList = fstElmnt.getElementsByTagName("hour");          //시간 timeList
+                s += timeList.item(0).getChildNodes().item(0).getNodeValue() + "시 ";
+                nowTime = Integer.parseInt(timeList.item(0).getChildNodes().item(0).getNodeValue());
+                NodeList nameList = fstElmnt.getElementsByTagName("temp");          //이름
+                Element nameElement = (Element) nameList.item(0);
+                nameList = nameElement.getChildNodes();
+
+                s += ((Node) nameList.item(0)).getNodeValue() + "°C\n\n";
+
+                NodeList websiteList = fstElmnt.getElementsByTagName("wfKor");
+                // s += websiteList.item(0).getChildNodes().item(0).getNodeValue() + "\n";
+                time.add(nowTime);
+                tempor.add(((Node) nameList.item(0)).getNodeValue() + "°C");
+                if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("구름 많음") || websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("흐림"))
+                {//구름 많을때
+                    wtstate.add("manycloud");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("구름 조금"))
+                {
+                    wtstate.add("fewcloud");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("맑음"))
+                {
+                    wtstate.add("sun");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("비"))
+                { //비
+                    wtstate.add("rain");
+                }
+                else if(websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("눈") || websiteList.item(0).getChildNodes().item(0).getNodeValue().equals("눈/비"))
+                {//눈 올 때
+                    wtstate.add("snow");
+                }
+
+                //Log.d("weather : ",wtstate.get(i));
+                //Log.d("tempor : ",tempor.get(i));
+                //Log.d("time : ",Integer.toString(time.get(i)));
+            }
+            wev = new WeatherEvent(time,wtstate,tempor);
+            BusProvider.getInstance().post(wev);
+        }
+    }

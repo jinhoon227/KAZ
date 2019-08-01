@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:usesCleartextTraffic="true"
@@ -45,7 +46,20 @@
         <service android:name=".alarm.mAlarm"/>
         <service android:name=".alarm.TimePickerFragment"/>
         <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
-
+        <service android:name=".lockscreen.ScreenService" />
+        <service android:name=".Service.ExampleService" />
+        <!-- BackgroundService -->
+        <receiver
+            android:name=".lockscreen.ScreenReceiver"
+            android:exported="false"
+            android:enabled="true"
+            android:directBootAware="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
+
 
 </manifest>

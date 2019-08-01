@@ -19,9 +19,12 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.text.Collator;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
@@ -29,23 +32,62 @@ public class TheDaytimeWeather extends Fragment {
     ArrayList<WeekWeatherInfo> arr_wwif = new ArrayList<>();
     ArrayList<WeekWeatherInfo> sorted_high_tempor = new ArrayList<>();
     LineChart lineChart;
-    TextView weekWeatherContent;
+    TextView weekWeatherDay;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.thedaytimeweather,container,false);
         lineChart = (LineChart) rootView.findViewById(R.id.chart);
-        weekWeatherContent = rootView.findViewById(R.id.weekWeatherContent);
+        weekWeatherDay = rootView.findViewById(R.id.weekWeatherDay);
 
         if( ((MainActivity)getActivity()).getWeekWeatherInfo() != null){
             arr_wwif = (((MainActivity)getActivity()).getWeekWeatherInfo());
             makeChart();
 
-            sorted_high_tempor = (((MainActivity)getActivity()).getWeekWeatherInfo());
+            sorted_high_tempor.addAll(arr_wwif);
             Collections.sort(sorted_high_tempor,myComparator);
             Collections.reverse(sorted_high_tempor);
-            weekWeatherContent.setText(sorted_high_tempor.get(0).getDay() + "일에는 너무 더워요!");
+
+            String convertedString = "";
+            try {
+                String convertDay = sorted_high_tempor.get(0).getmTmEf();
+                String day[] = convertDay.split("-");
+                convertDay = day[0] + day[1] + day[2];
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+                Date tmpDate = formatter.parse(convertDay);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(tmpDate);              // 하루더한 날자 값을 Calendar  넣는다.
+
+                int dayNum = cal.get(Calendar.DAY_OF_WEEK);   // 요일을 구해온다.
+
+                switch (dayNum) {
+                    case 1:
+                        convertedString = "일요일";
+                        break;
+                    case 2:
+                        convertedString = "월요일";
+                        break;
+                    case 3:
+                        convertedString = "화요일";
+                        break;
+                    case 4:
+                        convertedString = "수요일";
+                        break;
+                    case 5:
+                        convertedString = "목요일";
+                        break;
+                    case 6:
+                        convertedString = "금요일";
+                        break;
+                    case 7:
+                        convertedString = "토요일";
+                        break;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            weekWeatherDay.setText(convertedString);
         }
 
         return rootView;
@@ -124,7 +166,7 @@ public class TheDaytimeWeather extends Fragment {
             //점 위에 값 크기 및 색깔
             dataset2.setValueFormatter(new ChartValueFormatter());
             dataset2.setValueTextSize(12f);
-            dataset2.setValueTextColor(Color.BLUE);
+            dataset2.setValueTextColor(Color.RED);
 
             //선 크기
             dataset2.setLineWidth(3f);
@@ -145,7 +187,7 @@ public class TheDaytimeWeather extends Fragment {
 
         //아마 선없애기? 또는 마진추가
         lineChart.getAxisLeft().setEnabled(false);
-        lineChart.getAxisLeft().setSpaceTop(40);
+        lineChart.getAxisLeft().setSpaceTop(60);
         lineChart.getAxisLeft().setSpaceBottom(40);
         lineChart.getAxisRight().setEnabled(false);
 

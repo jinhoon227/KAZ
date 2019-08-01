@@ -49,7 +49,9 @@
         import samstnet.com.kaz.gps.GpsInfo;
         import samstnet.com.kaz.gps.LatXLngY;
 
+        import samstnet.com.kaz.lockscreen.LockScreenActivity;
         import samstnet.com.kaz.lockscreen.Menu4FragConfig;
+        import samstnet.com.kaz.lockscreen.ScreenService;
         import samstnet.com.kaz.weekweather.WeekWeatherInfo;
         import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isAccessFineLocation = false;
     private boolean isAccessCoarseLocation = false;
     private boolean isPermission = false;
-
+    public static boolean locklock=true;
     public static int TO_GRID = 0;
     private GpsInfo gps;
     private LatXLngY grid;
@@ -116,7 +118,9 @@ public class MainActivity extends AppCompatActivity {
             }else if(mNetworkState.getType()==ConnectivityManager.TYPE_MOBILE){
                 Log.d("Network","3G/LTE");
             }
-
+            /*if(LockScreenActivity.islock==false){
+            Intent intent = new Intent(getApplication(), ScreenService.class);
+            startService(intent);}*/
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 

@@ -1,8 +1,11 @@
 package samstnet.com.kaz.eventbus;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.util.Log;
 
 import samstnet.com.kaz.R;
@@ -14,6 +17,8 @@ public class Customer extends Application {
     public static plant_info plant1;
 
     public static SettingEvent setting1;
+
+    public static final String CHANNEL_ID = "exampleServiceChannel";
 
 
     private int money;
@@ -65,7 +70,7 @@ public class Customer extends Application {
     public void onCreate() {
         super.onCreate();
         boolean[] items = {false,false,false,false,false};
-        plant1 = new plant_info(1,0,"PLANT1",1,5,items);
+        plant1 = new plant_info(1,0,"PLANT1",1,5,items,50);
         String []tmparr;
         position=0;
         String itemtmp[] = new String [100];
@@ -83,7 +88,7 @@ public class Customer extends Application {
             editor.putBoolean("item", true);
             editor.putInt("money",200);
             // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 썬글라스 4. 목도리
-            editor.putString("plant","1&0&PLANT1&1&5");
+            editor.putString("plant","1&0&PLANT1&1&5&50");
             editor.putString("item0", "물뿌리개&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.img1 + "&10&false&false"); //item1라는 key값으로 id 데이터를 저장한다.
             editor.putString("item1", "비료&식물이 더 잘 자랄 수 있는 영양분을 제공합니다&" + R.drawable.img2 + "&20&false&false"); //item1라는 key값으로 id 데이터를 저장한다.
             editor.putString("item2", "우산&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.img3 + "&50&false&false"); //item1라는 key값으로 id 데이터를 저장한다.
@@ -108,14 +113,13 @@ public class Customer extends Application {
         }
         planttmp=prefs.getString("plant",null);
         tmparr=planttmp.split("&");
-        plant1 = new plant_info(Integer.parseInt(tmparr[0]),Integer.parseInt(tmparr[1]),tmparr[2],Integer.parseInt(tmparr[3]),Integer.parseInt(tmparr[4]),items);
+        plant1 = new plant_info(Integer.parseInt(tmparr[0]),Integer.parseInt(tmparr[1]),tmparr[2],Integer.parseInt(tmparr[3]),Integer.parseInt(tmparr[4]),items,Integer.parseInt(tmparr[5]));
         money=prefs.getInt("money",0);
         settmp = prefs.getString("setting",null);
         tmparr = settmp.split("&");
         setting1 =  new SettingEvent(Boolean.valueOf(tmparr[0]),Boolean.valueOf(tmparr[1]),Boolean.valueOf(tmparr[2]),Boolean.valueOf(tmparr[3]));
         Log.d("고객 돈 :", ""+money);
-
-
+        createNotificationChannel();
     }
     private static Customer instance = null;
 
@@ -139,4 +143,17 @@ public class Customer extends Application {
                 '}';
     }
 
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Example Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
 }

@@ -1,7 +1,5 @@
 package samstnet.com.kaz.lockscreen;
 
-
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.KeyguardManager;
@@ -26,12 +24,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
-import java.lang.annotation.Documented;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 import ng.max.slideview.SlideView;
 import samstnet.com.kaz.MainActivity;
@@ -45,23 +42,22 @@ import samstnet.com.kaz.eventbus.plant_info;
 public class LockScreenActivity extends Activity {
 
 
-    int n=5; //아이템 개수    ( 우산, 비료 등등)
-    int indexMax=5; //상태 개수 (추움, 목마름 뭐 이런거)
+    int n = 5; //아이템 개수    ( 우산, 비료 등등)
+    int indexMax = 5; //상태 개수 (추움, 목마름 뭐 이런거)
 
     MainActivity activity;
-    Button button,Nolock;
-    TextView textView,textView2,textView3,textView4;
+    Button button, Nolock;
+    TextView textView, textView2, textView3, textView4;
     EditText editText;
     TextView resultTextView;
-    ImageView imageView=null;
+    ImageView imageView = null;
     String level_string, exp_string;
-    Customer cus ;
-
+    Customer cus;
+    GlideDrawableImageViewTarget gifImage, backgif;
 
 
     private boolean isBind;
     private static Intent serviceIntent;
-
 
 
     //소현----------------------------------------------------------------
@@ -74,15 +70,15 @@ public class LockScreenActivity extends Activity {
     FrameLayout framelayout;
 
     int indexs[];
-    int index=0;
+    int index = 0;
     // items   : 1. 물뿌리개   2. 비료     3. 우산 4. 모자 5. 옷
     // wtstate : 1. manycloud 2. fewcloud 3. sun 4. rain 5. snow
-    boolean[][] items=
-            {{true,true,false,false,false},
-                    {true,true,false,false,false},
-                    {true,true,false,true,false},
-                    {false,true,true,false,false},
-                    {false,true,true,false,true}};
+    boolean[][] items =
+            {{true, true, false, false, false},
+                    {true, true, false, false, false},
+                    {true, true, false, true, false},
+                    {false, true, true, false, false},
+                    {false, true, true, false, true}};
 
     Button[] buttons;
     ImageView[] itemImage;
@@ -104,29 +100,30 @@ public class LockScreenActivity extends Activity {
             Log.e("LOG", "onServiceDisconnected()");
         }
     };
+
     public LockScreenActivity() {
     }
 
     //----------------------------------------------------------------
 
-    public void LevelUp(plant_info a){
+    public void LevelUp(plant_info a) {
 
-        a.setLevel(a.getLevel()+1);
+        a.setLevel(a.getLevel() + 1);
 
-        if(a.getLevel()==5 ){
-            a.setState(a.getState()+1);
-            imageView.setImageResource(R.drawable.bean2);
-        }
-        else if(a.getLevel()==10){
-            a.setState(a.getState()+1);
-            imageView.setImageResource(R.drawable.bean3);
+        if (a.getLevel() == 5) {
+            a.setState(a.getState() + 1);
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
+        } else if (a.getLevel() == 10) {
+            a.setState(a.getState() + 1);
+            Glide.with(this).load(R.drawable.happy).into(gifImage);
         }
 
     }
-    public void ExpUp(plant_info a){
-        a.setExp(a.getExp()+20);
 
-        if(a.getExp()==100){
+    public void ExpUp(plant_info a) {
+        a.setExp(a.getExp() + 20);
+
+        if (a.getExp() == 100) {
             LevelUp(a);
             a.setExp(0);
 
@@ -136,13 +133,13 @@ public class LockScreenActivity extends Activity {
     }
 
 
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        KeyguardManager km=(KeyguardManager)getSystemService(KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock keyLock=km.newKeyguardLock(KEYGUARD_SERVICE);
-        if (LockScreenActivity.serviceIntent==null) {
+        KeyguardManager km = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock keyLock = km.newKeyguardLock(KEYGUARD_SERVICE);
+        if (LockScreenActivity.serviceIntent == null) {
             serviceIntent = new Intent(this, LockScreenActivity.class);
             startService(serviceIntent);
         } else {
@@ -150,10 +147,8 @@ public class LockScreenActivity extends Activity {
             Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
         }
 
-
-
         //keyLock.reenableKeyguard();
-        cus = (Customer)getApplication();
+        cus = (Customer) getApplication();
         //소현------------------------------------------------------------------------------------
         // Register ourselves so that we can provide the initial value.
         BusProvider.getInstance().register(this);
@@ -162,7 +157,7 @@ public class LockScreenActivity extends Activity {
         // FinishLoad 함수의 경우 날씨 값이 바뀌면 값을 업데이트 해주는것
         // FinishLoad 함수는 Fragment가 연결되어있어야만 수행되기에
         // Fragment 시작시에 초기 날씨 정보 값 적재하는 함수를 따로 만들었음.
-        if( MainActivity.getWeatherInfo() != null) {
+        if (MainActivity.getWeatherInfo() != null) {
             weatherinfo = new WeatherEvent(MainActivity.getWeatherInfo());
             wtstate.addAll(weatherinfo.getWstate());
             tempor.addAll(weatherinfo.getTempor());
@@ -180,11 +175,10 @@ public class LockScreenActivity extends Activity {
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
 
 
-
         getWindow().setContentView(R.layout.fragment_menu1_frag_growth_main2);
         cus = (Customer.getInstance());
         cus.plant1.getLevel();
-        Log.d("레벨",""+cus.plant1.getLevel());
+        Log.d("레벨", "" + cus.plant1.getLevel());
 
 
 
@@ -206,20 +200,20 @@ public class LockScreenActivity extends Activity {
 */
 
         // ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main2, container, false);
-       // Nolock=(Button) findViewById(R.id.nolock);
-        button=(Button) findViewById(R.id.button4);
-        textView=(TextView) findViewById(R.id.LevelResult);
-        textView2=(TextView) findViewById(R.id.ExpResult);
-        imageView=(ImageView)findViewById(R.id.plant1);
 
-        textView3=(TextView)findViewById(R.id.temperResult);
-       // textView4=(TextView)findViewById(R.id.tvBclock);
+        // Nolock=(Button) findViewById(R.id.nolock);
+        button = (Button) findViewById(R.id.button4);
+        textView = (TextView) findViewById(R.id.LevelResult);
+        textView2 = (TextView) findViewById(R.id.ExpResult);
+        imageView = (ImageView) findViewById(R.id.plant1);
+
+
+        textView3 = (TextView) findViewById(R.id.temperResult);
+        // textView4=(TextView)findViewById(R.id.tvBclock);
         SlideView slideView = (SlideView) findViewById(R.id.slider1);
 
 
-        if(cus.plant1.getState()==1)imageView.setImageResource(R.drawable.bean1);
-        else if(cus.plant1.getState()==2)imageView.setImageResource(R.drawable.bean2);
-        else if(cus.plant1.getState()==3)imageView.setImageResource(R.drawable.bean3);
+
        /* Nolock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,6 +221,15 @@ public class LockScreenActivity extends Activity {
                 finish();
             }
         });*/
+        gifImage = new GlideDrawableImageViewTarget(imageView);
+
+        if (cus.plant1.getState() == 1)
+            Glide.with(this).load(R.drawable.sad).into(gifImage);
+        else if (cus.plant1.getState() == 2)
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
+        else if (cus.plant1.getState() == 3)
+            Glide.with(this).load(R.drawable.happy).into(gifImage);
+
         slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
@@ -252,15 +255,17 @@ public class LockScreenActivity extends Activity {
             }});
 */
         //소현-----------------------------------------------------------------------------
-        imageView_1=(ImageView)findViewById(R.id.imageView);
-        textview_1=(TextView)findViewById(R.id.WeatherResult);
-        framelayout=(FrameLayout)findViewById(R.id.frame_layout);
+        imageView_1 = (ImageView) findViewById(R.id.imageView);
+        textview_1 = (TextView) findViewById(R.id.WeatherResult);
+        framelayout = (FrameLayout) findViewById(R.id.frame_layout);
 
-        buttons=new Button[n];
-        indexs=new int[indexMax];
-        itemImage=new ImageView[n];
+        buttons = new Button[n];
+        indexs = new int[indexMax];
+        itemImage = new ImageView[n];
+
 
         /*
+>>>>>>> 01c30a1246b6a9c7f586d32c42cd9a3cd270311e
         buttons[0]=(Button)findViewById(R.id.sprinklerButton);
         buttons[1]=(Button)findViewById(R.id.FertilizerButton);
         buttons[2]=(Button)findViewById(R.id.unbrellaButton);
@@ -275,7 +280,6 @@ public class LockScreenActivity extends Activity {
         itemImage[3]=(ImageView)findViewById(R.id.hat);
         itemImage[4]=(ImageView)findViewById(R.id.coat);
 
-
         textView3.setText(tempor.get(0));
         if(MainActivity.getWeatherInfo() != null){
             getIndex();
@@ -286,36 +290,30 @@ public class LockScreenActivity extends Activity {
     }
 
 
-
-
     //소현----------------------------------------------------------------
 
 
-    public  void onResume(){
+    public void onResume() {
         super.onResume();
-        Log.d("growth_Fragment","onResume");
+        Log.d("growth_Fragment", "onResume");
     }
 
-    public  void onStart(){
-        super.onStart();
-        Log.d("growth_Fragment","onStart");
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         BusProvider.getInstance().unregister(this);
-        if (serviceIntent!=null) {
+        if (serviceIntent != null) {
             stopService(serviceIntent);
             serviceIntent = null;
         }
 
-        Log.d("growth_Fragment","onDestroy");
+        Log.d("growth_Fragment", "onDestroy");
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
-        Log.d("growth_Fragment","onPause");
+        Log.d("growth_Fragment", "onPause");
     }
 
     // 날씨 정보가 업데이트 되면 자동으로 정보를 가져옴
@@ -329,13 +327,16 @@ public class LockScreenActivity extends Activity {
         getIndex();
     }
 
+    public void onStart() {
+        super.onStart();
+        Log.d("growth_Fragment", "onStart");
+    }
 
     // 버튼 눌리면 아이템 변경
-    View.OnClickListener listener=new View.OnClickListener()
-    {
+    View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
+            switch (view.getId()) {
                 //물뿌리개 선택
                 case R.id.sprinklerButton:
                     itemImage[0].setVisibility(View.VISIBLE);
@@ -369,8 +370,8 @@ public class LockScreenActivity extends Activity {
             }
 
             ExpUp(cus.plant1);
-            exp_string=cus.plant1.getExp()+"";
-            level_string=cus.plant1.getLevel()+"";
+            exp_string = cus.plant1.getExp() + "";
+            level_string = cus.plant1.getLevel() + "";
 
             textView.setText(level_string);
             textView2.setText(exp_string);
@@ -380,8 +381,8 @@ public class LockScreenActivity extends Activity {
 
     //날씨정보로 다시 수정해야함
     //날씨 정보를 받아오는 함수 (1번)
-    public void getIndex(){
-        for(int i=0;i<n;i++){
+    public void getIndex() {
+        for (int i = 0; i < n; i++) {
             buttons[i].setVisibility(View.GONE);
             buttons[i].setOnClickListener(listener);
         }
@@ -390,7 +391,7 @@ public class LockScreenActivity extends Activity {
     }
 
     //이미지를 변경하는 함수 (2번)
-    public void ImageChange(){
+    public void ImageChange() {
         set1Image(index);
     }
 
@@ -398,64 +399,64 @@ public class LockScreenActivity extends Activity {
     //이미지 변경 규칙 (3번)
     //날씨에 따라서 얼굴 바뀌는거 해야함 + 날씨에 따른 만족도?
     //(비료, 물뿌리개는 일정 시간이 지나야지만 다시 줄 수 있게 바꿔야 함, 이건 plant 객체에서 바꿔야함)
-    public void set1Image(int _index){
-        if(wtstate.isEmpty()) {
+    public void set1Image(int _index) {
+        backgif = new GlideDrawableImageViewTarget(imageView_1);
+
+        if (wtstate.isEmpty()) {
             wtstate.add("empty");
         }
-        if(wtstate.get(0)=="manycloud"){
-            index=0;
-            imageView_1.setImageResource(R.drawable.spring);
+        if (wtstate.get(0) == "manycloud") {
+            index = 0;
+            //imageView_1.setImageResource(R.drawable.spring);
+            Glide.with(this).load(R.drawable.many_cloud).into(backgif);
             textview_1.setText("manycloud");
 
-        }
-        else if(wtstate.get(0)=="fewcloud"){
-            index=1;
-            imageView_1.setImageResource(R.drawable.autumn);
+
+        } else if (wtstate.get(0) == "fewcloud") {
+            index = 1;
+            //imageView_1.setImageResource(R.drawable.autumn);
+            Glide.with(this).load(R.drawable.fewcloud).into(backgif);
+
             textview_1.setText("fewcloud");
-        }
-        else if(wtstate.get(0)=="sun"){
-            index=2;
-            imageView_1.setImageResource(R.drawable.summer);
+        } else if (wtstate.get(0) == "sun") {
+            index = 2;
+            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
+
+            //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("sun");
-        }
-        else if(wtstate.get(0)=="rain"){
-            index=3;
-            imageView_1.setImageResource(R.drawable.winter);
+        } else if (wtstate.get(0) == "rain") {
+            index = 3;
+            //imageView_1.setImageResource(R.drawable.winter);
+            Glide.with(this).load(R.drawable.rain).into(backgif);
+
             textview_1.setText("rain");
-        }
-        else if(wtstate.get(0)=="snow"){
-            index=4;
-            imageView_1.setImageResource(R.drawable.sunny);
+        } else if (wtstate.get(0) == "snow") {
+            index = 4;
+            //imageView_1.setImageResource(R.drawable.sunny);
+            Glide.with(this).load(R.drawable.snow).into(backgif);
+
             textview_1.setText("snow");
-        }
-        else if(wtstate.get(0)=="empty"){
-            index=0;
+        } else if (wtstate.get(0) == "empty") {
+            index = 0;
             imageView_1.setImageResource(R.drawable.xkon);
             textview_1.setText("empty");
         }
 
-       /* for(int i=0;i<n;i++){
-            if(items[index][i]&&!(cus.plant1.getItems(i))){
-                buttons[i].setVisibility(View.VISIBLE);
+        for (int i = 0; i < n; i++) {
+            if (items[index][i] && !cus.getPlant().getItems(i)) {
+                if (cus._getItem(i).isWear() && cus._getItem(i).isBuy())
+                    buttons[i].setVisibility(View.VISIBLE);
             }
-        }*/
-        exp_string=cus.plant1.getExp()+"";
-        level_string=cus.plant1.getLevel()+"";
+        }
 
-        textView.setText(level_string);
-        textView2.setText(exp_string);
-        textView3.setText(tempor.get(0));
+
+        //아이템 적용 함수
+        //----------------------------------------------------------------
+
+
     }
 
-
-    //아이템 적용 함수
-
-    //----------------------------------------------------------------
-
-
 }
-
-
 
 
 
