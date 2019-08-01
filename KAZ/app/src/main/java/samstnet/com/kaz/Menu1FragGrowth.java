@@ -1,7 +1,6 @@
 package samstnet.com.kaz;
 
 import android.content.Context;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,29 +9,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
-import samstnet.com.kaz.eventbus.Customer;
-import samstnet.com.kaz.eventbus.plant_info;
 import java.util.ArrayList;
 
-import samstnet.com.kaz.MainActivity;
-import samstnet.com.kaz.R;
-import samstnet.com.kaz.eventbus.Item_type;
 import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.WeatherEvent;
+import samstnet.com.kaz.eventbus.plant_info;
 
 
 public class Menu1FragGrowth extends Fragment {
@@ -199,14 +191,6 @@ public class Menu1FragGrowth extends Fragment {
         buttons[3]=(Button)rootView.findViewById(R.id.hatButton);
         buttons[4]=(Button)rootView.findViewById(R.id.coatButton);
 
-
-        // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 썬글라스 4. 목도리
-       /* itemImage[0]=(ImageView)rootView.findViewById(R.id.sprinkler);
-        itemImage[1]=(ImageView)rootView.findViewById(R.id.Fertilizer);
-        itemImage[2]=(ImageView)rootView.findViewById(R.id.umbrella);
-        itemImage[3]=(ImageView)rootView.findViewById(R.id.hat);
-        itemImage[4]=(ImageView)rootView.findViewById(R.id.coat);
-       */
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
             getIndex();
         }
