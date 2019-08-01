@@ -158,6 +158,7 @@ public class Menu4FragConfig extends Fragment {
                     Log.d("Menu4FragConfig","screen on");
                     cus.setting1.setScreen(false);
                     getActivity().startService(intent);
+
                     //builder.setDefaults(Notification.DEFAULT_SOUND);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL|AudioManager.RINGER_MODE_VIBRATE);
                 }
