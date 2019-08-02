@@ -132,6 +132,7 @@ public class Customer extends Application {
         planttmp = prefs.getString("plant", Initalize_plant);
         tmparr = planttmp.split("&");
         plant1 = new plant_info(Integer.parseInt(tmparr[0]), Integer.parseInt(tmparr[1]), tmparr[2], Integer.parseInt(tmparr[3]), Integer.parseInt(tmparr[4]), items, Integer.parseInt(tmparr[5]));
+        Log.d("firstlove",String.valueOf(plant1.getLove()));
         money = prefs.getInt("money", 0);
         settmp = prefs.getString("setting", Intialize_setting);
         tmparr = settmp.split("&");
