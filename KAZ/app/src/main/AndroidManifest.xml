@@ -46,6 +46,7 @@
         <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
         <service android:name=".Service.ExampleService" />
         <service android:name=".lockscreen.ScreenService"/>
+
         <!-- BackgroundService -->
         <receiver
             android:name=".lockscreen.ScreenReceiver"

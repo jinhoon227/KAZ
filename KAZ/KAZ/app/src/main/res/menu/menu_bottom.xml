@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_menu1"
+        android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
+        android:title="growth" />
+
+    <item
+        android:id="@+id/navigation_menu2"
+        android:icon="@drawable/ic_store_black_24dp"
+        android:title="store" />
+
+    <item
+        android:id="@+id/navigation_menu3"
+        android:icon="@drawable/ic_cloud_queue_black_24dp"
+        android:title="weather" />
+
+    <item
+        android:id="@+id/navigation_menu4"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="setting" />
+
+</menu>

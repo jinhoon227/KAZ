@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:text="이름"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/lightblue"
                 android:textSize="20dp" />
 
             <TextView
