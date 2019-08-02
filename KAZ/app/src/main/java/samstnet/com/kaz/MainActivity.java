@@ -313,6 +313,9 @@ public class MainActivity extends AppCompatActivity {
             //주간
             arr_wwif = wwp.GetArr_wwif();
             //일간
+            tempor.clear();
+            wtstate.clear();
+            time.clear();
 
             try {
                 //날씨 데이터를 추출
