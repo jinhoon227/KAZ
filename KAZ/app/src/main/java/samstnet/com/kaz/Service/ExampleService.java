@@ -61,15 +61,20 @@ public class ExampleService extends Service {
         String getTime = sdf.format(date);
         int _minute = Integer.valueOf(getTime);
 
+        if(_minute>=59) _minute=0;
+        calendar.set(Calendar.MINUTE,_minute+1);
+
         for (int i = 0; i < operationNum; i++) {
-            Log.d("Time", String.valueOf(_minute + time));
-            calendar.set(Calendar.MINUTE, _minute + time);
+            Log.d("Time", String.valueOf(_minute));
+
+            calendar.set(Calendar.HOUR_OF_DAY, time);
 
             operation[i] = PendingIntent.getBroadcast(this, i, intent, 0);
             //mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation[i]);
-            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , operation[i]);
+            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
 
-            time++;
+            time+=3;
+
         }
     }
 

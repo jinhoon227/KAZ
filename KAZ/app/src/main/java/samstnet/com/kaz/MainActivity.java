@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<WeekWeatherInfo> arr_wwif = null;
     WeekWeatherParser wwp;
 
+    static String cityInfo;
 
    //store 프래그먼트
     //store part-1
@@ -275,6 +276,8 @@ public class MainActivity extends AppCompatActivity {
             // GPS 를 사용할수 없으므로
             gps.showSettingsAlert();
         }
+
+        
     }
 
     private class PassingWeather extends AsyncTask<String, Void, String> {

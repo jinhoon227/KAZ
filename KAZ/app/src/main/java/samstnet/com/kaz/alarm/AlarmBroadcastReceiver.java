@@ -16,13 +16,10 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.squareup.otto.Subscribe;
-
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
-import samstnet.com.kaz.eventbus.WeatherEvent;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -89,16 +86,16 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setText(){
         String temp=new String();
-        if(MainActivity.tempor.size()!=0&&MainActivity.wtstate!=null) {
+        if(MainActivity.tempor.size()!=0) {
             temp = MainActivity.tempor.get(0);
+            AlarmTitle = "현재"+"의 날씨는"+temp+"도.";
         }
         else {
-             temp="날씨정보 못받아왔다 마";
+             AlarmTitle="아 속안좋아";
         }
-        AlarmTitle = temp;
 
-        if(MainActivity.wtstate.size()==0&&MainActivity.wtstate==null){
-            AlarmText="새로고침해라, 너무 빨리 움직이지 말아라 핸드폰아";
+        if(MainActivity.wtstate.size()==0){
+            AlarmText="새로고침해라";
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
@@ -123,13 +120,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         else {
             AlarmText="저는 집에 갈 수 없어요ㅜㅜ";
         }
-
-    }
-
-    // 날씨 정보가 업데이트 되면 자동으로 정보를 가져옴
-    // using otto libary
-    @Subscribe
-    public void FinishLoad(WeatherEvent mWeatherEvent) {
 
     }
 

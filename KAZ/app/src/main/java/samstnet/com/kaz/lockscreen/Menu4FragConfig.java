@@ -98,9 +98,11 @@ public class Menu4FragConfig extends Fragment {
         //알림
         if (!cus.setting1.isCreateevent()) {
             create.setChecked(true);
+            screen.setEnabled(true);
             sound.setEnabled(true);
         }else{
             create.setChecked(false);
+            screen.setEnabled(false);
             sound.setEnabled(false);
         }
 
@@ -112,6 +114,7 @@ public class Menu4FragConfig extends Fragment {
                     Log.d("Menu4FragConfig","on");
                     cus.setting1.setCreateevent(false);
                     sound.setEnabled(true);
+                    screen.setEnabled(true);
                     //createNotification();
                     getContext().startService(MainActivity.intent);
 
@@ -132,18 +135,19 @@ public class Menu4FragConfig extends Fragment {
                     //removeNotification();
                     getContext().stopService(MainActivity.intent);
                     sound.setEnabled(false);
+                    screen.setEnabled(false);
                 }
             }
         });
 
         sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //소리 온
+                //방해 금지 모드 온
                 if(cus.setting1.isSoundevent()){
                     Log.d("Menu4FragConfig","sound on");
                     cus.setting1.setSoundevent(false);
                 }
-                //소리 오프
+                //방해 금지 모드 오프
                 else{
                     Log.d("Menu4FragConfig","sound off");
                     cus.setting1.setSoundevent(true);
