@@ -5,80 +5,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/weekbackground2"
     tools:context=".Menu4FragConfig"
     android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="86dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:autoText="true"
-        android:background="#2196F3"
-        android:text="Setting"
-        android:textColor="@android:color/background_light"
-        android:textSize="50sp" />
-
-    <Switch
-        android:id="@+id/create"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="50dp"
         android:layout_marginBottom="20dp"
-        android:paddingRight="40dp"
-        android:text="알림"
-        android:textSize="24sp" />
+        android:fontFamily="@font/bamin"
+        android:text="환경 설정"
+        android:textColor="@color/weekchart"
+        android:textSize="22dp" />
 
-    <Switch
-        android:id="@+id/screen"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="15dp"
-        android:paddingRight="40dp"
-        android:text="잠금설정"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:orientation="vertical">
 
-    <Switch
-        android:id="@+id/sound"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="40dp"
-        android:paddingRight="40dp"
-        android:text="방해 금지 모드"
-        android:textSize="20sp" />
+        <Switch
+            android:id="@+id/create"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="알림"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="40dp"
-        android:text="10시~9시 사이에는 알람이 울리지 않게 합니다." />
+
+        <Switch
+            android:id="@+id/screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="잠금설정"
+            android:textSize="20dp" />
+
+        <Switch
+            android:id="@+id/sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="방해 금지 모드"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10시~9시 사이에는 알람이 울리지 않게 합니다." />
+
+    </LinearLayout>
 
 </LinearLayout>
