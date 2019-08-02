@@ -4,239 +4,238 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:visibility="visible"
-    tools:visibility="visible">
-    <ImageView
-        android:id="@+id/imageView"
-        android:scaleType="fitXY"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center|center_vertical"
-        android:layout_weight="1"
-        android:src="@drawable/spring" />
+        android:visibility="invisible"
+        tools:visibility="visible">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".Menu1FragGrowth">
-
-
-        <FrameLayout
-            android:id="@+id/frame1"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:visibility="invisible"
-            tools:visibility="visible">
+            android:scaleType="fitXY"
+            android:src="@drawable/sunnyday" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="13">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:layout_weight="2"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/level3"
-                        android:layout_width="150dp"
-
+                        android:layout_width="46dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dip"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginTop="10dip"
-                        android:layout_marginEnd="10dip"
-                        android:layout_marginRight="10dip"
-                        android:layout_marginBottom="10dip"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/bamin"
                         android:text="LV"
-                        android:textSize="15sp" />
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/LevelResult"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dip"
-                        android:layout_weight="1"
+                        android:fontFamily="@font/bamin"
                         android:text=""
-                        android:textSize="15sp"
+                        android:textColor="#FFFF33"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
                         tools:text="12345" />
-
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/EXP3"
-                        android:layout_width="123dp"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dip"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginTop="10dip"
-                        android:layout_marginEnd="10dip"
-                        android:layout_marginRight="10dip"
-                        android:layout_marginBottom="10dip"
-                        android:layout_weight="1"
-                        android:text="경험치 :"
-                        android:textSize="15sp" />
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/bamin"
+                        android:text="EXP :"
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/ExpResult"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dip"
-                        android:layout_weight="1"
+                        android:fontFamily="@font/bamin"
                         android:text=""
-                        android:textSize="15sp"
+                        android:textSize="20dp"
                         tools:text="12345" />
-
                 </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/weather2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dip"
-                        android:layout_marginLeft="10dip"
-                        android:layout_marginTop="10dip"
-                        android:layout_marginEnd="10dip"
-                        android:layout_marginRight="10dip"
-                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/bamin"
                         android:text="날씨 : "
-                        android:textSize="15sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/WeatherResult"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dip"
-                        android:layout_weight="1"
+                        android:fontFamily="@font/bamin"
                         android:text=""
-                        android:textSize="15sp"
+                        android:textSize="20dp"
                         tools:text="12345" />
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/temper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/bamin"
+                        android:text="현재 기온 : "
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/temperResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bamin"
+                        android:text=""
+                        android:textSize="20dp"
+                        tools:text="12345" />
+                </LinearLayout>
+
             </LinearLayout>
 
 
-
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_weight="3"></LinearLayout>
 
-                <ImageView
-                    android:id="@+id/plant1"
-                    android:layout_width="300dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="70dp"
-                    app:srcCompat="@drawable/bean1" />
+            <ImageView
+                android:id="@+id/plant1"
+                android:layout_width="300dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                app:srcCompat="@drawable/sad" />
 
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="502dp"
-                    android:layout_gravity="bottom"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_gravity="bottom|center">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="308dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical" />
+                    <TableLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
 
-                    <HorizontalScrollView
-                        android:layout_width="266dp"
-                        android:layout_height="103dp"
-                        android:layout_gravity="bottom|center"
-                        android:layout_weight="1"
-                        android:padding="3dp">
-
-                        <TableLayout
-                            android:layout_width="wrap_content"
+                        <TableRow
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                            <TableRow
+                            <Button
+                                android:id="@+id/sprinklerButton"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:orientation="horizontal">
+                                android:layout_height="wrap_content"
+                                android:text="물뿌리개"
+                                tools:visibility="visible" />
 
-                                <Button
-                                    android:id="@+id/sprinklerButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="물뿌리개"
-                                    tools:visibility="visible" />
+                            <Button
+                                android:id="@+id/FertilizerButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="비료"
+                                tools:visibility="visible" />
 
-                                <Button
-                                    android:id="@+id/FertilizerButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="비료"
-                                    tools:visibility="visible" />
+                            <Button
+                                android:id="@+id/unbrellaButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="우산"
+                                tools:visibility="visible" />
 
-                                <Button
-                                    android:id="@+id/unbrellaButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="우산"
-                                    tools:visibility="visible" />
+                            <Button
+                                android:id="@+id/hatButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="모자"
+                                tools:visibility="visible" />
 
-                                <Button
-                                    android:id="@+id/hatButton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="모자"
-                                    tools:visibility="visible" />
+                            <Button
+                                android:id="@+id/coatButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="옷"
+                                tools:visibility="visible" />
 
-                                <Button
-                                    android:id="@+id/coatButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="옷"
-                                    tools:visibility="visible" />
+                            <Button
+                                android:id="@+id/button4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="act" />
 
-                            </TableRow>
+                        </TableRow>
+                    </TableLayout>
+                </HorizontalScrollView>
+            </LinearLayout>
 
-                        </TableLayout>
-                    </HorizontalScrollView>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="149dp"
-                        android:layout_weight="1">
-
-                        <Button
-                            android:id="@+id/button4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="33dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginRight="16dp"
-                            android:text="act" />
-                    </FrameLayout>
-
-                </LinearLayout>
-            </FrameLayout>
-
-        </FrameLayout>
-
-    </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
