@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="주간 날씨"
-                android:font="@font/bamin"
-                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/bamin"
+                android:textColor="@color/weekchart"
                 android:textSize="22dp" />
 
             <LinearLayout
@@ -65,10 +65,10 @@
                         android:gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"
                         android:orientation="vertical"
-                        android:background="@drawable/chart_ui">
+                        android:background="@drawable/dailyweather_ui">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -97,11 +97,11 @@
                                     android:id="@+id/weekWeatherDay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textColor="@color/wtdeepfont"
                                     android:gravity="center"
                                     android:layout_marginBottom="8dp"
                                     android:paddingRight="10dp"
-                                    android:font="@font/bamin"
+                                    android:fontFamily="@font/bamin"
                                     android:text="수요일"
                                     android:textSize="20dp" />
 
@@ -109,10 +109,10 @@
                                     android:id="@+id/weekWeatherContent"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/colorAccent"
+                                    android:textColor="@color/wtfont"
                                     android:gravity="center"
                                     android:paddingRight="10dp"
-                                    android:font="@font/bamin"
+                                    android:fontFamily="@font/bamin"
                                     android:text="절대 더워해\n⊂('_'⊂) "
                                     android:textSize="20dp" />
 
@@ -125,12 +125,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="30dp"
                     android:layout_height="0dp"
                     android:layout_weight="5">
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart"
-                        android:background="@drawable/chart_ui"
+                        android:background="@drawable/dailyweather_ui"
+                        android:padding="10dp"
                         android:layout_margin="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>

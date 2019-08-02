@@ -208,7 +208,7 @@ public class TheDaytimeWeather extends Fragment {
         //x축 줄 폰트 크기 및 색깔
         lineChart.getXAxis().setTextSize(15f);
         //lineChart.getXAxis().setSpaceBetweenLabels(2);
-        lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.getXAxis().setTextColor(Color.GRAY);
         lineChart.getXAxis().setLabelCount(6,true);
 
         //맨 상단의 라벨 넣어주기
@@ -218,8 +218,11 @@ public class TheDaytimeWeather extends Fragment {
         }
         lineChart.getXAxis().setValueFormatter(new ChartXAxisFormatter(labels));
 
+
         //패딩
-        lineChart.setExtraTopOffset(5f);
+        lineChart.setExtraLeftOffset(15f);
+        lineChart.setExtraRightOffset(15f);
+        lineChart.setExtraTopOffset(10f);
 
         lineChart.animateX(2500);
     }

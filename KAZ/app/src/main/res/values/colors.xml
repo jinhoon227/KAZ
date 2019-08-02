@@ -6,6 +6,9 @@
     <color name="lightblue">#F0DAAA</color>
     <color name="white">#28412A</color>
     <color name="weekbackground">#9DCDB3</color>
-    <color name="weekchart">#FFE08C</color>
-    <color name="weekbackground2">#CCCC99</color>
+    <color name="weekchart">#8CD790</color>
+    <color name="weekbackground2">#D7FFF1</color>
+    <color name="wtfont">#77AF9C</color>
+    <color name="wtdeepfont">#285943</color>
+    <color name="wtmiddlefont">#548687</color>
 </resources>
