@@ -415,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("time: |",Integer.toString(nm));
             wev = new WeatherEvent(time,wtstate,tempor);
             BusProvider.getInstance().post(wev);
+            BusProvider.getInstance().post(arr_wwif);
         }
     }
 
