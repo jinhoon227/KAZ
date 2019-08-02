@@ -223,13 +223,21 @@ public class LockScreenActivity extends Activity {
         });*/
         gifImage = new GlideDrawableImageViewTarget(imageView);
 
-        if (cus.plant1.getState() == 1)
-            Glide.with(this).load(R.drawable.sad).into(gifImage);
-        else if (cus.plant1.getState() == 2)
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
-        else if (cus.plant1.getState() == 3)
+//        if (cus.plant1.getState() == 1)
+//            Glide.with(this).load(R.drawable.sad).into(gifImage);
+//        else if (cus.plant1.getState() == 2)
+//            Glide.with(this).load(R.drawable.normally).into(gifImage);
+//        else if (cus.plant1.getState() == 3)
+//            Glide.with(this).load(R.drawable.happy).into(gifImage);
+        if(cus.plant1.getLove()>=70){
             Glide.with(this).load(R.drawable.happy).into(gifImage);
-
+        }
+        else if(cus.plant1.getLove()>=40&&cus.plant1.getLove()<70){
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
+        }
+        else if(cus.plant1.getLove()>=0&&cus.plant1.getLove()<40){
+            Glide.with(this).load(R.drawable.sad).into(gifImage);
+        }
         slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
