@@ -20,6 +20,7 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
@@ -36,6 +37,7 @@ public class Menu1FragGrowth extends Fragment {
     MainActivity activity;
     Button button;
     TextView textView,textView2;
+    TextView temperResult;
     EditText editText;
     TextView resultTextView;
     ImageView imageView=null;
@@ -138,6 +140,7 @@ public class Menu1FragGrowth extends Fragment {
         button=(Button) rootView.findViewById(R.id.button4);
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
         textView2=(TextView) rootView.findViewById(R.id.ExpResult);
+        temperResult  =(TextView)rootView.findViewById(R.id.temperResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
         frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
 
@@ -279,7 +282,8 @@ public class Menu1FragGrowth extends Fragment {
 
             textView.setText(level_string);
             textView2.setText(exp_string);
-
+            Random rnd = new Random();
+            cus.setMoney(cus.getMoney()+rnd.nextInt(10));
         }
     };
 
