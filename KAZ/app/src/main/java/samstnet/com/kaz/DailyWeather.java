@@ -76,12 +76,23 @@ public class DailyWeather extends Fragment {
                 }
             }
             //시간 스트링으로변경
+            int cnt=0;
             for(int i=0;i<time.size();i++){
                 if(time.get(i)<10){
-                    timeStr.add("0"+time.get(i));
+                    if(cnt==0) {
+                        timeStr.add("오늘 "+"0" + time.get(i));
+                    }else{
+                        timeStr.add("내일 "+"0" + time.get(i));
+                    }
                 }else{
-                    timeStr.add(time.get(i)+"");
+                    if(cnt==0) {
+                        timeStr.add("오늘 "+ time.get(i));
+                    }else{
+                        timeStr.add("내일 "+ time.get(i));
+                    }
                 }
+                if(time.get(i)==21)
+                    cnt++;
             }
             //날씨구문변경
             for(int i=0;i<wtstate.size();i++){

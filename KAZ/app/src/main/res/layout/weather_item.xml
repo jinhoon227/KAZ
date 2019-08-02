@@ -35,69 +35,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:gravity="center|bottom``````"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:fontFamily="@font/bamin"
+                android:text="시간"
+                android:textColor="@color/wtmiddlefont"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bamin"
-                    android:text="시간"
-                    android:textColor="@color/wtmiddlefont"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bamin"
-                    android:text="시"
-                    android:textColor="@color/wtfont"
-                    android:textSize="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:paddingLeft="5dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="horizontal">
+                android:fontFamily="@font/bamin"
+                android:text="시"
+                android:textColor="@color/wtfont"
+                android:textSize="18dp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bamin"
-                    android:text="온도"
-                    android:textColor="@color/wtmiddlefont"
-                    android:textSize="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|bottom"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/bamin"
-                    android:text="도"
-                    android:textColor="@color/wtfont"
-                    android:textSize="12dp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bamin"
+                android:text="온도"
+                android:textColor="@color/wtmiddlefont"
+                android:textSize="20dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°C"
+                android:textColor="@color/wtfont"
+                android:textSize="18dp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bamin"
             android:text="날씨상태"
             android:textColor="@color/wtfont"
-            android:textSize="16dp" />
+            android:textSize="18dp" />
     </LinearLayout>
 </LinearLayout>

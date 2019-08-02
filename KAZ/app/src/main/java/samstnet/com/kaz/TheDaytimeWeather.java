@@ -220,9 +220,9 @@ public class TheDaytimeWeather extends Fragment {
 
 
         //패딩
-        lineChart.setExtraLeftOffset(15f);
-        lineChart.setExtraRightOffset(15f);
-        lineChart.setExtraTopOffset(10f);
+        lineChart.setExtraLeftOffset(30f);
+        lineChart.setExtraRightOffset(30f);
+        lineChart.setExtraTopOffset(20f);
 
         lineChart.animateX(2500);
     }
