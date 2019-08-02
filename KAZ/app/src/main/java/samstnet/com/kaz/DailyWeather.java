@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,9 @@ public class DailyWeather extends Fragment {
     ArrayList<String> wtstate = new ArrayList<>();
     ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
-    int img[]=new int[15];
+    //int img[]=new int[15];
+    ArrayList<Integer> img=new ArrayList<>();
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,27 +44,43 @@ public class DailyWeather extends Fragment {
         ListView listView=rootView.findViewById(R.id.list);
         SingerAdapter adapter=new SingerAdapter();
         for(int i=0;i<wtstate.size();i++){
+            Log.d("i size",String.valueOf(i));
             if(wtstate.get(i)=="sun"){
-                img[i]=R.drawable.sunny;
+                //img[i]=R.drawable.sunny;
+                img.add(R.drawable.sunny);
             }
             else if(wtstate.get(i)=="fewcloud"){
-                img[i]=R.drawable.cloudy;
+                //img[i]=R.drawable.cloudy;
+                img.add(R.drawable.cloudy);
             }
             else if(wtstate.get(i)=="manycloud"){
-                img[i]=R.drawable.cloudy2;
+                //img[i]=R.drawable.cloudy2;
+                img.add(R.drawable.cloudy2);
             }
             else if(wtstate.get(i)=="rain"){
-                img[i]=R.drawable.rainy;
+                //img[i]=R.drawable.rainy;
+                img.add(R.drawable.rainy);
             }
             else if(wtstate.get(i)=="snow"){
-                img[i]=R.drawable.snowy;
+               // img[i]=R.drawable.snowy;
+                img.add(R.drawable.snowy);
             }
-        }
+            else{
+               // img[i]=R.drawable.xkon;
+            }
+        }/*
         adapter.addItem(new WeatherItem(String.valueOf(time.get(0))+"시",tempor.get(0),wtstate.get(0),img[0]));
         adapter.addItem(new WeatherItem(String.valueOf(time.get(1))+"시",tempor.get(1),wtstate.get(1),img[1]));
         adapter.addItem(new WeatherItem(String.valueOf(time.get(2))+"시",tempor.get(2),wtstate.get(2),img[2]));
         adapter.addItem(new WeatherItem(String.valueOf(time.get(3))+"시",tempor.get(3),wtstate.get(3),img[3]));
-        adapter.addItem(new WeatherItem(String.valueOf(time.get(4))+"시",tempor.get(4),wtstate.get(4),img[4]));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(4))+"시",tempor.get(4),wtstate.get(4),img[4]));*/
+
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(0))+"시",tempor.get(0),wtstate.get(0),img.get(0)));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(1))+"시",tempor.get(1),wtstate.get(1),img.get(1)));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(2))+"시",tempor.get(2),wtstate.get(2),img.get(2)));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(3))+"시",tempor.get(3),wtstate.get(3),img.get(3)));
+        adapter.addItem(new WeatherItem(String.valueOf(time.get(4))+"시",tempor.get(4),wtstate.get(4),img.get(4)));
+
         listView.setAdapter(adapter);
         return rootView;
     }

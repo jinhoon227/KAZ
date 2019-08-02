@@ -13,8 +13,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-        import android.support.annotation.RequiresApi;
-        import android.support.design.widget.BottomNavigationView;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -32,8 +32,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-import samstnet.com.kaz.alarm.mAlarm;
-import samstnet.com.kaz.eventbus.BusProvider;
+        import samstnet.com.kaz.alarm.mAlarm;
+        import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
 import samstnet.com.kaz.eventbus.WeatherEvent;
@@ -74,14 +74,16 @@ public class MainActivity extends AppCompatActivity {
     String data_info = null;
 
     static WeatherEvent wev = null;
-    ArrayList<String> wtstate = new ArrayList<>();
-    ArrayList<String> tempor = new ArrayList<>();
+
+    static public ArrayList<String> wtstate = new ArrayList<>();
+    static public ArrayList<String> tempor = new ArrayList<>();
     ArrayList<Integer> time = new ArrayList<>();
 
     //주간 날씨 저장
     ArrayList<WeekWeatherInfo> arr_wwif = null;
     WeekWeatherParser wwp;
 
+    static String cityInfo;
 
    //store 프래그먼트
     //store part-1
@@ -177,12 +179,11 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         }
 
-        //알람 설정
         intent = new Intent(getApplicationContext(),//현재제어권자
                 mAlarm.class); // 이동할 컴포넌트
+        //알람 설정
         if (!cus.setting1.isCreateevent()) {
             Log.d("MainActivity","startService");
-            //startForegroundService(intent);
             startService(intent);
         }
 
@@ -275,6 +276,8 @@ public class MainActivity extends AppCompatActivity {
             // GPS 를 사용할수 없으므로
             gps.showSettingsAlert();
         }
+
+        
     }
 
     private class PassingWeather extends AsyncTask<String, Void, String> {
@@ -313,6 +316,9 @@ public class MainActivity extends AppCompatActivity {
             //주간
             arr_wwif = wwp.GetArr_wwif();
             //일간
+            tempor.clear();
+            wtstate.clear();
+            time.clear();
 
             try {
                 //날씨 데이터를 추출
@@ -409,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("time: |",Integer.toString(nm));
             wev = new WeatherEvent(time,wtstate,tempor);
             BusProvider.getInstance().post(wev);
+            BusProvider.getInstance().post(arr_wwif);
         }
     }
 
