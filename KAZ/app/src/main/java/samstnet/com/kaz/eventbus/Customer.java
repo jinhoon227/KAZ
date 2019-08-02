@@ -91,7 +91,7 @@ public class Customer extends Application {
         Intialize_item[1]="비료&식물이 더 잘 자랄 수 있는 영양분을 제공합니다&" + R.drawable.img2 + "&20&false&false";
         Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.img3 + "&50&false&false";
         Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다&" + R.drawable.img4 + "&60&false&false";
-        Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.&" + R.drawable.img4 + "&60&false&false";
+        Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.&" + R.drawable.img4 + "&100&false&false";
         Intialize_setting= "false&false&false&false&false";
         Intialize_itemwear="false&false&false&false&false";
 

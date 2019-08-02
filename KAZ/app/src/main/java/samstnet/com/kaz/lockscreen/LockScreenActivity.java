@@ -442,12 +442,6 @@ public class LockScreenActivity extends Activity {
             textview_1.setText("empty");
         }
 
-        for (int i = 0; i < n; i++) {
-            if (items[index][i] && !cus.getPlant().getItems(i)) {
-                if (cus._getItem(i).isWear() && cus._getItem(i).isBuy())
-                    buttons[i].setVisibility(View.VISIBLE);
-            }
-        }
         exp_string=cus.plant1.getExp()+"";
         level_string=cus.plant1.getLevel()+"";
 

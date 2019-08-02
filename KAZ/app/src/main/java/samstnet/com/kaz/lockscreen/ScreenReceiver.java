@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import samstnet.com.kaz.Service.ExampleService;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 public class ScreenReceiver extends BroadcastReceiver {
     private KeyguardManager km = null;
 
@@ -41,7 +43,7 @@ public class ScreenReceiver extends BroadcastReceiver {
 
             i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-            context.startActivity(i);
+            context.startActivity(i.addFlags(FLAG_ACTIVITY_NEW_TASK));
 
             Intent j = new Intent(context , ExampleService.class);
 

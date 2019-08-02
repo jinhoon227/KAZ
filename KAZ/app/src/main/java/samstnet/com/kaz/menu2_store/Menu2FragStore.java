@@ -233,6 +233,7 @@ public class Menu2FragStore extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         int position;
+        Intent intent = new Intent(getActivity(), PopupActivity.class);
         if(requestCode==1){
             if(resultCode==RESULT_OK){
                 //데이터 받기
@@ -245,10 +246,20 @@ public class Menu2FragStore extends Fragment {
                     if(!Customer.item[position].isBuy())
                     {
                         Customer.item[position].setBuy(true);
-                        cus.setMoney(cus.getMoney()-cus.item[position].getPrice());
+                        if(cus.getMoney()-cus.item[position].getPrice()>0) {
+                            cus.setMoney(cus.getMoney() - cus.item[position].getPrice());
+                        }
+                        else
+                        {
+                            Customer.item[position].setBuy(false);
+                            intent.putExtra("data", "씨앗이 부족합니다.");
+                            startActivityForResult(intent, 0);
+
+                        }
                         moneyview.setText(cus.getMoney()+" 씨앗");
                         Log.d("isbuy","들어감 : 돈"+cus.getMoney());
                     }
+
                 }
             }
         }
