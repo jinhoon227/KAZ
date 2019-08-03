@@ -61,7 +61,8 @@ public class ExampleService extends Service {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("mm");
         String getTime = sdf.format(date);
-        _minute = Integer.valueOf(getTime);
+        //_minute = Integer.valueOf(getTime);
+        _minute=0;
 
         calendar.set(Calendar.MINUTE, _minute);
 

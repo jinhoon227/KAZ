@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
+        import samstnet.com.kaz.alarm.NonDisturb;
         import samstnet.com.kaz.alarm.mAlarm;
         import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
     //알람 서비스
     static public Intent intent;
     Customer cus;
+    public Intent intent1;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -181,10 +183,15 @@ public class MainActivity extends AppCompatActivity {
 
         intent = new Intent(getApplicationContext(),//현재제어권자
                 mAlarm.class); // 이동할 컴포넌트
+        intent1 = new Intent(getApplicationContext(), NonDisturb.class);
+
         //알람 설정
         if (!cus.setting1.isCreateevent()) {
             Log.d("MainActivity","startService");
             startService(intent);
+            if(cus.setting1.isSoundevent()){
+                startService(intent1);
+            }
         }
 
     }
