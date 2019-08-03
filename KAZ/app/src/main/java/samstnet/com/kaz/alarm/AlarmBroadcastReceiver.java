@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import java.util.Date;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
@@ -72,7 +75,26 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
 
         resetItem();
-        mAlarm.manager.notify(1,builder.build());
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        String getTime = sdf.format(date);
+        int hour = Integer.valueOf(getTime);
+
+        if(NonDisturb.startTime>NonDisturb.endTime)
+            hour+=24;
+
+        Log.d("검사들어가유",String.valueOf(hour));
+        Log.d(String.valueOf(NonDisturb.startTime),String.valueOf(NonDisturb._endTime));
+
+        
+        if(!(NonDisturb.startTime<=hour&&NonDisturb._endTime>=hour) )
+            mAlarm.manager.notify(1,builder.build());
+        else{
+            Log.d("방해금지시간이에유","옹");
+        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

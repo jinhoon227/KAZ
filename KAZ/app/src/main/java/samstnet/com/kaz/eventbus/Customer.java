@@ -91,7 +91,8 @@ public class Customer extends Application {
         Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.img3 + "&50&false&false";
         Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다&" + R.drawable.sunglassimg + "&60&false&false";
         Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.&" + R.drawable.scarf + "&100&false&false";
-        Intialize_setting= "false&false&false&false&false";
+        Intialize_setting= "true&true&true&true&true";
+        //Intialize_setting="false&false&false&false&false";
         Intialize_itemwear="false&false&false&false&false";
 
 
@@ -113,7 +114,7 @@ public class Customer extends Application {
                 editor.putString("item"+i, Intialize_item[i]); //item1라는 key값으로 id 데이터를 저장한다.
             }
 
-            editor.putString("setting", "false&false&false$false&false");
+            editor.putString("setting", "true&true&true$true&true");
             editor.putString("itemwear", "false&false&false&false&false");
             editor.commit(); //완료한다.
         }

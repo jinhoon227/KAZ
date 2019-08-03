@@ -185,14 +185,6 @@ public class MainActivity extends AppCompatActivity {
                 mAlarm.class); // 이동할 컴포넌트
         intent1 = new Intent(getApplicationContext(), NonDisturb.class);
 
-        //알람 설정
-        if (!cus.setting1.isCreateevent()) {
-            Log.d("MainActivity","startService");
-            startService(intent);
-            if(cus.setting1.isSoundevent()){
-                startService(intent1);
-            }
-        }
 
     }
 

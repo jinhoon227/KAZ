@@ -80,71 +80,90 @@ public class Menu4FragConfig extends Fragment {
         sound=rootView.findViewById(R.id.sound);
         screen=rootView.findViewById(R.id.screen);
         final Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
-
-        //잠금 설정
-        if(!cus.setting1.isScreen()){
-            screen.setChecked(true);
-            getActivity().startService(intent);
-        }else{
-            screen.setChecked(false);
-        }
-
-        //알림 소리
-        if(!cus.setting1.isSoundevent()){
-            sound.setChecked(true);
-            getActivity().startService(intent1);
-        }else{
-            sound.setChecked(false);
-        }
+        final Intent intent1 = new Intent(getContext().getApplicationContext(),NonDisturb.class);
 
         //알림
         if (!cus.setting1.isCreateevent()) {
+            Log.d("알림","on");
+
             create.setChecked(true);
             screen.setEnabled(true);
             sound.setEnabled(true);
+            getContext().startService(MainActivity.intent);
+
+            if(!cus.setting1.isScreen()){
+                getActivity().startService(intent);
+            }
+            if(!cus.setting1.isSoundevent()){
+                getContext().startService(intent1);
+            }
+
         }else{
+            Log.d("알림","off");
             create.setChecked(false);
             screen.setEnabled(false);
             sound.setEnabled(false);
         }
+
+        //잠금 설정
+        if(!cus.setting1.isScreen()){
+            Log.d("잠금","on");
+            screen.setChecked(true);
+        }else{
+            Log.d("잠금","off");
+            screen.setChecked(false);
+        }
+
+        //방해 금지 모드 설정
+        if(!cus.setting1.isSoundevent()){
+            Log.d("방해 금지 모드","on");
+            sound.setChecked(true);
+        }else{
+            Log.d("방해 금지 모드","off");
+            sound.setChecked(false);
+        }
+
+
 
         create.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //알림을 켰을때
                 if (cus.setting1.isCreateevent()) {
                     // The toggle is enabled
-                    Log.d("Menu4FragConfig","on");
+                    Log.d("알림 버튼","on");
                     cus.setting1.setCreateevent(false);
+                    getContext().startService(MainActivity.intent);
                     sound.setEnabled(true);
                     screen.setEnabled(true);
-                    //createNotification();
-                    getContext().startService(MainActivity.intent);
 
-                    if(!cus.setting1.isSoundevent()){
-                        Log.d("sound","on");
-                        sound.setChecked(true);
-                    }else{
-                        Log.d("sound","off");
-                        sound.setChecked(false);
+                    //잠금화면
+                    if(!cus.setting1.isScreen()){
+                        getActivity().startService(intent);
                     }
-
+                    //방해금지
+                    if(!cus.setting1.isScreen()){
+                        getContext().startService(intent1);
+                    }
                 }
                 //알림을 껐을때
                 else {
                     // The toggle is disabled
-                    Log.d("Menu4FragConfig","off");
+                    Log.d("알림 버튼","off");
                     cus.setting1.setCreateevent(true);
-                    //removeNotification();
                     getContext().stopService(MainActivity.intent);
                     sound.setEnabled(false);
                     screen.setEnabled(false);
+
+                    if(!cus.setting1.isScreen()){
+                        getActivity().stopService(intent);
+                    }
+                    if(!cus.setting1.isSoundevent()){
+                        getActivity().stopService(intent1);
+                    }
+
                 }
             }
         });
-
-        final Intent intent1;
-        intent1 = new Intent(getContext().getApplicationContext(),//현재제어권자
-                NonDisturb.class);
 
         sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -170,10 +189,7 @@ public class Menu4FragConfig extends Fragment {
                     Log.d("Menu4FragConfig","screen on");
                     cus.setting1.setScreen(false);
                     getActivity().startService(intent);
-
-                    //builder.setDefaults(Notification.DEFAULT_SOUND);
-                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL|AudioManager.RINGER_MODE_VIBRATE);
-                }
+               }
                 //잠금 오프
                 else{
                     getActivity().stopService(intent);

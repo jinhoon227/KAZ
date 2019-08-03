@@ -32,8 +32,8 @@ public class ExampleService extends Service {
     PendingIntent pendingIntent;
     Intent intent;
     Calendar calendar;
-    static int time = 0;
-    int operationNum = 24;
+    static public int time = 0;
+    static public int operationNum = 24;
 
     @Override
     public void onCreate() {
@@ -61,10 +61,10 @@ public class ExampleService extends Service {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("mm");
         String getTime = sdf.format(date);
-        //_minute = Integer.valueOf(getTime);
-        _minute=0;
+        _minute = Integer.valueOf(getTime);
+        //_minute=0;
 
-        calendar.set(Calendar.MINUTE, _minute);
+        calendar.set(Calendar.MINUTE, _minute+1);
 
         pendingIntent=PendingIntent.getBroadcast(this, 0, intent, 0);
 
@@ -84,11 +84,12 @@ public class ExampleService extends Service {
 
             //알람 반복
             // 10분
-            //mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *10 , operation[i]);
+            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *10 , operation[i]);
             // 24시간
-            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
+            //mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
 
-            time+=1;
+            _minute++;
+            //time+=1;
         }
     }
 

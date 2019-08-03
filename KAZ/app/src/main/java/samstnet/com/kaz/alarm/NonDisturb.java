@@ -17,8 +17,8 @@ import samstnet.com.kaz.Service.ExampleService;
 
 public class NonDisturb extends Service {
 
-    int startTime,_startTime;
-    int endTime,_endTime;
+    static public int startTime,_startTime;
+    static public int endTime,_endTime;
 
 
     Calendar calendar;
@@ -30,6 +30,8 @@ public class NonDisturb extends Service {
     int _minute;
     int hourDelay=1;
     int temp;
+    static boolean[] isAlarm= new boolean[ExampleService.operationNum];
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -67,14 +69,17 @@ public class NonDisturb extends Service {
             _endTime = endTime+24;
         }
 
+//        //지금 1시간단위로 알람 설정중
+//        for(int i=0;i<ExampleService.operationNum;i++){
+//            isAlarm[i]=true;
+//        }
+
         for(int i = startTime ;i < _endTime;i+=hourDelay){
             temp = (i / hourDelay);
             if(temp>=24){
                 temp-=24;
             }
-
             Log.d("setTime",String.valueOf(temp));
-            ExampleService.getAlarmManager().cancel(ExampleService.operation[temp]);
         }
 
         Log.d("NonDisturb_minute", String.valueOf(hour) );
@@ -92,19 +97,10 @@ public class NonDisturb extends Service {
             }
         }
         Log.d(String.valueOf(_endTime),String.valueOf(hour));
-
         if( hour>=startTime && hour<=_endTime ){
             Log.d("NonDisturb", "onNonDisturb" );
             //startService(intent);
-
             sendBroadcast(intent);
-        }
-        else {
-            Log.d("NonDisturb", "timer" );
-
-            calendar.set(Calendar.HOUR_OF_DAY,startTime);
-            calendar.set(Calendar.MINUTE,0);
-            mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation );
         }
     }
 
@@ -121,7 +117,8 @@ public class NonDisturb extends Service {
             calendar.set(Calendar.HOUR_OF_DAY,temp);
             calendar.set(Calendar.MINUTE,ExampleService._minute);
             //calendar.set(Calendar.MINUTE,38);
-            ExampleService.getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *60 *24 , ExampleService.operation[temp]);
+            //ExampleService.getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *60 *24 , ExampleService.operation[temp]);
+            isAlarm[temp]=true;
         }
        sendBroadcast(_intent);
 
