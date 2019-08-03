@@ -19,6 +19,7 @@ import java.util.Date;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.Service.ExampleService;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 
@@ -31,7 +32,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     Uri ringtoneUri;
     NotificationCompat.Builder builder;
     Customer cus;
-
+    static boolean error;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -74,6 +75,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setVibrate(vibrate);
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
 
+        error=false;
+
         resetItem();
 
         long now = System.currentTimeMillis();
@@ -86,13 +89,25 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             hour+=24;
 
         Log.d("검사들어가유",String.valueOf(hour));
-        Log.d(String.valueOf(NonDisturb.startTime),String.valueOf(NonDisturb._endTime));
 
-        
-        if(!(NonDisturb.startTime<=hour&&NonDisturb._endTime>=hour) )
-            mAlarm.manager.notify(1,builder.build());
-        else{
-            Log.d("방해금지시간이에유","옹");
+        if(!cus.setting1.isSoundevent()) {
+            if (!(NonDisturb.startTime <= hour && NonDisturb._endTime >= hour)) {
+                mAlarm.manager.notify(1, builder.build());
+                if(error) {
+                    Log.d("Alarm","아 에러;;");
+                    ExampleService.sendAlarm();
+                }
+            }
+            else {
+                Log.d("방해금지시간이에유", "옹");
+            }
+        }
+        else {
+            mAlarm.manager.notify(1, builder.build());
+            if(error) {
+                Log.d("Alarm","또 에러;;");
+                ExampleService.sendAlarm();
+            }
         }
 
     }
@@ -105,7 +120,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도";
         }
         else {
-            AlarmText="저는 집에 갈 수 없어요ㅜㅜ";
+            error=true;
+            AlarmTitle="저는 집에 갈 수 없어요ㅜㅜ";
         }
 
         if(MainActivity.wtstate.size()==0){
@@ -132,6 +148,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
         }
         else {
+            error=true;
             AlarmText="아 속안좋아";
         }
 

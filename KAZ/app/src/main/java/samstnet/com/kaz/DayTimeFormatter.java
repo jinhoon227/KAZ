@@ -2,18 +2,20 @@ package samstnet.com.kaz;
 
 import android.util.Log;
 
+import java.nio.charset.IllegalCharsetNameException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DayTimeFormatter {
     //기상청 api를 이용을 위해 만든 함수, 3시간 간격의 시간을 찾아 조정
-    String nowTime_str;
+    public static String nowTime_str;
     String baseTime;
     int fostBase;
     int nowTime;
     String today[];
     String yesterday[];
+    public static String night;
     DayTimeFormatter(){
 
         //오늘 날짜 계산
@@ -39,6 +41,18 @@ public class DayTimeFormatter {
     //기준날짜와 시간계산
     void caclTime(){
         int tagetTime[]={2,5,8,11,14,17,20,23};
+        int standtime[]={18,6};
+        Log.d("현재의 의시간", Integer.toString(nowTime));
+        if(nowTime>=standtime[0]||nowTime<=standtime[1]){
+            night="밤";//밤
+            //    Log.d("밤",nowTime_str.toString());
+
+        }
+        else   {
+            //  Log.d("낮",night.toString());
+            night="낮";
+        }
+
         if(nowTime<tagetTime[1]){
             //오늘 베이스타임이 업데이트 되지않았다면 이전날 데이터를 이용
             baseTime=yesterday[0]+yesterday[1]+yesterday[2];
@@ -53,17 +67,21 @@ public class DayTimeFormatter {
                     break;
                 }
             }
+
+
+
+
         }
 
         //기상청 제공시간계산
         int fostTime[] = {0,3,6,9,12,15,18,21};
         for(int i=1;i<fostTime.length;i++){
+
             if(nowTime<fostTime[i]){
                 fostBase=fostTime[i-1];
                 break;
             }
         }
-
 
     }
 

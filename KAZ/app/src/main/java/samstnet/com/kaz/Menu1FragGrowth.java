@@ -27,6 +27,9 @@ import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.eventbus.plant_info;
 
+import static samstnet.com.kaz.DayTimeFormatter.night;
+import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
+
 
 public class Menu1FragGrowth extends Fragment {
 
@@ -323,16 +326,34 @@ public class Menu1FragGrowth extends Fragment {
         else if(wtstate.get(0)=="fewcloud"){
             index=1;
             //imageView_1.setImageResource(R.drawable.autumn);
-            Glide.with(this).load(R.drawable.fewcloud).into(backgif);
 
+            if(DayTimeFormatter.night=="밤"){
+                Glide.with(this).load(R.drawable.fewcloud_night).into(backgif);
+                Log.d("밤","밤");
+
+
+            }else {
+                Glide.with(this).load(R.drawable.fewcloud).into(backgif);
+                Log.d("낮","낮");
+
+            }
             textview_1.setText("fewcloud");
+
+
+
+
         }
         else if(wtstate.get(0)=="sun"){
             index=2;
-            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
+            if(DayTimeFormatter.night=="밤"){
+                Glide.with(this).load(R.drawable.sunny_night).into(backgif);
 
+            }else {
+                Glide.with(this).load(R.drawable.sunny_day).into(backgif);
+            }
             //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("sun");
+
         }
         else if(wtstate.get(0)=="rain"){
             index=3;

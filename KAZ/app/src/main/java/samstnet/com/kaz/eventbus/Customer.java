@@ -19,6 +19,17 @@ public class Customer extends Application {
 
     public static final String CHANNEL_ID = "exampleServiceChannel";
 
+    //아이탬 갯수 수정시에 추가
+    public static final int ITEM_NUM=5;
+    //PLANT_INFO 갯수
+    public static final int PLANT_INFO_NUM=5;
+    //SETTING EVENT 갯수
+    public static final int SETTING_EVENT_NUM=5;
+    //ALARMEVENT 갯수
+    public static final int ALARMEVENT_NUM=24;
+
+
+    public static boolean alarmevent[] = new boolean[25];
 
     private int money;
 
@@ -68,6 +79,14 @@ public class Customer extends Application {
         Customer.setting1 = setting1;
     }
 
+    public static boolean[] getAlarmevent() {
+        return alarmevent;
+    }
+
+    public static void setAlarmevent(boolean[] alarmevent) {
+        Customer.alarmevent = alarmevent;
+    }
+
     public void onCreate() {
         super.onCreate();
         boolean[] items = {false, false, false, false, false};
@@ -78,12 +97,14 @@ public class Customer extends Application {
         String planttmp;
         String settmp;
         String itemWearTmp;
+        String alarmeventtmp;
 
         //처음 기본 데이터 저장하는 Customer
         String Initalize_plant;
         String Intialize_item[] = new String[50];
         String Intialize_setting;
         String Intialize_itemwear;
+        String Intialize_alarmevent;
 
         Initalize_plant = "1&0&PLANT1&1&5&50";
         Intialize_item[0]= "물뿌리개&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.sprinklerimg+ "&10&false&false";
@@ -94,9 +115,7 @@ public class Customer extends Application {
         Intialize_setting= "true&true&true&true&true";
         //Intialize_setting="false&false&false&false&false";
         Intialize_itemwear="false&false&false&false&false";
-
-
-
+        Intialize_alarmevent="false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false";
 
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE); // 선언
@@ -110,15 +129,17 @@ public class Customer extends Application {
             editor.putInt("money", 200);
             // item 연결 : 0. 물뿌리개   1. 비료     2. 우산 3. 썬글라스 4. 목도리
             editor.putString("plant", Initalize_plant);
-            for(int i=0;i<5;i++) {
+            for(int i=0;i<PLANT_INFO_NUM;i++) {
                 editor.putString("item"+i, Intialize_item[i]); //item1라는 key값으로 id 데이터를 저장한다.
             }
 
-            editor.putString("setting", "true&true&true$true&true");
-            editor.putString("itemwear", "false&false&false&false&false");
+            editor.putString("setting", Intialize_setting);
+            editor.putString("itemwear", Intialize_itemwear);
+            editor.putString("alarmevent",Intialize_alarmevent);
+
             editor.commit(); //완료한다.
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < ITEM_NUM; i++) {
             itemtmp[i] = prefs.getString("item" + i, Intialize_item[i]);
             Log.d("아이탬 문자열 배열" + i, itemtmp[i]);
             tmparr = itemtmp[i].split("&");
@@ -127,8 +148,16 @@ public class Customer extends Application {
         itemWearTmp = prefs.getString("itemwear", Intialize_itemwear);
         Log.d("장착해서 버튼 누름", itemWearTmp);
         tmparr = itemWearTmp.split("&");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < SETTING_EVENT_NUM; i++) {
             items[i] = Boolean.valueOf(tmparr[i]);
+        }
+
+        alarmeventtmp = prefs.getString("alarmevent",Intialize_alarmevent);
+        Log.d("Alarmevent데이터", alarmeventtmp);
+        tmparr=alarmeventtmp.split("&");
+        for(int i=0;i<ALARMEVENT_NUM;i++)
+        {
+            alarmevent[i]=Boolean.valueOf(tmparr[i]);
         }
         planttmp = prefs.getString("plant", Initalize_plant);
         tmparr = planttmp.split("&");

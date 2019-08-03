@@ -15,14 +15,14 @@
         android:layout_marginBottom="?attr/actionBarSize"/>
 
 
-
+    <!--  app:labelVisibilityMode="selected" 이용하여 기존하단탭을 고정했으나 28버전에서만 지원해서 helper함수이용 -->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:labelVisibilityMode="labeled"
+
         app:menu="@menu/menu_bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>

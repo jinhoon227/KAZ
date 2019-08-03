@@ -38,8 +38,6 @@ public class mAlarm extends Service {
         }
 
         Log.d("mAlarm","onCreate");
-
-
         startAlarm();
     }
 

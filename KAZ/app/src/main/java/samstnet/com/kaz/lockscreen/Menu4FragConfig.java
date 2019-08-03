@@ -92,9 +92,11 @@ public class Menu4FragConfig extends Fragment {
             getContext().startService(MainActivity.intent);
 
             if(!cus.setting1.isScreen()){
+                Log.d("잠금","실행");
                 getActivity().startService(intent);
             }
             if(!cus.setting1.isSoundevent()){
+                Log.d("방해 금지 모드","실행");
                 getContext().startService(intent1);
             }
 
