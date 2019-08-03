@@ -92,7 +92,6 @@ public class Menu4FragConfig extends Fragment {
         //알림 소리
         if(!cus.setting1.isSoundevent()){
             sound.setChecked(true);
-            getActivity().startService(intent1);
         }else{
             sound.setChecked(false);
         }
