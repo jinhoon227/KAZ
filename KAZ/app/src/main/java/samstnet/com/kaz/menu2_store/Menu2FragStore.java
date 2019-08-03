@@ -170,8 +170,6 @@ public class Menu2FragStore extends Fragment {
         Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
         statetext = rootView.findViewById(R.id.statetext);
         statetext.setText("기본상태");
-        TextView nametext = rootView.findViewById(R.id.nameText);
-        nametext.setText("젝나무");
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
