@@ -27,12 +27,13 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
+                android:layout_alignParentTop="true"
                 android:text="이름"
+                android:fontFamily="@font/bamin"
                 android:textColor="@color/frag2fontcolor"
-                android:font="@font/bamin"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                />
 
             <TextView
                 android:id="@+id/textView2"
@@ -44,7 +45,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:font="@font/bamin"
+                android:fontFamily="@font/bamin"
                 android:textSize="10dp" />
 
             <TextView
@@ -57,7 +58,7 @@
                 android:layout_marginEnd="27dp"
                 android:layout_marginRight="27dp"
                 android:layout_marginBottom="28dp"
-                android:font="@font/bamin"
+                android:fontFamily="@font/bamin"
                 android:text="TextView" />
 
         </RelativeLayout>
