@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.alarm.NonDisturb;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 
@@ -91,6 +92,7 @@ public class Menu4FragConfig extends Fragment {
         //알림 소리
         if(!cus.setting1.isSoundevent()){
             sound.setChecked(true);
+            getActivity().startService(intent1);
         }else{
             sound.setChecked(false);
         }
@@ -140,17 +142,23 @@ public class Menu4FragConfig extends Fragment {
             }
         });
 
+        final Intent intent1;
+        intent1 = new Intent(getContext().getApplicationContext(),//현재제어권자
+                NonDisturb.class);
+
         sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //방해 금지 모드 온
                 if(cus.setting1.isSoundevent()){
                     Log.d("Menu4FragConfig","sound on");
                     cus.setting1.setSoundevent(false);
+                    getContext().startService(intent1);
                 }
                 //방해 금지 모드 오프
                 else{
                     Log.d("Menu4FragConfig","sound off");
                     cus.setting1.setSoundevent(true);
+                    getContext().stopService(intent1);
                 }
             }
         });

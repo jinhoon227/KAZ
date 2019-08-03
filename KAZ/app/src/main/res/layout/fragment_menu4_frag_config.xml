@@ -37,28 +37,50 @@
             android:text="알림"
             android:textSize="20dp" />
 
-
-        <Switch
-            android:id="@+id/screen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="잠금설정"
-            android:textSize="20dp" />
-
-        <Switch
-            android:id="@+id/sound"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="방해 금지 모드"
-            android:textSize="20dp" />
-
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="10시~9시 사이에는 알람이 울리지 않게 합니다." />
+            android:layout_marginBottom="10dp"
+            android:text="날씨 정보를 배너로 확인할 수 있습니다" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+
+            <Switch
+                android:id="@+id/screen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="잠금설정"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="잠금화면에서도 식물을 확인할 수 있습니다." />
+
+            <Switch
+                android:id="@+id/sound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="방해 금지 모드"
+                android:textSize="17dp" />
+
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10시~9시 사이에는 알람이 울리지 않게 합니다." />
+
+        </LinearLayout>
 
     </LinearLayout>
 
