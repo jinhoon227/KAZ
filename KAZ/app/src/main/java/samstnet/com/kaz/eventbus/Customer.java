@@ -4,7 +4,6 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Build;
 import android.util.Log;
 
@@ -113,7 +112,7 @@ public class Customer extends Application {
             for(int i=0;i<5;i++) {
                 editor.putString("item"+i, Intialize_item[i]); //item1라는 key값으로 id 데이터를 저장한다.
             }
-            editor.putString("setting", "false&false&false&false&false");
+            editor.putString("setting", "false&false&false$false&false");
             editor.putString("itemwear", "false&false&false&false&false");
             editor.commit(); //완료한다.
         }

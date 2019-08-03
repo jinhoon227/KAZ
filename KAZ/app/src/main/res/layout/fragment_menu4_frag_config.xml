@@ -36,10 +36,19 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="20dp"
         android:paddingRight="40dp"
         android:text="알림"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="날씨 정보를 배너로 확인할 수 있습니다" />
 
     <Switch
         android:id="@+id/screen"
@@ -52,10 +61,19 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="15dp"
         android:paddingRight="40dp"
         android:text="잠금설정"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="잠금화면에서도 식물을 확인할 수 있습니다." />
 
     <Switch
         android:id="@+id/sound"

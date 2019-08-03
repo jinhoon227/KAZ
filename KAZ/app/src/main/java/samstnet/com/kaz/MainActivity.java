@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<WeekWeatherInfo> arr_wwif = null;
     WeekWeatherParser wwp;
 
-    static String cityInfo;
+    static public String cityInfo;
 
    //store 프래그먼트
     //store part-1
@@ -277,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
             gps.showSettingsAlert();
         }
 
+
         
     }
 
@@ -286,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
             //주간날씨
             wwp = new WeekWeatherParser(latitude, longitude);
+            cityInfo= wwp.getCity();
             wwp.StartParsing();
 
             //일간날시

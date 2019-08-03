@@ -1,7 +1,5 @@
 package samstnet.com.kaz.alarm;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,8 +18,6 @@ import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
@@ -71,14 +67,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setVibrate(vibrate);
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
 
-        NotificationManager manager;
-        manager=(NotificationManager)context.getSystemService(NOTIFICATION_SERVICE);
-
-        //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
-                    NotificationManager.IMPORTANCE_DEFAULT));
-        }
         resetItem();
         mAlarm.manager.notify(1,builder.build());
     }
@@ -88,10 +76,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         String temp=new String();
         if(MainActivity.tempor.size()!=0) {
             temp = MainActivity.tempor.get(0);
-            AlarmTitle = "현재"+"의 날씨는"+temp+"도.";
+            AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도";
         }
         else {
-             AlarmTitle="아 속안좋아";
+            AlarmText="저는 집에 갈 수 없어요ㅜㅜ";
         }
 
         if(MainActivity.wtstate.size()==0){
@@ -103,11 +91,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
         else if(MainActivity.wtstate.get(0)=="fewcloud"){
             //AlarmTitle="구름";
-            AlarmText="지금은 구름이 좀 있어요.";
+            AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
         else if(MainActivity.wtstate.get(0)=="sun"){
             //AlarmTitle="태양";
-            AlarmText="햇빛이 쨍쨍한 날이에요. 함께 나가요";
+            AlarmText="날씨가 좋아요. 함께 나가요";
         }
         else if(MainActivity.wtstate.get(0)=="rain"){
             //AlarmTitle="비";
@@ -118,7 +106,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
         }
         else {
-            AlarmText="저는 집에 갈 수 없어요ㅜㅜ";
+            AlarmText="아 속안좋아";
         }
 
     }
