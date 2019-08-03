@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.squareup.otto.Subscribe;
 
 import java.text.Collator;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
+import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
 public class TheDaytimeWeather extends Fragment {
@@ -33,6 +35,12 @@ public class TheDaytimeWeather extends Fragment {
     ArrayList<WeekWeatherInfo> sorted_high_tempor = new ArrayList<>();
     LineChart lineChart;
     TextView weekWeatherDay;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BusProvider.getInstance().register(this);
+    }
 
     @Nullable
     @Override
@@ -144,14 +152,14 @@ public class TheDaytimeWeather extends Fragment {
             //줄 색깔 및 동그라미 색깔
             //dataset.setLineWidth(1.75f);
             dataset.setCircleRadius(5f);
-            dataset.setColor(Color.BLUE);
+            dataset.setColor(Color.RED);
             dataset.setCircleColor(Color.WHITE);
             dataset.setHighLightColor(Color.WHITE);
 
             //점 위에 값 크기 및 색깔
             dataset.setValueFormatter(new ChartValueFormatter());
             dataset.setValueTextSize(12f);
-            dataset.setValueTextColor(Color.BLUE);
+            dataset.setValueTextColor(Color.RED);
 
             //선 크기
             dataset.setLineWidth(3f);
@@ -159,14 +167,14 @@ public class TheDaytimeWeather extends Fragment {
             //줄 색깔 및 동그라미 색깔
             //dataset.setLineWidth(1.75f);
             dataset2.setCircleRadius(5f);
-            dataset2.setColor(Color.RED);
+            dataset2.setColor(Color.BLUE);
             dataset2.setCircleColor(Color.WHITE);
             dataset2.setHighLightColor(Color.WHITE);
 
             //점 위에 값 크기 및 색깔
             dataset2.setValueFormatter(new ChartValueFormatter());
             dataset2.setValueTextSize(12f);
-            dataset2.setValueTextColor(Color.RED);
+            dataset2.setValueTextColor(Color.BLUE);
 
             //선 크기
             dataset2.setLineWidth(3f);
@@ -200,7 +208,7 @@ public class TheDaytimeWeather extends Fragment {
         //x축 줄 폰트 크기 및 색깔
         lineChart.getXAxis().setTextSize(15f);
         //lineChart.getXAxis().setSpaceBetweenLabels(2);
-        lineChart.getXAxis().setTextColor(Color.WHITE);
+        lineChart.getXAxis().setTextColor(Color.GRAY);
         lineChart.getXAxis().setLabelCount(6,true);
 
         //맨 상단의 라벨 넣어주기
@@ -210,17 +218,28 @@ public class TheDaytimeWeather extends Fragment {
         }
         lineChart.getXAxis().setValueFormatter(new ChartXAxisFormatter(labels));
 
+
         //패딩
-        lineChart.setExtraTopOffset(5f);
+        lineChart.setExtraLeftOffset(30f);
+        lineChart.setExtraRightOffset(30f);
+        lineChart.setExtraTopOffset(20f);
 
         lineChart.animateX(2500);
     }
 
+    @Subscribe
+    public void FinishLoad( ArrayList<WeekWeatherInfo> wwif) {
+        if(arr_wwif==null || arr_wwif.size()==0){
+            Log.d("fewg","weeklyfinsh");
+            arr_wwif.addAll(wwif);
+            makeChart();
+        }
+    }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        Log.d("what","hell");
+        BusProvider.getInstance().unregister(this);
     }
 }
 

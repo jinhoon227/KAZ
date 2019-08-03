@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
+    android:layout_height="110dp"
+    android:background="@color/weekchart"
     android:weightSum="10">
 
     <LinearLayout
@@ -16,7 +17,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp"
+            android:padding="10dp"
             android:src="@mipmap/ic_launcher" />
 
     </LinearLayout>
@@ -25,35 +26,68 @@
         android:layout_width="0dp"
         android:layout_weight="5"
         android:layout_height="match_parent"
-        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="12dp"
         android:gravity="center_vertical"
-        android:background="@color/weekchart"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="시간"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:gravity="center|bottom"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bamin"
+                android:text="시간"
+                android:textColor="@color/wtmiddlefont"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bamin"
+                android:text="시"
+                android:textColor="@color/wtfont"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="기온"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:gravity="center|bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bamin"
+                android:text="온도"
+                android:textColor="@color/wtmiddlefont"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°C"
+                android:textColor="@color/wtfont"
+                android:textSize="18dp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bamin"
             android:text="날씨상태"
-            android:textColor="@color/colorAccent"
-            android:textSize="20dp" />
+            android:textColor="@color/wtfont"
+            android:textSize="18dp" />
     </LinearLayout>
 </LinearLayout>

@@ -41,7 +41,8 @@ public class Menu2FragStore extends Fragment {
     MainActivity activity;
     StoreAdapter StAdapter;
     ListView listview;
-    EditText moneyview;
+    TextView moneyview;
+    TextView statetext;
     ImageView treeview;
     //listview 에니메이션 기능 구현
     AlphaInAnimationAdapter animationAdapter;
@@ -147,8 +148,7 @@ public class Menu2FragStore extends Fragment {
         Item_type[] storeitem = Customer.item;
         int money=cus.getMoney();
         //남은 돈 출력
-        moneyview=(EditText)rootView.findViewById(R.id.textView_money);
-        moneyview.addTextChangedListener(textWatcher);
+        moneyview=rootView.findViewById(R.id.textView_money);
         moneyview.setText(money+" 씨앗");
         Log.d("","씨앗"+cus.getMoney());
         //인덱스 참고 함수
@@ -166,9 +166,12 @@ public class Menu2FragStore extends Fragment {
 
         //treeview
         treeview = rootView.findViewById(R.id.treeImage);
-
         gifImage=new GlideDrawableImageViewTarget(treeview);
-
+        Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
+        statetext = rootView.findViewById(R.id.statetext);
+        statetext.setText("기본상태");
+        TextView nametext = rootView.findViewById(R.id.nameText);
+        nametext.setText("젝나무");
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -188,18 +191,23 @@ public class Menu2FragStore extends Fragment {
                         switch (position) {
                             case 0:
                                 Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
+                                statetext.setText("물 뿌리는중");
                                 break;
                             case 1:
                                 Glide.with(getActivity()).load(R.drawable.happy).into(gifImage);
+                                statetext.setText("비료 주는중");
                                 break;
                             case 2:
                                 Glide.with(getActivity()).load(R.drawable.happy).into(gifImage);
+                                statetext.setText("우산 쓰는중");
                                 break;
                             case 3:
                                 Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
+                                statetext.setText("썬글라스 쓰는중");
                                 break;
                             case 4:
                                 Glide.with(getActivity()).load(R.drawable.scarf).into(gifImage);
+                                statetext.setText("목도리 쓰는중");
                                 break;
                             default:
                                 Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
@@ -225,6 +233,7 @@ public class Menu2FragStore extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         int position;
+        Intent intent = new Intent(getActivity(), PopupActivity.class);
         if(requestCode==1){
             if(resultCode==RESULT_OK){
                 //데이터 받기
@@ -237,10 +246,20 @@ public class Menu2FragStore extends Fragment {
                     if(!Customer.item[position].isBuy())
                     {
                         Customer.item[position].setBuy(true);
-                        cus.setMoney(cus.getMoney()-cus.item[position].getPrice());
+                        if(cus.getMoney()-cus.item[position].getPrice()>0) {
+                            cus.setMoney(cus.getMoney() - cus.item[position].getPrice());
+                        }
+                        else
+                        {
+                            Customer.item[position].setBuy(false);
+                            intent.putExtra("data", "씨앗이 부족합니다.");
+                            startActivityForResult(intent, 0);
+
+                        }
                         moneyview.setText(cus.getMoney()+" 씨앗");
                         Log.d("isbuy","들어감 : 돈"+cus.getMoney());
                     }
+
                 }
             }
         }

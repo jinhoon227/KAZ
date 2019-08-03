@@ -26,7 +26,7 @@ public class Item_View2 extends LinearLayout {
         inflater.inflate(R.layout.list_item,this ,true);
         textView = (TextView) findViewById(R.id.textView);
         textView2 = (TextView) findViewById(R.id.textView2);
-        textView3 = (TextView) findViewById(R.id.textView3);
+        textView3 = (TextView) findViewById(R.id.textView_buy);
         imageView= (ImageView) findViewById(R.id.imageView);
 
     }
