@@ -16,15 +16,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30px"
+        android:layout_margin="15dp"
         android:background="@drawable/radius"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="10">
 
         <ImageView
             android:id="@+id/splashImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             app:srcCompat="@drawable/cloudy2" />
 
         <TextView
@@ -32,9 +34,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:fontFamily="@font/bamin"
             android:text="콩과 잭나무"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="30dp" />
     </LinearLayout>
 
 </LinearLayout>
