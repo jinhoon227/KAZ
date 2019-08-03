@@ -161,6 +161,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        //08.04 하단 이동탭버튼을 함수를 이용하여 고정
+        //이전에는 desing libary 가 28버전 이상이여야지
+        //app:labelVisibilityMode="selected" 를 지원해주었으나
+        //28버전에서는 NoClassDefFoundError 가 발생함
+        //해당 오류가 떠도 앱실행에는 아무문제없으나 그냥 꺼림칙해서 바꿈
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         // 권한 요청을 해야 함
         if (!isPermission) {
@@ -250,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
 
     double latitude;
     double longitude;
-    private void UsingGps(){
+    public void UsingGps(){
         //GetXMLTask task = new GetXMLTask();
         PassingWeather passingWeather = new PassingWeather();
         gps = new GpsInfo(MainActivity.this);
