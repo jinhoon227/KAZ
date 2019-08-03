@@ -230,6 +230,7 @@ public class TheDaytimeWeather extends Fragment {
     @Subscribe
     public void FinishLoad( ArrayList<WeekWeatherInfo> wwif) {
         if(arr_wwif==null || arr_wwif.size()==0){
+            Log.d("fewg","weeklyfinsh");
             arr_wwif.addAll(wwif);
             makeChart();
         }

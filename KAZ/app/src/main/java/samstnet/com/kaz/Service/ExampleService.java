@@ -26,12 +26,14 @@ import static samstnet.com.kaz.eventbus.Customer.CHANNEL_ID;
 
 public class ExampleService extends Service {
 
-    AlarmManager mAlarmManager;
-    PendingIntent[] operation;
+    static AlarmManager mAlarmManager;
+    static public PendingIntent[] operation;
+    static public int _minute;
+    PendingIntent pendingIntent;
     Intent intent;
     Calendar calendar;
     static int time = 0;
-    int operationNum = 8;
+    int operationNum = 24;
 
     @Override
     public void onCreate() {
@@ -59,21 +61,34 @@ public class ExampleService extends Service {
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("mm");
         String getTime = sdf.format(date);
-        int _minute = Integer.valueOf(getTime);
+        //_minute = Integer.valueOf(getTime);
+        _minute=0;
 
-        if(_minute>=59) _minute=0;
-        calendar.set(Calendar.MINUTE,_minute+1);
+        calendar.set(Calendar.MINUTE, _minute);
+
+        pendingIntent=PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        sendBroadcast(intent);
+
+        //한번만 울리는 알람    값을 잘 못받아오면 1분?후에 이거 실행하게 바꿔야함
+        //mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation[0] );
+        //calendar.set(Calendar.MINUTE,0);
 
         for (int i = 0; i < operationNum; i++) {
-            Log.d("Time", String.valueOf(_minute));
+            Log.d(String.valueOf(time), String.valueOf(_minute));
 
             calendar.set(Calendar.HOUR_OF_DAY, time);
+            calendar.set(Calendar.MINUTE, _minute);
 
             operation[i] = PendingIntent.getBroadcast(this, i, intent, 0);
-            //mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation[i]);
-            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
-            time+=3;
 
+            //알람 반복
+            // 10분
+            //mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *10 , operation[i]);
+            // 24시간
+            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
+
+            time+=1;
         }
     }
 
@@ -95,9 +110,6 @@ public class ExampleService extends Service {
 
         startForeground(1, notification);
 
-        //do heavy work on a background thread
-        //stopSelf();
-
         return START_NOT_STICKY;
     }
 
@@ -108,6 +120,10 @@ public class ExampleService extends Service {
             mAlarmManager.cancel(operation[i]);
         }
         Log.d("test", "서비스의 onDestroy");
+    }
+
+    public static AlarmManager getAlarmManager(){
+        return mAlarmManager;
     }
 
     @Nullable

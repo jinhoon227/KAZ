@@ -19,7 +19,6 @@ public class ChartXAxisFormatter extends ValueFormatter {
     @Override
     public String getFormattedValue(float value) {
         // "value" represents the position of the label on the axis (x or y)
-        Log.d("진짜",Float.toString(value));
         return mValues.get((int)value);
     }
 

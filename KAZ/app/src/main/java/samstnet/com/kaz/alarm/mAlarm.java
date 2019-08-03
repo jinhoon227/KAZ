@@ -8,14 +8,12 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
-import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.Service.ExampleService;
 import samstnet.com.kaz.eventbus.Customer;
 
 public class mAlarm extends Service {
 
     static AlarmBroadcastReceiver alarmBroadcastReceiver;
-    static TimePickerFragment timePickerFragment;
     static NotificationManager manager;
     //알람 서비스
     static Intent intent;
@@ -28,7 +26,6 @@ public class mAlarm extends Service {
 
     public void onCreate() {
         alarmBroadcastReceiver=new AlarmBroadcastReceiver();
-        timePickerFragment=new TimePickerFragment();
         manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         intent = new Intent(getApplicationContext(),//현재제어권자
                 ExampleService.class); // 이동할 컴포넌트
@@ -42,7 +39,7 @@ public class mAlarm extends Service {
 
         Log.d("mAlarm","onCreate");
 
-        //앱을 키자마자 알람 설정, 후에 알람 온오프에 따라서 설정을 바꿔줘야함
+
         startAlarm();
     }
 
@@ -53,7 +50,6 @@ public class mAlarm extends Service {
 
     //알람 서비스 종료
     public void stopAlarm(){
-        TimePickerFragment.time=0;
         AlarmBroadcastReceiver.timeCount=0;
         stopService(intent);
     }

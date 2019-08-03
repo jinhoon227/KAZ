@@ -43,10 +43,12 @@
 
         <service android:name=".lockscreen.ScreenService"/>
         <service android:name=".alarm.mAlarm"/>
+        <service android:name=".alarm.NonDisturb"/>
 
         <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
+        <receiver android:name=".alarm.AlarmDisturb"/>
+
         <service android:name=".Service.ExampleService" />
-        <service android:name=".lockscreen.ScreenService"/>
         <!-- BackgroundService -->
         <receiver
             android:name=".lockscreen.ScreenReceiver"
