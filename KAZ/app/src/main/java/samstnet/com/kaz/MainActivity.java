@@ -46,7 +46,10 @@ import samstnet.com.kaz.lockscreen.Menu4FragConfig;
 import samstnet.com.kaz.menu2_store.Menu2FragStore;
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 import samstnet.com.kaz.weekweather.WeekWeatherParser;
-       // import samstnet.com.kaz.menu2_store.Shop_fragment;
+
+        import static samstnet.com.kaz.eventbus.Customer.ALARMEVENT_NUM;
+        import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
+        // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -446,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();// editor에 put 하기
         String tmparr2="";
         String tmparr3="";
-        for(int i=0;i<5;i++) {
+        for(int i=0;i<ITEM_NUM;i++) {
             tmparr2= Customer.item[i].getName()+ "&" + Customer.item[i].getMobile() + "&" +Customer.item[i].getResId() + "&" +Customer.item[i].getPrice()+ "&" + Customer.item[i].isWear() + "&" + Customer.item[i].isBuy();
 
             Log.d("끝날때 여기 저장됨",tmparr2);
@@ -459,6 +462,13 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("plant",tmparr2);
         tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
         editor.putString("setting",tmparr2);
+        for(int i=0;i<ALARMEVENT_NUM-1;i++)
+        {
+            tmparr2= tmparr2+String.valueOf(cus.alarmevent[i])+"&";
+        }
+        tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
+        editor.putString("alarmevent",tmparr2);
+
         editor.commit(); //완료한다.
     }
 
@@ -479,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
             if(bundle!=null)
             {
                 Log.d("강제 종료시 복원 데이터","bundle");
-                for(int i=0;i<5;i++) {
+                for(int i=0;i<ITEM_NUM;i++) {
                     itemtmp[i]=bundle.getString("item"+i,null);
                     Log.d("강제 종료시 복원 데이터"+i,itemtmp[i]);
                     tmparr = itemtmp[i].split("&");
@@ -490,9 +500,15 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("setting",tmparr2);
                 tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum()+"&"+cus.plant1.getLove();
                 bundle.putString("plant",tmparr2);
-
+                for(int i=0;i<ALARMEVENT_NUM-1;i++)
+                {
+                    tmparr2= tmparr2+String.valueOf(cus.alarmevent[i])+"&";
+                }
+                tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
+                bundle.putString("alarmevent",tmparr2);
 
             }
+
         }
     }
 
