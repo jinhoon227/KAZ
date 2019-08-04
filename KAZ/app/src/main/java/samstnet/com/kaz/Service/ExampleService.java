@@ -66,9 +66,6 @@ public class ExampleService extends Service {
 
 
         sendBroadcast(intent);
-        //한번만 울리는 알람    값을 잘 못받아오면 1분?후에 이거 실행하게 바꿔야함
-        //mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation[0] );
-        //calendar.set(Calendar.MINUTE,0);
 
         for (int i = 0; i < operationNum; i++) {
             Log.d(String.valueOf(time), String.valueOf(_minute));
@@ -98,8 +95,8 @@ public class ExampleService extends Service {
         String getTime = sdf.format(date);
         minute = Integer.valueOf(getTime);
 
-        calendar.set(calendar.MINUTE,minute);
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
+       // calendar.set(calendar.MINUTE,minute);
+       // mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
     }
 
     @Override

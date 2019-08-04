@@ -81,8 +81,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         error=false;
 
-        resetItem();
-
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("HH");
@@ -182,12 +180,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AlarmText="아 속안좋아";
         }
 
-    }
-
-    public void resetItem(){
-       for(int i=0;i<cus.plant1.itemNum;i++){
-           cus.plant1.items[i]=false;
-       }
     }
 
     public String heat(){
