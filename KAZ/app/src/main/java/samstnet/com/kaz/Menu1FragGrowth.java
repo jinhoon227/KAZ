@@ -166,8 +166,6 @@ public class Menu1FragGrowth extends Fragment {
       //  textView2.setText(exp_string);
         gifImage=new GlideDrawableImageViewTarget(imageView);
 
-        //textView2.setText(exp_string);
-
 
         gifImage=new GlideDrawableImageViewTarget((imageView));
         if(cus.plant1.getLove()>=70){

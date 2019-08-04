@@ -45,7 +45,7 @@ public class NonDisturb extends Service {
         calendar = Calendar.getInstance();
 
         startTime=22;
-        endTime=8;
+        endTime=7;
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -54,12 +54,10 @@ public class NonDisturb extends Service {
         String getTime = sdf.format(date);
         String getmi=mi.format(date);
         hour = Integer.valueOf(getTime);
-        _minute=Integer.valueOf(getTime);
+        _minute=Integer.valueOf(getmi);
 
         intent = new Intent(getApplicationContext(),//현재제어권자
                 AlarmDisturb.class); // 이동할 컴포넌트
-        _intent=new Intent(getApplicationContext(),//현재제어권자
-                AlarmBroadcastReceiver.class); // 이동할 컴포넌트
         mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         operation= PendingIntent.getBroadcast(this, 0, intent, 0);
 
@@ -78,13 +76,22 @@ public class NonDisturb extends Service {
             }
         }
         Log.d("NonDisturb_minute", "onCreate" );
+
+        //기상 알람
+        calendar.set(Calendar.HOUR_OF_DAY,endTime);
+        calendar.set(Calendar.MINUTE,0);
+
+        Log.d("__NonDisturb_hour", String.valueOf(endTime));
+
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation);
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         customer.setting1.setSoundevent(true);
-
+        mAlarmManager.cancel(operation);
         Log.d("NonDisturb", "서비스의 onDestroy");
     }
 }

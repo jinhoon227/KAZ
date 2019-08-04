@@ -44,12 +44,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Log.d("AlarmBroadcastReceiver","onReceive");
 
         builder=new NotificationCompat.Builder(context,"default");
-        cus=new Customer();
-        if(cus.plant1.getLove()>0)
-        {
-            cus.plant1.setLove(cus.plant1.getLove()-5);
-        }
-        Log.d("love",String.valueOf(cus.plant1.getLove()));
+
         builder.setSmallIcon(R.mipmap.ic_launcher);
         BusProvider.getInstance().register(this);
 
@@ -80,11 +75,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
 
         error=false;
-
-        resetItem();
-
-        mAlarm.manager.notify(1,builder.build());
-
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -186,12 +176,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AlarmText="아 속안좋아";
         }
 
-    }
-
-    public void resetItem(){
-       for(int i=0;i<cus.plant1.itemNum;i++){
-           cus.plant1.items[i]=false;
-       }
     }
 
     public String heat(){
