@@ -112,13 +112,10 @@ public class Customer extends Application {
         Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.bean2 + "&50&false&false";
         Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다&" + R.drawable.sunglassimg + "&60&false&false";
         Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.&" + R.drawable.scarf + "&100&false&false";
-        Intialize_setting= "false&false&false&false&false";
+        Intialize_setting= "true&true&true&true&true";
+        //Intialize_setting="false&false&false&false&false";
         Intialize_itemwear="false&false&false&false&false";
         Intialize_alarmevent="false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false";
-
-
-
-
 
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE); // 선언
@@ -139,6 +136,7 @@ public class Customer extends Application {
             editor.putString("setting", Intialize_setting);
             editor.putString("itemwear", Intialize_itemwear);
             editor.putString("alarmevent",Intialize_alarmevent);
+
             editor.commit(); //완료한다.
         }
         for (int i = 0; i < ITEM_NUM; i++) {

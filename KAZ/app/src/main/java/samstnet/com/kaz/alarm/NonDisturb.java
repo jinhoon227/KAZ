@@ -13,12 +13,12 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.Date;
 
-import samstnet.com.kaz.Service.ExampleService;
+import samstnet.com.kaz.eventbus.Customer;
 
 public class NonDisturb extends Service {
 
-    int startTime,_startTime;
-    int endTime,_endTime;
+    static public int startTime,_startTime;
+    static public int endTime,_endTime;
 
 
     Calendar calendar;
@@ -30,6 +30,7 @@ public class NonDisturb extends Service {
     int _minute;
     int hourDelay=1;
     int temp;
+    Customer customer=new Customer();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -44,7 +45,7 @@ public class NonDisturb extends Service {
         calendar = Calendar.getInstance();
 
         startTime=22;
-        endTime=9;
+        endTime=8;
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -65,6 +66,9 @@ public class NonDisturb extends Service {
         _startTime=startTime;
         if(endTime<startTime) {
             _endTime = endTime+24;
+         }
+        else{
+            _endTime=endTime;
         }
 
         for(int i = startTime ;i < _endTime;i+=hourDelay){
@@ -72,58 +76,14 @@ public class NonDisturb extends Service {
             if(temp>=24){
                 temp-=24;
             }
-
-            Log.d("setTime",String.valueOf(temp));
-            ExampleService.getAlarmManager().cancel(ExampleService.operation[temp]);
         }
-
-        Log.d("NonDisturb_minute", String.valueOf(hour) );
-        Log.d("NonDisturb_startTime", String.valueOf(startTime) );
-
-
-        //만약 지금 설정한 시간이라면 방해금지 키기
-
-        //시작시간은 22시인에 끝나는건 9시 같은 경우
-        if(endTime < startTime){
-            Log.d(String.valueOf(startTime),String.valueOf(hour));
-            // 만약 설정 시간이 2시
-            if(hour<startTime){
-                hour+=24;
-            }
-        }
-        Log.d(String.valueOf(_endTime),String.valueOf(hour));
-
-        if( hour>=startTime && hour<=_endTime ){
-            Log.d("NonDisturb", "onNonDisturb" );
-            //startService(intent);
-
-            sendBroadcast(intent);
-        }
-        else {
-            Log.d("NonDisturb", "timer" );
-
-            calendar.set(Calendar.HOUR_OF_DAY,startTime);
-            calendar.set(Calendar.MINUTE,0);
-            mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation );
-        }
+        Log.d("NonDisturb_minute", "onCreate" );
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for (int i = startTime; i < _endTime; i+=hourDelay) {
-            temp = (i / hourDelay);
-            if(temp>=24){
-                temp-=24;
-            }
-            Log.d("temp",String.valueOf(temp));
-            Log.d("temp",String.valueOf(_minute));
-            calendar.set(Calendar.HOUR_OF_DAY,temp);
-            calendar.set(Calendar.MINUTE,ExampleService._minute);
-            //calendar.set(Calendar.MINUTE,38);
-            ExampleService.getAlarmManager().setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *60 *24 , ExampleService.operation[temp]);
-        }
-       sendBroadcast(_intent);
+        customer.setting1.setSoundevent(true);
 
         Log.d("NonDisturb", "서비스의 onDestroy");
     }

@@ -28,12 +28,13 @@ public class ExampleService extends Service {
 
     static AlarmManager mAlarmManager;
     static public PendingIntent[] operation;
-    static public int _minute;
-    PendingIntent pendingIntent;
+    int _minute;
+    static int minute;
+    static PendingIntent pendingIntent;
     Intent intent;
-    Calendar calendar;
-    static int time = 0;
-    int operationNum = 24;
+    static Calendar calendar;
+    static public int time = 0;
+    static public int operationNum = 24;
 
     @Override
     public void onCreate() {
@@ -57,19 +58,14 @@ public class ExampleService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("mm");
-        String getTime = sdf.format(date);
-        //_minute = Integer.valueOf(getTime);
         _minute=0;
 
         calendar.set(Calendar.MINUTE, _minute);
 
         pendingIntent=PendingIntent.getBroadcast(this, 0, intent, 0);
 
-        sendBroadcast(intent);
 
+        sendBroadcast(intent);
         //한번만 울리는 알람    값을 잘 못받아오면 1분?후에 이거 실행하게 바꿔야함
         //mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation[0] );
         //calendar.set(Calendar.MINUTE,0);
@@ -88,8 +84,22 @@ public class ExampleService extends Service {
             // 24시간
             mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
 
+            //_minute++;
             time+=1;
         }
+    }
+
+    //알람 서비스 시작
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void sendAlarm(){
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("mm");
+        String getTime = sdf.format(date);
+        minute = Integer.valueOf(getTime);
+
+        calendar.set(calendar.MINUTE,minute);
+        mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
     }
 
     @Override
