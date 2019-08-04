@@ -23,7 +23,16 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="0dp"
             android:padding="20dp"
-            android:background="@drawable/frag2background">
+            android:background="@drawable/background_roundshape"
+            >
+            <ImageView
+                android:id="@+id/frag2background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:background="@drawable/dailyweather_ui"
+                app:srcCompat="@drawable/frag2background2"
+                />
 
             <TextView
                 android:id="@+id/textView_money"
@@ -33,7 +42,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
-                android:font="@font/bamin"
+                android:fontFamily="@font/bamin"
                 android:text="TextView"
                 android:textSize="15dp"
                 android:textColor="@color/frag2fontcolor"
@@ -60,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:font="@font/bamin"
+            android:fontFamily="@font/bamin"
             android:text="상점"
             android:textColor="@color/weekchart"
             android:textSize="22dp"

@@ -3,6 +3,7 @@ package samstnet.com.kaz.menu2_store;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -164,6 +165,14 @@ public class Menu2FragStore extends Fragment {
         //wrapping
         listview.setAdapter(animationAdapter);
 
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.frag2background);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            GradientDrawable drawable=
+                    (GradientDrawable) getActivity().getApplicationContext().getDrawable(R.drawable.background_roundimg);
+            imageView.setBackground(drawable);
+            imageView.setClipToOutline(true);
+        }
         //treeview
         treeview = rootView.findViewById(R.id.treeImage);
         gifImage=new GlideDrawableImageViewTarget(treeview);
