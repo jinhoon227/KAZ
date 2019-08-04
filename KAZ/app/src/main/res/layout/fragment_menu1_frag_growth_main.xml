@@ -203,7 +203,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/weather3"
+                        android:id="@+id/weather2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -213,7 +213,7 @@
                         android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/WeatherResult3"
+                        android:id="@+id/WeatherResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/tmon"
@@ -233,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                     <TextView
-                        android:id="@+id/temper3"
+                        android:id="@+id/temper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -243,7 +243,7 @@
                         android:textSize="20dp" />
 
                     <TextView
-                        android:id="@+id/temperResult3"
+                        android:id="@+id/temperResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
