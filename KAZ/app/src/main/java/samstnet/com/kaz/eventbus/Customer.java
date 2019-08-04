@@ -107,11 +107,11 @@ public class Customer extends Application {
         String Intialize_alarmevent;
 
         Initalize_plant = "1&0&PLANT1&1&5&50";
-        Intialize_item[0]= "물뿌리개&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.sprinklerimg+ "&10&false&false";
-        Intialize_item[1]="비료&식물이 더 잘 자랄 수 있는 영양분을 제공합니다&" + R.drawable.img2 + "&20&false&false";
-        Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.img3 + "&50&false&false";
-        Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다&" + R.drawable.sunglassimg + "&60&false&false";
-        Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.&" + R.drawable.scarf + "&100&false&false";
+        Intialize_item[0]= "물뿌리개&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.waterer+ "&10&false&false";
+        Intialize_item[1]="비료&식물이 더 잘 자랄 수 있는 영양분을 제공합니다&" + R.drawable.waterer + "&20&false&false";
+        Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다&" + R.drawable.waterer + "&50&false&false";
+        Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다&" + R.drawable.waterer + "&60&false&false";
+        Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.&" + R.drawable.waterer + "&100&false&false";
         Intialize_setting= "false&false&false&false&false";
         Intialize_itemwear="false&false&false&false&false";
         Intialize_alarmevent="false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false";
