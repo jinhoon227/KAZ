@@ -166,7 +166,11 @@ public class Menu1FragGrowth extends Fragment {
       //  textView2.setText(exp_string);
         gifImage=new GlideDrawableImageViewTarget(imageView);
 
+<<<<<<< HEAD
 
+=======
+        //textView2.setText(exp_string);
+>>>>>>> f9ed9e1d1b120b67a70c70c49d98a358e16291bd
 
 
         gifImage=new GlideDrawableImageViewTarget((imageView));

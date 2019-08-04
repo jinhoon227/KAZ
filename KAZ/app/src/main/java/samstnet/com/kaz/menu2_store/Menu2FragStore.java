@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
 
 import static android.app.Activity.RESULT_OK;
+import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
 
 public class Menu2FragStore extends Fragment {
     MainActivity activity;
@@ -130,6 +132,7 @@ public class Menu2FragStore extends Fragment {
                 {
                     view.setwear(" ");
                 }
+                view.background_change();
             }
             else
             {
@@ -180,7 +183,13 @@ public class Menu2FragStore extends Fragment {
         Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
         statetext = rootView.findViewById(R.id.statetext);
         statetext.setText("기본상태");
+        for(int i=0;i<ITEM_NUM;i++)
+        {
+            if(cus.item[i].isBuy())
+            {
 
+            }
+        }
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
