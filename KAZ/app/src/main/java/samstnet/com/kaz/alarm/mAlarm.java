@@ -40,12 +40,12 @@ public class mAlarm extends Service {
         Log.d("mAlarm","onCreate");
 
 
-        startAlarm();
+//        startAlarm();
     }
 
     //알람 서비스 시작
     public void startAlarm(){
-        startService(intent);
+//        startService(intent);
     }
 
     //알람 서비스 종료

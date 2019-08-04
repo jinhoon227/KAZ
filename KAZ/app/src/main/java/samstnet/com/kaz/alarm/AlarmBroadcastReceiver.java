@@ -72,7 +72,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
 
         resetItem();
-        mAlarm.manager.notify(1,builder.build());
+//        mAlarm.manager.notify(1,builder.build());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
