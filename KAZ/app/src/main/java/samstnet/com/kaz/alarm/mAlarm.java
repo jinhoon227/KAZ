@@ -45,7 +45,7 @@ public class mAlarm extends Service {
 
     //알람 서비스 시작
     public void startAlarm(){
-//        startService(intent);
+        startService(intent);
     }
 
     //알람 서비스 종료
