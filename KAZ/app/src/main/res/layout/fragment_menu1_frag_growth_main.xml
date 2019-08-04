@@ -49,7 +49,7 @@
                         android:layout_width="46dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text="LV"
                         android:textSize="20dp"
                         android:textStyle="bold" />
@@ -58,12 +58,13 @@
                         android:id="@+id/LevelResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text=""
                         android:textColor="#FFFF33"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         tools:text="12345" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -77,18 +78,34 @@
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text="EXP :"
                         android:textSize="20dp" />
 
-                    <TextView
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                        android:layout_width="159dp"
+
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:progress="10"
+                        android:progressDrawable="@drawable/progressbar_progressbar1" />
+                    <!--
+                    android:progressDrawable="@drawable/progressbar_progressbar1"
+                     style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                    android:layout_marginleft="10dp" -->
+                    <!--<TextView
                         android:id="@+id/ExpResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/TmonMonsori"
                         android:text=""
                         android:textSize="20dp"
-                        tools:text="12345" />
+                        tools:text="12345" /> -->
                 </LinearLayout>
             </LinearLayout>
 
@@ -110,7 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text="날씨 : "
                         android:textSize="20dp" />
 
@@ -118,7 +135,7 @@
                         android:id="@+id/WeatherResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text=""
                         android:textSize="20dp"
                         tools:text="12345" />
@@ -136,15 +153,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text="현재 기온 : "
-                        android:textSize="25sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/temperResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bamin"
+                        android:fontFamily="@font/tmon"
                         android:text=""
                         android:textSize="20dp"
                         tools:text="12345" />
@@ -156,7 +173,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"></LinearLayout>
+                android:layout_weight="3">
+
+            </LinearLayout>
+
+
 
             <ImageView
                 android:id="@+id/plant1"

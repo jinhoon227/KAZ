@@ -120,6 +120,9 @@ public class Menu4FragConfig extends Fragment {
         if(!cus.setting1.isSoundevent()){
             Log.d("방해 금지 모드","on");
             sound.setChecked(true);
+
+           getActivity().startService(intent);
+
         }else{
             Log.d("방해 금지 모드","off");
             sound.setChecked(false);
@@ -135,6 +138,7 @@ public class Menu4FragConfig extends Fragment {
                     Log.d("알림 버튼","on");
                     cus.setting1.setCreateevent(false);
                     getContext().startService(MainActivity.intent);
+
                     sound.setEnabled(true);
                     screen.setEnabled(true);
 

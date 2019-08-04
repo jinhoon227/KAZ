@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -39,14 +40,14 @@ public class Menu1FragGrowth extends Fragment {
 
     MainActivity activity;
     Button button;
-    TextView textView,textView2;
+    TextView textView,textView2,textView3;
     TextView temperResult;
     EditText editText;
     TextView resultTextView;
     ImageView imageView=null;
     String level_string, exp_string;
     Customer cus ;
-
+    ProgressBar myProgressBar;
 
     //소현----------------------------------------------------------------
     WeatherEvent weatherinfo = null;
@@ -104,9 +105,21 @@ public class Menu1FragGrowth extends Fragment {
 
     }
     public void ExpUp(plant_info a){
-        a.setExp(a.getExp()+20);
+        if (a.getLevel()==1){
+            a.setExp(a.getExp()+20);
+        }
 
-        if(a.getExp()==100){
+       else if(a.getLevel()==2 || a.getLevel()==3 ||a.getLevel()==4){
+            a.setExp(a.getExp()+15);
+        }
+        else if(a.getLevel()==5 || a.getLevel()==6 || a.getLevel()==7){
+            a.setExp(a.getExp()+10);
+        }
+        else if(a.getLevel()==8 ||a.getLevel()==9 || a.getLevel()>=10){
+            a.setExp(a.getExp()+5);
+        }
+
+        if(a.getExp()>=100){
             LevelUp(a);
             a.setExp(0);
 
@@ -142,14 +155,19 @@ public class Menu1FragGrowth extends Fragment {
         //인덱스 참고 함수
         button=(Button) rootView.findViewById(R.id.button4);
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
-        textView2=(TextView) rootView.findViewById(R.id.ExpResult);
+       // textView2=(TextView) rootView.findViewById(R.id.ExpResult);
         temperResult  =(TextView)rootView.findViewById(R.id.temperResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
         frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
-
-
+         myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
+      //  myProgressBar.setVisibility(View.VISIBLE);
         textView.setText(level_string);
-        textView2.setText(exp_string);
+
+      //  textView2.setText(exp_string);
+        gifImage=new GlideDrawableImageViewTarget(imageView);
+
+        //textView2.setText(exp_string);
+
 
         gifImage=new GlideDrawableImageViewTarget((imageView));
         if(cus.plant1.getLove()>=70){
@@ -170,9 +188,10 @@ public class Menu1FragGrowth extends Fragment {
 
                 exp_string=cus.plant1.getExp()+"";
                 level_string=cus.plant1.getLevel()+"";
-
+                myProgressBar.setProgress(cus.plant1.getExp());
+                myProgressBar.setVisibility(View.VISIBLE);
+                Log.d("경험치",Integer.toString(cus.plant1.getExp()));
                 textView.setText(level_string);
-                textView2.setText(exp_string);
 
             }});
 
@@ -324,9 +343,10 @@ public class Menu1FragGrowth extends Fragment {
             ExpUp(cus.plant1);
             exp_string=cus.plant1.getExp()+"";
             level_string=cus.plant1.getLevel()+"";
-
+            myProgressBar.setProgress(cus.plant1.getExp());
+            myProgressBar.setVisibility(View.VISIBLE);
             textView.setText(level_string);
-            textView2.setText(exp_string);
+           // textView2.setText(exp_string);
             Random rnd = new Random();
             cus.setMoney(cus.getMoney()+rnd.nextInt(10)+5);
         }
@@ -427,11 +447,17 @@ public class Menu1FragGrowth extends Fragment {
         //변경을 다 했다면 FragGrowth보여주기
         frame1.setVisibility(View.VISIBLE);
 
-        exp_string=cus.plant1.getExp()+"";
+        //exp_string=cus.plant1.getExp()+"";
         level_string=cus.plant1.getLevel()+"";
 
         textView.setText(level_string);
-        textView2.setText(exp_string);
+        //textView2.setText(exp_string);
+
+       // myProgressBar.setProgress(cus.plant1.getExp());
+
+         temperResult.setText(MainActivity.tempor.get(0)+"도");
+        //textView3.setText(MainActivity.tempor.get(0));
+
     }
 
 

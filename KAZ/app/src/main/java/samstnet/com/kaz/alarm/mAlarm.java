@@ -38,7 +38,9 @@ public class mAlarm extends Service {
         }
 
         Log.d("mAlarm","onCreate");
+
         startAlarm();
+
     }
 
     //알람 서비스 시작
