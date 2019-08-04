@@ -286,7 +286,7 @@ public class Menu1FragGrowth extends Fragment {
             textView.setText(level_string);
             textView2.setText(exp_string);
             Random rnd = new Random();
-            cus.setMoney(cus.getMoney()+rnd.nextInt(10));
+            cus.setMoney(cus.getMoney()+rnd.nextInt(10)+5);
         }
     };
 

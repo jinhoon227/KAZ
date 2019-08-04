@@ -163,7 +163,7 @@ public class Menu2FragStore extends Fragment {
 
         animationAdapter.setAbsListView(listview);
         //wrapping
-        listview.setAdapter(animationAdapter);
+        listview.setAdapter(StAdapter);
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.frag2background);
 
@@ -173,6 +173,7 @@ public class Menu2FragStore extends Fragment {
             imageView.setBackground(drawable);
             imageView.setClipToOutline(true);
         }
+
         //treeview
         treeview = rootView.findViewById(R.id.treeImage);
         gifImage=new GlideDrawableImageViewTarget(treeview);
@@ -188,12 +189,13 @@ public class Menu2FragStore extends Fragment {
                 Toast.makeText(getActivity(),"선택 "+item.getName(),Toast.LENGTH_SHORT).show();//toast 메세지 출력
                 //팝업 메세지 출력
                 Intent intent = new Intent(getActivity(), PopupActivity.class);
+                Intent intent2  = new Intent(getActivity(),PopupActivity2.class);
                 if (item.isBuy()) {
                     if (item.isWear()) {
-                        intent.putExtra("data", item.getName() + " 장착 해제 합니다");
+                        intent2.putExtra("data", item.getName() + " 장착 해제 합니다");
                         item.setWear(false);
                     } else {
-                        intent.putExtra("data", item.getName() + " 장착 합니다");
+                        intent2.putExtra("data", item.getName() + " 장착 합니다");
                         item.setWear(true);
                         switch (position) {
                             case 0:
@@ -219,14 +221,16 @@ public class Menu2FragStore extends Fragment {
                             default:
                                 Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
                         }
-
                     }
+                    cus.setPosition(position);
+                    startActivityForResult(intent2, 1);
+                    BusProvider.getInstance().post(item);
                 } else {
                     intent.putExtra("data", "아이탬 : " + item.getName() + "를 " + item.getPrice() + "씨앗에 구매하시겠습니까?");
+                    cus.setPosition(position);
+                    startActivityForResult(intent, 1);
+                    BusProvider.getInstance().post(item);
                 }
-                cus.setPosition(position);
-                startActivityForResult(intent, 1);
-                BusProvider.getInstance().post(item);
 
             }
         });
@@ -241,6 +245,7 @@ public class Menu2FragStore extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         int position;
         Intent intent = new Intent(getActivity(), PopupActivity.class);
+        Intent intent2 = new Intent(getActivity(),PopupActivity2.class);
         if(requestCode==1){
             if(resultCode==RESULT_OK){
                 //데이터 받기
@@ -261,12 +266,10 @@ public class Menu2FragStore extends Fragment {
                             Customer.item[position].setBuy(false);
                             intent.putExtra("data", "씨앗이 부족합니다.");
                             startActivityForResult(intent, 0);
-
                         }
                         moneyview.setText(cus.getMoney()+" 씨앗");
                         Log.d("isbuy","들어감 : 돈"+cus.getMoney());
                     }
-
                 }
             }
         }
