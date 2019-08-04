@@ -34,6 +34,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     Customer cus;
     static boolean error;
 
+    //온도
+    String temp;
+    int tem=-1;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -114,9 +118,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setText(){
-        String temp=new String();
+        temp = MainActivity.tempor.get(0);
+        tem=Integer.parseInt(temp);
+
         if(MainActivity.tempor.size()!=0) {
-            temp = MainActivity.tempor.get(0);
             AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도";
         }
         else {
@@ -129,23 +134,48 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
-            AlarmText="구름이 많아요! 흐린 날씨에 주의하세요";
+            if(tem>=30)
+                AlarmText=heat();
+            else if(tem<=0)
+                AlarmText=cold();
+            else
+                AlarmText = "구름이 많아요! 흐린 날씨에 주의하세요";
         }
         else if(MainActivity.wtstate.get(0)=="fewcloud"){
             //AlarmTitle="구름";
-            AlarmText="날씨가 좋아요. 산책하러갈까요?";
+            if(tem>=30)
+                AlarmText=heat();
+            else if(tem<=0)
+                AlarmText=cold();
+            else
+                AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
         else if(MainActivity.wtstate.get(0)=="sun"){
             //AlarmTitle="태양";
-            AlarmText="날씨가 좋아요. 함께 나가요";
+            if(tem>=30)
+                AlarmText=heat();
+            else if(tem<=0)
+                AlarmText=cold();
+            else
+                AlarmText="화창한 날씨에요. 함께 나가요";
         }
         else if(MainActivity.wtstate.get(0)=="rain"){
             //AlarmTitle="비";
-            AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
+            if(tem>=30)
+                AlarmText="지금은 덥고 습한 날씨에요!. 잊지말고 우산 꼭 챙기세요";
+            else if(tem<=0)
+                AlarmText="비예보도 있는데 춥기까지하네. 우산 챙기세요";
+            else
+                AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
         }
         else if(MainActivity.wtstate.get(0)=="snow"){
             //AlarmTitle="눈";
-            AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
+            if(tem>=30)
+                AlarmText="날씨가 미쳤어";
+            else if(tem<=0)
+                AlarmText="영하 온도에 눈까지 와요. 야외 활동을 자제하세요";
+            else
+                AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
         }
         else {
             error=true;
@@ -158,6 +188,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
        for(int i=0;i<cus.plant1.itemNum;i++){
            cus.plant1.items[i]=false;
        }
+    }
+
+    public String heat(){
+        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자세하세요!";
+    }
+
+    public String cold(){
+        return "으슬으슬 너무 추워요. 따뜻하게 입고나가요~";
     }
 
 }

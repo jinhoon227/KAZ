@@ -150,15 +150,17 @@ public class Menu1FragGrowth extends Fragment {
 
         textView.setText(level_string);
         textView2.setText(exp_string);
-        gifImage=new GlideDrawableImageViewTarget(imageView);
 
-        if(cus.plant1.getState()==1)
-            Glide.with(this).load(R.drawable.sad).into(gifImage);
-        else if(cus.plant1.getState()==2)
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
-        else if(cus.plant1.getState()==3)
+        gifImage=new GlideDrawableImageViewTarget((imageView));
+        if(cus.plant1.getLove()>=70){
             Glide.with(this).load(R.drawable.happy).into(gifImage);
-
+        }
+        else if(cus.plant1.getLove()>=30&&cus.plant1.getLove()<70){
+            Glide.with(this).load(R.drawable.normally).into(gifImage);
+        }
+        else if(cus.plant1.getLove()>=0&&cus.plant1.getLove()<30){
+            Glide.with(this).load(R.drawable.sad).into(gifImage);
+        }
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -251,30 +253,70 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.sprinklerButton:
                     setCharacterImage(R.drawable.sprinkler);
                     buttons[0].setVisibility(View.GONE);
+                    if(cus.plant1.getLove()>90)
+                    {
+                        cus.plant1.setLove(100);
+                    }
+                    else{
+                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                    }
+                    Log.d("물뿌리개love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(0);
                     break;
                 //비료 선택
                 case R.id.FertilizerButton:
                     setCharacterImage(R.drawable.scarf);
                     buttons[1].setVisibility(View.GONE);
+                    if(cus.plant1.getLove()>90)
+                    {
+                        cus.plant1.setLove(100);
+                    }
+                    else{
+                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                    }
+                    Log.d("비료love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(1);
                     break;
                 //우산 선택
                 case R.id.unbrellaButton:
                     setCharacterImage(R.drawable.sunglasses);
                     buttons[2].setVisibility(View.GONE);
+                    if(cus.plant1.getLove()>90)
+                    {
+                        cus.plant1.setLove(100);
+                    }
+                    else{
+                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                    }
+                    Log.d("우산love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(2);
                     break;
                 //썬글라스 선택
                 case R.id.hatButton:
                     setCharacterImage(R.drawable.sunglasses);
                     buttons[3].setVisibility(View.GONE);
+                    if(cus.plant1.getLove()>90)
+                    {
+                        cus.plant1.setLove(100);
+                    }
+                    else{
+                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                    }
+                    Log.d("썬글라스love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(3);
                     break;
                 //목도리 선택
                 case R.id.coatButton:
                     setCharacterImage(R.drawable.scarf);
                     buttons[4].setVisibility(View.GONE);
+                    if(cus.plant1.getLove()>90)
+                    {
+                        cus.plant1.setLove(100);
+                    }
+                    else{
+                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                    }
+                    Log.d("목도리love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(4);
                     break;
             }
