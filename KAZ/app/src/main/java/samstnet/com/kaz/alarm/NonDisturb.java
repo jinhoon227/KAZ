@@ -81,9 +81,9 @@ public class NonDisturb extends Service {
         calendar.set(Calendar.HOUR_OF_DAY,endTime);
         calendar.set(Calendar.MINUTE,0);
 
-        //Log.d("__NonDisturb_minute", String.valueOf(_minute+1));
+        Log.d("__NonDisturb_hour", String.valueOf(endTime));
 
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), operation );
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation);
 
     }
 
@@ -91,7 +91,7 @@ public class NonDisturb extends Service {
     public void onDestroy() {
         super.onDestroy();
         customer.setting1.setSoundevent(true);
-
+        mAlarmManager.cancel(operation);
         Log.d("NonDisturb", "서비스의 onDestroy");
     }
 }

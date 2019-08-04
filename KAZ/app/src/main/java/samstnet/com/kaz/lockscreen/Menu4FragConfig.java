@@ -138,6 +138,7 @@ public class Menu4FragConfig extends Fragment {
                     Log.d("알림 버튼","on");
                     cus.setting1.setCreateevent(false);
                     getContext().startService(MainActivity.intent);
+
                     sound.setEnabled(true);
                     screen.setEnabled(true);
 

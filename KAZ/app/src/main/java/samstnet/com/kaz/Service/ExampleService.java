@@ -95,7 +95,7 @@ public class ExampleService extends Service {
         String getTime = sdf.format(date);
         minute = Integer.valueOf(getTime);
 
-       // calendar.set(calendar.MINUTE,minute);
+        //calendar.set(calendar.MINUTE,minute);
        // mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent );
     }
 
