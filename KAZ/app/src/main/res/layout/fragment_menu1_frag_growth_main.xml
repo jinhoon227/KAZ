@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/sunnyday" />
+            android:src="@drawable/sunny_night" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -168,14 +168,102 @@
                 </LinearLayout>
 
             </LinearLayout>
+--> <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="5"
+                android:background="@drawable/wood2">
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/weather3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/tmon"
+                        android:text="날씨 : "
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/WeatherResult3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/tmon"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:textSize="20dp"
+                        tools:text="12345" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="29dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/temper3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/tmon"
+                        android:text="현재 기온 : "
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/temperResult3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/tmon"
+                        android:text=""
+                        android:textSize="20dp"
+                        tools:text="12345" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3">
-
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
             </LinearLayout>
+
+            
 
 
 
