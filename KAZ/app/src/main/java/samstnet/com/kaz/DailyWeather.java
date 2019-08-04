@@ -181,18 +181,19 @@ public class DailyWeather extends Fragment {
         }
         //시간 스트링으로변경
         int cnt=0;
-        for(int i=0;i<time.size();i++){
+        timeStr.add("현재 날씨");
+        for(int i=1;i<time.size();i++){
             if(time.get(i)<10){
                 if(cnt==0) {
-                    timeStr.add("오늘 "+"0" + time.get(i));
+                    timeStr.add("오늘 "+"0" + time.get(i)+"시");
                 }else{
-                    timeStr.add("내일 "+"0" + time.get(i));
+                    timeStr.add("내일 "+"0" + time.get(i)+"시");
                 }
             }else{
                 if(cnt==0) {
-                    timeStr.add("오늘 "+ time.get(i));
+                    timeStr.add("오늘 "+ time.get(i)+"시");
                 }else{
-                    timeStr.add("내일 "+ time.get(i));
+                    timeStr.add("내일 "+ time.get(i)+"시");
                 }
             }
             if(time.get(i)==21)
