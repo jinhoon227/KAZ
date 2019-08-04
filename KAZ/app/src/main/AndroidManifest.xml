@@ -38,6 +38,7 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".menu2_store.PopupActivity2" android:theme="@android:style/Theme.Dialog" />
 
         <activity android:name=".lockscreen.LockScreenActivity" />
 
