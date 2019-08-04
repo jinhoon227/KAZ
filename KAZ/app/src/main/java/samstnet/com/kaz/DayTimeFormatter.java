@@ -53,6 +53,7 @@ public class DayTimeFormatter {
             night="낮";
         }
 
+
         if(nowTime<tagetTime[1]){
             //오늘 베이스타임이 업데이트 되지않았다면 이전날 데이터를 이용
             baseTime=yesterday[0]+yesterday[1]+yesterday[2];

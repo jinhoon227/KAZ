@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,7 +55,7 @@ public class LockScreenActivity extends Activity {
     String level_string, exp_string;
     Customer cus;
     GlideDrawableImageViewTarget gifImage, backgif;
-
+    ProgressBar myProgressBar;
 
     private boolean isBind;
     private static Intent serviceIntent;
@@ -121,9 +122,21 @@ public class LockScreenActivity extends Activity {
     }
 
     public void ExpUp(plant_info a) {
-        a.setExp(a.getExp() + 20);
+        if (a.getLevel()==1){
+            a.setExp(a.getExp()+20);
+        }
 
-        if (a.getExp() == 100) {
+        else if(a.getLevel()==2 || a.getLevel()==3 ||a.getLevel()==4){
+            a.setExp(a.getExp()+15);
+        }
+        else if(a.getLevel()==5 || a.getLevel()==6 || a.getLevel()==7){
+            a.setExp(a.getExp()+10);
+        }
+        else if(a.getLevel()==8 ||a.getLevel()==9 || a.getLevel()>=10){
+            a.setExp(a.getExp()+5);
+        }
+
+        if(a.getExp()>=100){
             LevelUp(a);
             a.setExp(0);
 
@@ -204,9 +217,9 @@ public class LockScreenActivity extends Activity {
         // Nolock=(Button) findViewById(R.id.nolock);
         button = (Button) findViewById(R.id.button4);
         textView = (TextView) findViewById(R.id.LevelResult);
-        textView2 = (TextView) findViewById(R.id.ExpResult);
+       // textView2 = (TextView) findViewById(R.id.ExpResult);
         imageView = (ImageView) findViewById(R.id.plant1);
-
+        myProgressBar=(ProgressBar)findViewById(R.id.progressBar);
 
         textView3 = (TextView) findViewById(R.id.temperResult);
         // textView4=(TextView)findViewById(R.id.tvBclock);
@@ -382,7 +395,7 @@ public class LockScreenActivity extends Activity {
             level_string = cus.plant1.getLevel() + "";
 
             textView.setText(level_string);
-            textView2.setText(exp_string);
+           // textView2.setText(exp_string);
 
         }
     };
@@ -452,10 +465,11 @@ public class LockScreenActivity extends Activity {
 
         exp_string=cus.plant1.getExp()+"";
         level_string=cus.plant1.getLevel()+"";
+    //    myProgressBar.setProgress(cus.plant1.getExp());
 
         textView.setText(level_string);
-        textView2.setText(exp_string);
-
+       // textView2.setText(exp_string);
+        textView3.setText(tempor.get(0)+"도");
         //아이템 적용 함수
         //----------------------------------------------------------------
 
