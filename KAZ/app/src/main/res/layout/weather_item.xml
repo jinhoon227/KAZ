@@ -47,13 +47,16 @@
                 android:textColor="@color/wtmiddlefont"
                 android:textSize="20dp" />
 
+            <!--
             <TextView
+                android:id="@+id/hourText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bamin"
                 android:text="시"
                 android:textColor="@color/wtfont"
                 android:textSize="18dp" />
+              -->
         </LinearLayout>
 
         <LinearLayout
