@@ -13,7 +13,9 @@ import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.WeatherEvent;
@@ -27,6 +29,25 @@ public class DailyWeather extends Fragment {
     ArrayList<String> timeStr = new ArrayList<>();
     //int img[]=new int[15];
     ArrayList<Integer> img=new ArrayList<>();
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //장시간 백그라운드에 있다가 다시 돌아왔을때 날씨가 변경되었으면 해당부분실행
+        //날씨 다시가져와서 리스트 업데이트(리스트는 업데이트는 finshload 호출을통해서)
+        //finshload 로 뿌려주기에 주간도 업데이트됨
+        if(time.size()!=0){
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            String getTime = sdf.format(date);
+            String today[] = getTime.split("-");
+            if(Integer.parseInt(today[3])>=time.get(0)+3) {
+                Log.d("resume", "yes");
+                ((MainActivity) getActivity()).UsingGps();
+            }
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

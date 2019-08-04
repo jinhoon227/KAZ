@@ -11,4 +11,6 @@
     <color name="wtfont">#77AF9C</color>
     <color name="wtdeepfont">#285943</color>
     <color name="wtmiddlefont">#548687</color>
+    <color name="frag2fontcolor">#3b8686</color>
+    <color name="background3">#D9D4CF</color>
 </resources>

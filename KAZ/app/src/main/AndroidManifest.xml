@@ -18,8 +18,8 @@
         android:allowBackup="true"
         android:name=".eventbus.Customer"
 
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher_zack"
+        android:label="콩과잭나무"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -38,6 +38,7 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".menu2_store.PopupActivity2" android:theme="@android:style/Theme.Dialog" />
 
         <activity android:name=".lockscreen.LockScreenActivity" />
 

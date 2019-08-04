@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -14,8 +15,11 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.util.Date;
+
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
+import samstnet.com.kaz.Service.ExampleService;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 
@@ -28,7 +32,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     Uri ringtoneUri;
     NotificationCompat.Builder builder;
     Customer cus;
+    static boolean error;
 
+    //온도
+    String temp;
+    int tem=-1;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -71,19 +79,58 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setVibrate(vibrate);
         builder.setAutoCancel(true); //notification을 클릭을 하면 notification이 날라가게 할 것인가
 
+        error=false;
+
         resetItem();
-//        mAlarm.manager.notify(1,builder.build());
+
+        mAlarm.manager.notify(1,builder.build());
+
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        String getTime = sdf.format(date);
+        int hour = Integer.valueOf(getTime);
+
+        if(NonDisturb.startTime>NonDisturb.endTime)
+            hour+=24;
+
+        Log.d("검사들어가유",String.valueOf(hour));
+
+        if(!cus.setting1.isSoundevent()) {
+            if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
+                mAlarm.manager.notify(1, builder.build());
+                if(error) {
+                    Log.d("Alarm","아 에러;;");
+                    ExampleService.sendAlarm();
+                }
+            }
+            else {
+                Log.d("방해금지시간이에유", "옹");
+            }
+        }
+        else {
+            mAlarm.manager.notify(1, builder.build());
+            if(error) {
+                Log.d("Alarm","또 에러;;");
+                ExampleService.sendAlarm();
+            }
+        }
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setText(){
-        String temp=new String();
+        temp = MainActivity.tempor.get(0);
+        tem=Integer.parseInt(temp);
+
         if(MainActivity.tempor.size()!=0) {
-            temp = MainActivity.tempor.get(0);
             AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도";
         }
         else {
-            AlarmText="저는 집에 갈 수 없어요ㅜㅜ";
+            error=true;
+            AlarmTitle="저는 집에 갈 수 없어요ㅜㅜ";
         }
 
         if(MainActivity.wtstate.size()==0){
@@ -91,25 +138,51 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
-            AlarmText="구름이 많아요! 흐린 날씨에 주의하세요";
+            if(tem>=30)
+                AlarmText=heat();
+            else if(tem<=0)
+                AlarmText=cold();
+            else
+                AlarmText = "구름이 많아요! 흐린 날씨에 주의하세요";
         }
         else if(MainActivity.wtstate.get(0)=="fewcloud"){
             //AlarmTitle="구름";
-            AlarmText="날씨가 좋아요. 산책하러갈까요?";
+            if(tem>=30)
+                AlarmText=heat();
+            else if(tem<=0)
+                AlarmText=cold();
+            else
+                AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
         else if(MainActivity.wtstate.get(0)=="sun"){
             //AlarmTitle="태양";
-            AlarmText="날씨가 좋아요. 함께 나가요";
+            if(tem>=30)
+                AlarmText=heat();
+            else if(tem<=0)
+                AlarmText=cold();
+            else
+                AlarmText="화창한 날씨에요. 함께 나가요";
         }
         else if(MainActivity.wtstate.get(0)=="rain"){
             //AlarmTitle="비";
-            AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
+            if(tem>=30)
+                AlarmText="지금은 덥고 습한 날씨에요!. 잊지말고 우산 꼭 챙기세요";
+            else if(tem<=0)
+                AlarmText="비예보도 있는데 춥기까지하네. 우산 챙기세요";
+            else
+                AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
         }
         else if(MainActivity.wtstate.get(0)=="snow"){
             //AlarmTitle="눈";
-            AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
+            if(tem>=30)
+                AlarmText="날씨가 미쳤어";
+            else if(tem<=0)
+                AlarmText="영하 온도에 눈까지 와요. 야외 활동을 자제하세요";
+            else
+                AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
         }
         else {
+            error=true;
             AlarmText="아 속안좋아";
         }
 
@@ -119,6 +192,14 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
        for(int i=0;i<cus.plant1.itemNum;i++){
            cus.plant1.items[i]=false;
        }
+    }
+
+    public String heat(){
+        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자세하세요!";
+    }
+
+    public String cold(){
+        return "으슬으슬 너무 추워요. 따뜻하게 입고나가요~";
     }
 
 }

@@ -78,7 +78,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10시~9시 사이에는 알람이 울리지 않게 합니다." />
+                android:text="10시~8시 사이에는 알람이 울리지 않게 합니다." />
 
         </LinearLayout>
 

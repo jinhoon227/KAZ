@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shop_item_ui"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,6 +15,7 @@
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:padding="5dp"
         android:src="@mipmap/ic_launcher" />
 
 
@@ -27,10 +29,13 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentTop="true"
                 android:text="이름"
-                android:textColor="@color/lightblue"
-                android:textSize="20dp" />
+                android:fontFamily="@font/bamin"
+                android:textColor="@color/frag2fontcolor"
+                android:textSize="20dp"
+                />
 
             <TextView
                 android:id="@+id/textView2"
@@ -39,9 +44,10 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:text="TextView"
+                android:fontFamily="@font/bamin"
                 android:textSize="10dp" />
 
             <TextView
@@ -54,6 +60,7 @@
                 android:layout_marginEnd="27dp"
                 android:layout_marginRight="27dp"
                 android:layout_marginBottom="28dp"
+                android:fontFamily="@font/bamin"
                 android:text="TextView" />
 
         </RelativeLayout>
