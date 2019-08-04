@@ -91,7 +91,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Log.d("검사들어가유",String.valueOf(hour));
 
         if(!cus.setting1.isSoundevent()) {
-            if (!(NonDisturb.startTime <= hour && NonDisturb._endTime >= hour)) {
+            if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
                 mAlarm.manager.notify(1, builder.build());
                 if(error) {
                     Log.d("Alarm","아 에러;;");
