@@ -38,14 +38,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".menu2_store.PopupActivity2" android:theme="@android:style/Theme.Dialog" />
 
         <activity android:name=".lockscreen.LockScreenActivity" />
 
-        <service android:name=".lockscreen.ScreenService"/>
+        <service android:name=".lockscreen.ScreenService"
+            android:screenOrientation="portrait"/>
         <service android:name=".alarm.mAlarm"/>
         <service android:name=".alarm.NonDisturb"/>
 
