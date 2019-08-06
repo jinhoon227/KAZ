@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
         }
         tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
         editor.putString("alarmevent",tmparr2);
-
+        editor.putString("stateTime",String.valueOf(cus.getStateTime()));
         editor.commit(); //완료한다.
     }
 
@@ -539,6 +539,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
                 bundle.putString("alarmevent",tmparr2);
+                bundle.putString("stateTime",String.valueOf(cus.getStateTime()));
 
             }
 

@@ -17,6 +17,8 @@ public class Customer extends Application {
 
     public static SettingEvent setting1;
 
+    public static int stateTime;
+
     public static final String CHANNEL_ID = "exampleServiceChannel";
 
     //아이탬 갯수 수정시에 추가
@@ -87,6 +89,14 @@ public class Customer extends Application {
         Customer.alarmevent = alarmevent;
     }
 
+    public static int getStateTime() {
+        return stateTime;
+    }
+
+    public static void setStateTime(int stateTime) {
+        Customer.stateTime = stateTime;
+    }
+
     public void onCreate() {
         super.onCreate();
         boolean[] items = {false, false, false, false, false};
@@ -98,6 +108,7 @@ public class Customer extends Application {
         String settmp;
         String itemWearTmp;
         String alarmeventtmp;
+        String timetmp;
 
         //처음 기본 데이터 저장하는 Customer
         String Initalize_plant;
@@ -105,6 +116,8 @@ public class Customer extends Application {
         String Intialize_setting;
         String Intialize_itemwear;
         String Intialize_alarmevent;
+        String Intialize_timestate;
+
 
         Initalize_plant = "1&0&PLANT1&1&5&50";
 
@@ -117,7 +130,7 @@ public class Customer extends Application {
         //Intialize_setting="false&false&false&false&false";
         Intialize_itemwear="false&false&false&false&false";
         Intialize_alarmevent="false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false&false";
-
+        Intialize_timestate="0";
 
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE); // 선언
         SharedPreferences prefs = getSharedPreferences("pref", MODE_PRIVATE); // 선언
@@ -137,7 +150,7 @@ public class Customer extends Application {
             editor.putString("setting", Intialize_setting);
             editor.putString("itemwear", Intialize_itemwear);
             editor.putString("alarmevent",Intialize_alarmevent);
-
+            editor.putString("stateTime",Intialize_timestate);
             editor.commit(); //완료한다.
         }
         for (int i = 0; i < ITEM_NUM; i++) {
@@ -169,6 +182,8 @@ public class Customer extends Application {
         tmparr = settmp.split("&");
         setting1 = new SettingEvent(Boolean.valueOf(tmparr[0]), Boolean.valueOf(tmparr[1]), Boolean.valueOf(tmparr[2]), Boolean.valueOf(tmparr[3]));
         Log.d("고객 돈 :", "" + money);
+        timetmp = prefs.getString("stateTime",Intialize_timestate);
+        stateTime = Integer.parseInt(timetmp);
         createNotificationChannel();
     }
 
