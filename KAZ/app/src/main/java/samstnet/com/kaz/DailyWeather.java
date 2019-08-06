@@ -157,23 +157,26 @@ public class DailyWeather extends Fragment {
             Log.d("i size",String.valueOf(i));
             if(wtstate.get(i)=="sun"){
                 //img[i]=R.drawable.sunny;
-                img.add(R.drawable.sunny);
+                if(DayTimeFormatter.night=="밤"){
+                    img.add(R.drawable.sunynight1);
+                }
+                img.add(R.drawable.sunny1);
             }
             else if(wtstate.get(i)=="fewcloud"){
                 //img[i]=R.drawable.cloudy;
-                img.add(R.drawable.cloudy);
+                img.add(R.drawable.fewcloud1);
             }
             else if(wtstate.get(i)=="manycloud"){
                 //img[i]=R.drawable.cloudy2;
-                img.add(R.drawable.cloudy2);
+                img.add(R.drawable.manycloud1);
             }
             else if(wtstate.get(i)=="rain"){
                 //img[i]=R.drawable.rainy;
-                img.add(R.drawable.rainy);
+                img.add(R.drawable.rainny1);
             }
             else if(wtstate.get(i)=="snow"){
                 // img[i]=R.drawable.snowy;
-                img.add(R.drawable.snowy);
+                img.add(R.drawable.snow1);
             }
             else{
                 // img[i]=R.drawable.xkon;
