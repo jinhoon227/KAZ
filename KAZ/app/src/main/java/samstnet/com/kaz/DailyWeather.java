@@ -157,16 +157,16 @@ public class DailyWeather extends Fragment {
             Log.d("i size",String.valueOf(i));
             if(wtstate.get(i)=="sun"){
                 //img[i]=R.drawable.sunny;
-               
-                img.add(R.drawable.sunnyDay2);
+
+                img.add(R.drawable.sunnyday3);
             }
             else if(wtstate.get(i)=="fewcloud"){
                 //img[i]=R.drawable.cloudy;
-                img.add(R.drawable.fewCloud2);
+                img.add(R.drawable.fewcloud3);
             }
             else if(wtstate.get(i)=="manycloud"){
                 //img[i]=R.drawable.cloudy2;
-                img.add(R.drawable.manyCloud2);
+                img.add(R.drawable.manycloud3);
             }
             else if(wtstate.get(i)=="rain"){
                 //img[i]=R.drawable.rainy;
