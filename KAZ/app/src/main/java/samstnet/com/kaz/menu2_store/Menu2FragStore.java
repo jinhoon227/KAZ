@@ -228,7 +228,7 @@ public class Menu2FragStore extends Fragment {
                                 statetext.setText("목도리 쓰는중");
                                 break;
                             default:
-                                Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
+                                Glide.with(getActivity()).load(R.drawable.bean1_normal).into(gifImage);
                         }
                     }
                     cus.setPosition(position);

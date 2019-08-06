@@ -433,7 +433,7 @@ public class LockScreenActivity extends Activity {
             textview_1.setText("fewcloud");
         } else if (wtstate.get(0) == "sun") {
             index = 2;
-            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
+            Glide.with(this).load(R.drawable.sunny_day).into(backgif);
 
             //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("sun");
