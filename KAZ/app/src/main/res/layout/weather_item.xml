@@ -78,19 +78,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="°C"
-                android:textColor="@color/wtfont"
+                android:textColor="@color/wtmiddlefont"
                 android:textSize="18dp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/textView2"
+            android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bamin"
             android:text="날씨상태"
             android:textColor="@color/wtfont"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:textSize="18dp" />
     </LinearLayout>
 </LinearLayout>

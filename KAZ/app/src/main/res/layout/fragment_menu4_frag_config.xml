@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/bamin"
             android:text="알림"
             android:textSize="20dp" />
 
@@ -41,20 +42,25 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/bamin"
             android:layout_marginBottom="10dp"
+            android:paddingRight="20dp"
             android:text="날씨 정보를 배너로 확인할 수 있습니다" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:background="@drawable/sub_config_ui"
+            android:paddingLeft="10dp"
+            android:paddingBottom="20dp">
 
             <Switch
                 android:id="@+id/screen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/bamin"
                 android:text="잠금설정"
                 android:textSize="17dp" />
 
@@ -63,6 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/bamin"
+                android:paddingRight="30dp"
                 android:text="잠금화면에서도 식물을 확인할 수 있습니다." />
 
             <Switch
@@ -70,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:fontFamily="@font/bamin"
                 android:text="방해 금지 모드"
                 android:textSize="17dp" />
 
@@ -78,6 +87,8 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/bamin"
+                android:paddingRight="30dp"
                 android:text="10시~7시 사이에는 알람이 울리지 않게 합니다." />
 
         </LinearLayout>
