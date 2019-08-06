@@ -53,6 +53,7 @@ public class Menu1FragGrowth extends Fragment {
     ProgressBar myProgressBar;
     TextView city_text;
     Button gps_button;
+    TextView jack_content;
 
     //소현----------------------------------------------------------------
     WeatherEvent weatherinfo = null;
@@ -177,6 +178,7 @@ public class Menu1FragGrowth extends Fragment {
             }
         });
 
+        jack_content=rootView.findViewById(R.id.jack_content);
       //  textView2.setText(exp_string);
         gifImage=new GlideDrawableImageViewTarget(imageView);
 
@@ -429,7 +431,8 @@ public class Menu1FragGrowth extends Fragment {
             index=0;
             //imageView_1.setImageResource(R.drawable.spring);
             Glide.with(this).load(R.drawable.many_cloud).into(backgif);
-            textview_1.setText("manycloud");
+            textview_1.setText("구름");
+            jack_content.setText("목말라요..물이 필요해요!");
 
         }
         else if(wtstate.get(0)=="fewcloud"){
@@ -446,8 +449,8 @@ public class Menu1FragGrowth extends Fragment {
                 Log.d("낮","낮");
 
             }
-            textview_1.setText("fewcloud");
-
+            textview_1.setText("구름");
+            jack_content.setText("목말라요..물이 필요해요!");
 
 
 
@@ -461,7 +464,8 @@ public class Menu1FragGrowth extends Fragment {
                 Glide.with(this).load(R.drawable.sunny_day).into(backgif);
             }
             //imageView_1.setImageResource(R.drawable.summer);
-            textview_1.setText("sun");
+            textview_1.setText("맑은");
+            jack_content.setText("더워요! 햇빛을 막아주세요!");
 
         }
         else if(wtstate.get(0)=="rain"){
@@ -469,14 +473,16 @@ public class Menu1FragGrowth extends Fragment {
             //imageView_1.setImageResource(R.drawable.winter);
             Glide.with(this).load(R.drawable.rain).into(backgif);
 
-            textview_1.setText("rain");
+            textview_1.setText("비오는");
+            jack_content.setText("비가 너무와요! 우산을 씌워줘요!");
         }
         else if(wtstate.get(0)=="snow"){
             index=4;
             //imageView_1.setImageResource(R.drawable.sunny);
             Glide.with(this).load(R.drawable.snow).into(backgif);
 
-            textview_1.setText("snow");
+            textview_1.setText("눈오는");
+            jack_content.setText("추워요..입을게 필요해요!");
         }
         else if(wtstate.get(0)=="empty"){
             index=0;
@@ -502,7 +508,7 @@ public class Menu1FragGrowth extends Fragment {
 
        // myProgressBar.setProgress(cus.plant1.getExp());
 
-         temperResult.setText(MainActivity.tempor.get(0)+"도");
+         temperResult.setText(MainActivity.tempor.get(0));
         //textView3.setText(MainActivity.tempor.get(0));
 
     }
