@@ -170,7 +170,7 @@ public class DailyWeather extends Fragment {
             }
             else if(wtstate.get(i)=="rain"){
                 //img[i]=R.drawable.rainy;
-                img.add(R.drawable.rainny2);
+                img.add(R.drawable.rainny3);
             }
             else if(wtstate.get(i)=="snow"){
                 // img[i]=R.drawable.snowy;
