@@ -93,17 +93,14 @@ public class Menu1FragGrowth extends Fragment {
     public void LevelUp(plant_info a){
 
         a.setLevel(a.getLevel()+1);
-
         if(a.getLevel()==5 ){
-            a.setState(a.getState()+1);
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
-        }
-        else if(a.getLevel()==10){
-            a.setState(a.getState()+1);
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
-        }
-
+        a.setState(a.getState()+1);
     }
+        else if(a.getLevel()==10){
+        a.setState(a.getState()+1);
+    }
+
+}
     public void ExpUp(plant_info a){
         if (a.getLevel()==1){
             a.setExp(a.getExp()+20);
@@ -122,6 +119,8 @@ public class Menu1FragGrowth extends Fragment {
         if(a.getExp()>=100){
             LevelUp(a);
             a.setExp(0);
+            Log.d("식물 상태 ",""+cus.plant1.getState());
+            Glide.with(this).load(plantEmotion()).into(gifImage);
 
         }
 
@@ -168,15 +167,9 @@ public class Menu1FragGrowth extends Fragment {
 
 
         gifImage=new GlideDrawableImageViewTarget((imageView));
-        if(cus.plant1.getLove()>=70){
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
-        }
-        else if(cus.plant1.getLove()>=30&&cus.plant1.getLove()<70){
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
-        }
-        else if(cus.plant1.getLove()>=0&&cus.plant1.getLove()<30){
-            Glide.with(this).load(R.drawable.sad).into(gifImage);
-        }
+
+        Glide.with(this).load(plantEmotion()).into(gifImage);
+
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -254,9 +247,50 @@ public class Menu1FragGrowth extends Fragment {
         time.addAll(mWeatherEvent.getTime());
         getIndex();
     }
-
-    public void setCharacterImage(int url){
-        Glide.with(this).load(url).into(gifImage);
+    public void setCharacterImage(int viewId){
+        Glide.with(this).load(viewId).into(gifImage);
+    }
+    public int setCharacterImageById(View view){
+       if(cus.plant1.getState()==1) {
+            if (view.getId() == R.id.sprinklerButton) {
+                return R.drawable.bean1_sprinkler;
+            } else if (view.getId() == R.id.FertilizerButton) {
+                return R.drawable.bean1_happy;
+            } else if (view.getId() == R.id.unbrellaButton) {
+                return R.drawable.bean1_happy;
+            } else if (view.getId() == R.id.hatButton) {
+                return R.drawable.bean1_sunglass;
+            } else if (view.getId() == R.id.coatButton) {
+                return R.drawable.bean1_scarf;
+            }
+        }
+        if(cus.plant1.getState()==2) {
+            if (view.getId() == R.id.sprinklerButton) {
+                return R.drawable.bean2_sprinkler;
+            } else if (view.getId() == R.id.FertilizerButton) {
+                return R.drawable.bean2_happy;
+            } else if (view.getId() == R.id.unbrellaButton) {
+                return R.drawable.bean2_happy;
+            } else if (view.getId() == R.id.hatButton) {
+                return R.drawable.bean2_sunglass;
+            } else if (view.getId() == R.id.coatButton) {
+                return R.drawable.bean2_scarf;
+            }
+        }
+        if(cus.plant1.getState()==3) {
+            if (view.getId() == R.id.sprinklerButton) {
+                return R.drawable.bean3_sprinkler;
+            } else if (view.getId() == R.id.FertilizerButton) {
+                return R.drawable.bean3_happy;
+            } else if (view.getId() == R.id.unbrellaButton) {
+                return R.drawable.bean3_happy;
+            } else if (view.getId() == R.id.hatButton) {
+                return R.drawable.bean3_sunglass;
+            } else if (view.getId() == R.id.coatButton) {
+                return R.drawable.bean3_scarf;
+            }
+        }
+        return 0;
     }
 
 
@@ -268,7 +302,7 @@ public class Menu1FragGrowth extends Fragment {
             switch (view.getId()){
                 //물뿌리개 선택
                 case R.id.sprinklerButton:
-                    setCharacterImage(R.drawable.sprinkler);
+                    setCharacterImage(setCharacterImageById(view));
                     buttons[0].setVisibility(View.GONE);
                     if(cus.plant1.getLove()>90)
                     {
@@ -282,7 +316,7 @@ public class Menu1FragGrowth extends Fragment {
                     break;
                 //비료 선택
                 case R.id.FertilizerButton:
-                    setCharacterImage(R.drawable.scarf);
+                    setCharacterImage(setCharacterImageById(view));
                     buttons[1].setVisibility(View.GONE);
                     if(cus.plant1.getLove()>90)
                     {
@@ -296,7 +330,7 @@ public class Menu1FragGrowth extends Fragment {
                     break;
                 //우산 선택
                 case R.id.unbrellaButton:
-                    setCharacterImage(R.drawable.sunglasses);
+                    setCharacterImage(setCharacterImageById(view));
                     buttons[2].setVisibility(View.GONE);
                     if(cus.plant1.getLove()>90)
                     {
@@ -310,7 +344,7 @@ public class Menu1FragGrowth extends Fragment {
                     break;
                 //썬글라스 선택
                 case R.id.hatButton:
-                    setCharacterImage(R.drawable.sunglasses);
+                    setCharacterImage(setCharacterImageById(view));
                     buttons[3].setVisibility(View.GONE);
                     if(cus.plant1.getLove()>90)
                     {
@@ -324,7 +358,7 @@ public class Menu1FragGrowth extends Fragment {
                     break;
                 //목도리 선택
                 case R.id.coatButton:
-                    setCharacterImage(R.drawable.scarf);
+                    setCharacterImage(setCharacterImageById(view));
                     buttons[4].setVisibility(View.GONE);
                     if(cus.plant1.getLove()>90)
                     {
@@ -462,6 +496,43 @@ public class Menu1FragGrowth extends Fragment {
     //아이템 적용 함수
 
     //----------------------------------------------------------------
+    public int plantEmotion() {
+        if (cus.plant1.getState() == 1) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean1_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean1_normal;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean1_sad;
+            }
 
+        } else if (cus.plant1.getState() == 2) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean2_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean2_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean2_sad;
+            }
+        } else if (cus.plant1.getState() == 2) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean3_sad;
+            }
+        }
+        else if (cus.plant1.getState() == 3) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean3_sad;
+            }
+        }
+        return R.drawable.bean1_normal;
+    }
 
 }
