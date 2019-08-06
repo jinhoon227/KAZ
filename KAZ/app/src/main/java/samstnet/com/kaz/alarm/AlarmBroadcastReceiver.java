@@ -130,11 +130,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
         else {
             error=true;
-            AlarmTitle="저는 집에 갈 수 없어요ㅜㅜ";
+            AlarmTitle="에러가 났어요! ㅠㅠ";
         }
 
         if(MainActivity.wtstate.size()==0){
-            AlarmText="새로고침해라";
+            AlarmText="앱을 다시 켜주세요!";
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
@@ -143,7 +143,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             else if(tem<=0)
                 AlarmText=cold();
             else
-                AlarmText = "구름이 많아요! 흐린 날씨에 주의하세요";
+                AlarmText = "구름이 많아요! 날씨가 흐려도 기운내세요";
+
         }
         else if(MainActivity.wtstate.get(0)=="fewcloud"){
             //AlarmTitle="구름";
@@ -183,13 +184,13 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
         else {
             error=true;
-            AlarmText="아 속안좋아";
+            AlarmText="알람을 껐다 켜주세요!";
         }
 
     }
 
     public String heat(){
-        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자세하세요!";
+        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자제하세요!";
     }
 
     public String cold(){

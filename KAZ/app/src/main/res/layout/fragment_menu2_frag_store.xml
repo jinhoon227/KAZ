@@ -86,7 +86,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/bamin"
                             android:text="siat"
-                            android:textSize="13dp"
+                            android:textSize="15dp"
                             android:paddingLeft="10dp"
                             android:layout_gravity="left"
                             android:textColor="@color/frag2fontcolor"
@@ -105,7 +105,7 @@
                                 android:fontFamily="@font/bamin"
                                 android:layout_gravity="right"
                                 android:textColor="@color/frag2fontcolor"
-                                android:textSize="13dp"
+                                android:textSize="15dp"
                                 />
                         </LinearLayout>
                     </LinearLayout>

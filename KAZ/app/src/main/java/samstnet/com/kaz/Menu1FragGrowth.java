@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,6 +32,7 @@ import samstnet.com.kaz.eventbus.plant_info;
 
 import static samstnet.com.kaz.DayTimeFormatter.night;
 import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
+import static samstnet.com.kaz.MainActivity.cityInfo;
 
 
 public class Menu1FragGrowth extends Fragment {
@@ -48,6 +51,9 @@ public class Menu1FragGrowth extends Fragment {
     String level_string, exp_string;
     Customer cus ;
     ProgressBar myProgressBar;
+    TextView city_text;
+    Button gps_button;
+    TextView jack_content;
 
     //소현----------------------------------------------------------------
     WeatherEvent weatherinfo = null;
@@ -162,6 +168,17 @@ public class Menu1FragGrowth extends Fragment {
       //  myProgressBar.setVisibility(View.VISIBLE);
         textView.setText(level_string);
 
+        //위치 가져오기
+        city_text=rootView.findViewById(R.id.city_text);
+        gps_button = rootView.findViewById(R.id.gps_button);
+        gps_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).UsingGps();
+            }
+        });
+
+        jack_content=rootView.findViewById(R.id.jack_content);
       //  textView2.setText(exp_string);
         gifImage=new GlideDrawableImageViewTarget(imageView);
 
@@ -391,7 +408,7 @@ public class Menu1FragGrowth extends Fragment {
             buttons[i].setVisibility(View.GONE);
             buttons[i].setOnClickListener(listener);
         }
-
+        city_text.setText(MainActivity.cityInfo);
         ImageChange();
     }
 
@@ -414,7 +431,8 @@ public class Menu1FragGrowth extends Fragment {
             index=0;
             //imageView_1.setImageResource(R.drawable.spring);
             Glide.with(this).load(R.drawable.many_cloud).into(backgif);
-            textview_1.setText("manycloud");
+            textview_1.setText("구름");
+            jack_content.setText("목말라요..물이 필요해요!");
 
         }
         else if(wtstate.get(0)=="fewcloud"){
@@ -431,8 +449,8 @@ public class Menu1FragGrowth extends Fragment {
                 Log.d("낮","낮");
 
             }
-            textview_1.setText("fewcloud");
-
+            textview_1.setText("구름");
+            jack_content.setText("목말라요..물이 필요해요!");
 
 
 
@@ -446,7 +464,8 @@ public class Menu1FragGrowth extends Fragment {
                 Glide.with(this).load(R.drawable.sunny_day).into(backgif);
             }
             //imageView_1.setImageResource(R.drawable.summer);
-            textview_1.setText("sun");
+            textview_1.setText("맑은");
+            jack_content.setText("더워요! 햇빛을 막아주세요!");
 
         }
         else if(wtstate.get(0)=="rain"){
@@ -454,14 +473,16 @@ public class Menu1FragGrowth extends Fragment {
             //imageView_1.setImageResource(R.drawable.winter);
             Glide.with(this).load(R.drawable.rain).into(backgif);
 
-            textview_1.setText("rain");
+            textview_1.setText("비오는");
+            jack_content.setText("비가 너무와요! 우산을 씌워줘요!");
         }
         else if(wtstate.get(0)=="snow"){
             index=4;
             //imageView_1.setImageResource(R.drawable.sunny);
             Glide.with(this).load(R.drawable.snow).into(backgif);
 
-            textview_1.setText("snow");
+            textview_1.setText("눈오는");
+            jack_content.setText("추워요..입을게 필요해요!");
         }
         else if(wtstate.get(0)=="empty"){
             index=0;
@@ -487,7 +508,7 @@ public class Menu1FragGrowth extends Fragment {
 
        // myProgressBar.setProgress(cus.plant1.getExp());
 
-         temperResult.setText(MainActivity.tempor.get(0)+"도");
+         temperResult.setText(MainActivity.tempor.get(0));
         //textView3.setText(MainActivity.tempor.get(0));
 
     }
