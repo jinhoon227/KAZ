@@ -42,7 +42,14 @@ public class DailyWeather extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
             String getTime = sdf.format(date);
             String today[] = getTime.split("-");
-            if(Integer.parseInt(today[3])>=time.get(0)+3) {
+            if(time.get(0)==21){
+                //오후9시일경우
+                if(Integer.parseInt(today[3])<21) {
+                    Log.d("resume", "yesNine");
+                    ((MainActivity) getActivity()).UsingGps();
+                }
+            }
+            else if(Integer.parseInt(today[3])>=time.get(0)+3) {
                 Log.d("resume", "yes");
                 ((MainActivity) getActivity()).UsingGps();
             }
@@ -206,23 +213,23 @@ public class DailyWeather extends Fragment {
             }
             else if(wtstate.get(i).equals("manycloud")){
                 //AlarmTitle="흐림";
-                wtstatePresent.add("날씨가 많이 흐려요!");
+                wtstatePresent.add("~구름이~\n뭉게뭉게");
             }
             else if(wtstate.get(i).equals("fewcloud")){
                 //AlarmTitle="구름";
-                wtstatePresent.add("구름이 많아요!");
+                wtstatePresent.add("~구름이~\n하늘하늘");
             }
             else if(wtstate.get(i).equals("sun")){
                 //AlarmTitle="태양";
-                wtstatePresent.add("맑은날 이에요!");
+                wtstatePresent.add("날씨가\n화창해요!");
             }
             else if(wtstate.get(i).equals("rain")){
                 //AlarmTitle="비";
-                wtstatePresent.add("비가와요!");
+                wtstatePresent.add("ㅠ비가ㅠ\n주륵주륵");
             }
             else if(wtstate.get(i).equals("snow")){
                 //AlarmTitle="눈";
-                wtstatePresent.add("산타다!");
+                wtstatePresent.add("눈이.와!");
             }
             else {
                 wtstatePresent.add("저는 집에 갈 수 없어요ㅜㅜ");

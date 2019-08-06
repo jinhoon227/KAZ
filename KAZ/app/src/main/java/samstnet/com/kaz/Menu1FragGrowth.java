@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,6 +32,7 @@ import samstnet.com.kaz.eventbus.plant_info;
 
 import static samstnet.com.kaz.DayTimeFormatter.night;
 import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
+import static samstnet.com.kaz.MainActivity.cityInfo;
 
 
 public class Menu1FragGrowth extends Fragment {
@@ -48,6 +51,8 @@ public class Menu1FragGrowth extends Fragment {
     String level_string, exp_string;
     Customer cus ;
     ProgressBar myProgressBar;
+    TextView city_text;
+    Button gps_button;
 
     //소현----------------------------------------------------------------
     WeatherEvent weatherinfo = null;
@@ -161,6 +166,16 @@ public class Menu1FragGrowth extends Fragment {
          myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
       //  myProgressBar.setVisibility(View.VISIBLE);
         textView.setText(level_string);
+
+        //위치 가져오기
+        city_text=rootView.findViewById(R.id.city_text);
+        gps_button = rootView.findViewById(R.id.gps_button);
+        gps_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).UsingGps();
+            }
+        });
 
       //  textView2.setText(exp_string);
         gifImage=new GlideDrawableImageViewTarget(imageView);
@@ -391,7 +406,7 @@ public class Menu1FragGrowth extends Fragment {
             buttons[i].setVisibility(View.GONE);
             buttons[i].setOnClickListener(listener);
         }
-
+        city_text.setText(MainActivity.cityInfo);
         ImageChange();
     }
 

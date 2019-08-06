@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/sunny_night" />
+            android:src="@drawable/sunny_day" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,84 +29,45 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"></LinearLayout>
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/gps_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_location_on_black_24dp"
+                    />
+
+                <TextView
+                    android:id="@+id/city_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="12dp"
+                    android:text="청주"
+                    android:textSize="20dp"
+                    android:textColor="@color/wtddfont"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/bamin" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/level3"
-                        android:layout_width="46dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/tmon"
-                        android:text="LV"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/LevelResult"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/tmon"
-                        android:text=""
-                        android:textColor="#FFFF33"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        tools:text="12345" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/EXP3"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/tmon"
-                        android:text="EXP :"
-                        android:textSize="20dp" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-                        android:layout_width="159dp"
-
-                        android:layout_marginRight="30dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_height="20dp"
-                        android:layout_weight="1"
-                        android:max="100"
-                        android:progress="10"
-                        android:progressDrawable="@drawable/progressbar_progressbar1" />
-                    <!--
-                    android:progressDrawable="@drawable/progressbar_progressbar1"
-                     style="@android:style/Widget.Holo.ProgressBar.Horizontal"
-                    android:layout_marginleft="10dp" -->
-                    <!--<TextView
-                        android:id="@+id/ExpResult"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/TmonMonsori"
-                        android:text=""
-                        android:textSize="20dp"
-                        tools:text="12345" /> -->
-                </LinearLayout>
             </LinearLayout>
 
             <!--<LinearLayout
@@ -168,112 +129,163 @@
                 </LinearLayout>
 
             </LinearLayout>
---> <LinearLayout
+-->
+
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:weightSum="2">
+            android:weightSum="5">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical"
-                android:weightSum="5"
-                android:background="@drawable/wood2">
+                android:weightSum="6"
+                android:background="@drawable/talkballoon12"
+                android:paddingLeft="40dp"
+                android:paddingRight="35dp">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
                     android:orientation="horizontal">
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/weather2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/tmon"
-                        android:text="날씨 : "
-                        android:textSize="20dp" />
+                    android:weightSum="1">
 
                     <TextView
                         android:id="@+id/WeatherResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/tmon"
-                        android:layout_weight="1"
-                        android:text=""
-                        android:textSize="20dp"
-                        tools:text="12345" />
-                </LinearLayout>
+                        android:fontFamily="@font/bamin"
+                        android:textStyle="bold"
+                        android:text="맑음"
+                        android:textSize="18dp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="29dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                    <TextView
-                        android:id="@+id/temper"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/tmon"
-                        android:text="현재 기온 : "
-                        android:textSize="20dp" />
+                        android:fontFamily="@font/bamin"
+                        android:textStyle="bold"
+                        android:text=" 날씨에 "
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/temperResult"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/tmon"
-                        android:text=""
-                        android:textSize="20dp"
-                        tools:text="12345" />
+                        android:fontFamily="@font/bamin"
+                        android:textStyle="bold"
+                        android:text="99"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bamin"
+                        android:textStyle="bold"
+                        android:text="에요"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bamin"
+                        android:textStyle="bold"
+                        android:text="더워요 물을주세요!"
+                        android:textSize="16dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="2">
-            </LinearLayout>
-
-            
 
 
-
-            <ImageView
-                android:id="@+id/plant1"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="300dp"
                 android:layout_height="0dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="4"
-                app:srcCompat="@drawable/sad" />
+                android:layout_weight="4">
+
+                <ImageView
+                    android:id="@+id/plant1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/sad" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:gravity="center|bottom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp">
+                        <TextView
+                            android:id="@+id/LevelResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bamin"
+                            android:text="0"
+                            android:textColor="@color/wtdeepfont"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/level3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:fontFamily="@font/bamin"
+                            android:text="Lv"
+                            android:textSize="15dp"
+                            android:textColor="@color/wtdeepfont"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                        android:layout_width="80dp"
+                        android:layout_height="18dp"
+                        android:max="100"
+                        android:progress="10"
+                        android:progressDrawable="@drawable/progressbar_progressbar1" />
+
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -300,37 +312,42 @@
 
                             <Button
                                 android:id="@+id/sprinklerButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="물뿌리개"
+                                android:layout_marginLeft="15dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:background="@drawable/vec_sprinkler"
                                 tools:visibility="visible" />
 
                             <Button
                                 android:id="@+id/FertilizerButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="비료"
+                                android:layout_marginLeft="15dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:background="@drawable/vec_beryo"
                                 tools:visibility="visible" />
 
                             <Button
                                 android:id="@+id/unbrellaButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="우산"
+                                android:layout_marginLeft="15dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:background="@drawable/vec_umbrella"
                                 tools:visibility="visible" />
 
                             <Button
                                 android:id="@+id/hatButton"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="모자"
+                                android:layout_marginLeft="15dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:background="@drawable/vec_sunglasses"
                                 tools:visibility="visible" />
 
                             <Button
                                 android:id="@+id/coatButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="옷"
+                                android:layout_marginLeft="15dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:background="@drawable/vec_scarf"
                                 tools:visibility="visible" />
 
                             <Button
