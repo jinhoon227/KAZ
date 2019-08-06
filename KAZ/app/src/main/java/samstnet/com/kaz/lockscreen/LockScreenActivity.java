@@ -113,10 +113,10 @@ public class LockScreenActivity extends Activity {
 
         if (a.getLevel() == 5) {
             a.setState(a.getState() + 1);
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
+            Glide.with(this).load(R.drawable.bean2_happy).into(gifImage);
         } else if (a.getLevel() == 10) {
             a.setState(a.getState() + 1);
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
+            Glide.with(this).load(R.drawable.bean3_happy).into(gifImage);
         }
 
     }
@@ -243,7 +243,7 @@ public class LockScreenActivity extends Activity {
 //        else if (cus.plant1.getState() == 3)
 //            Glide.with(this).load(R.drawable.happy).into(gifImage);
         if(cus.plant1.getLove()>=70){
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
+            Glide.with(this).load(R.drawable).into(gifImage);
         }
         else if(cus.plant1.getLove()>=40&&cus.plant1.getLove()<70){
             Glide.with(this).load(R.drawable.normally).into(gifImage);
