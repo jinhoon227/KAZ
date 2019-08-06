@@ -56,7 +56,7 @@ public class LockScreenActivity extends Activity {
     Customer cus;
     GlideDrawableImageViewTarget gifImage, backgif;
     ProgressBar myProgressBar;
-
+    ImageView allimg;
     private boolean isBind;
     private static Intent serviceIntent;
 
@@ -218,13 +218,14 @@ public class LockScreenActivity extends Activity {
        // textView2 = (TextView) findViewById(R.id.ExpResult);
         imageView = (ImageView) findViewById(R.id.plant1);
         myProgressBar=(ProgressBar)findViewById(R.id.progressBar);
+        allimg=findViewById(R.id.imageView);
 
         textView3 = (TextView) findViewById(R.id.temperResult);
         // textView4=(TextView)findViewById(R.id.tvBclock);
         //SlideView slideView = (SlideView) findViewById(R.id.slider1);
 
         //잠금해제
-        imageView.setOnTouchListener(new OnSwipeTouchListener(this){
+        allimg.setOnTouchListener(new OnSwipeTouchListener(this){
 
             @Override
             public void onSwipeRight() {
