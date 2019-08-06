@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/sunnyday" />
+        android:src="@drawable/sunny_day" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/sad" />
+                app:srcCompat="@drawable/bean1_sad" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -205,15 +205,15 @@
             android:layout_height="0dp"
             android:layout_weight="2">
 
-            <ng.max.slideview.SlideView
-                android:id="@+id/slider1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:sv_buttonBackgroundColor="#fff"
-                app:sv_buttonImage="@drawable/ic_chevron_double_right_pink"
-                app:sv_slideBackgroundColor="@color/colorPrimaryDark"
-                app:sv_slideText="밀어서  잠금해제" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="밀어서 잠금해제 >>"
+                android:gravity="center"
+                android:fontFamily="@font/bamin"
+                android:textSize="30dp"
+                android:textColor="@color/wtmiddlefont"/>
+
 
         </LinearLayout>
     </LinearLayout>

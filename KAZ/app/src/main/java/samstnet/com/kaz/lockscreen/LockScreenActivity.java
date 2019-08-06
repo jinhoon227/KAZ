@@ -223,7 +223,23 @@ public class LockScreenActivity extends Activity {
 
         textView3 = (TextView) findViewById(R.id.temperResult);
         // textView4=(TextView)findViewById(R.id.tvBclock);
-        SlideView slideView = (SlideView) findViewById(R.id.slider1);
+        //SlideView slideView = (SlideView) findViewById(R.id.slider1);
+
+        //잠금해제
+        imageView.setOnTouchListener(new OnSwipeTouchListener(this){
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                finish();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                finish();
+            }
+        });
 
 
 
@@ -251,6 +267,7 @@ public class LockScreenActivity extends Activity {
         else if(cus.plant1.getLove()>=0&&cus.plant1.getLove()<40){
             Glide.with(this).load(R.drawable.sad).into(gifImage);
         }
+        /*
         slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
@@ -261,6 +278,7 @@ public class LockScreenActivity extends Activity {
                 finish();
             }
         });
+        */
         /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
