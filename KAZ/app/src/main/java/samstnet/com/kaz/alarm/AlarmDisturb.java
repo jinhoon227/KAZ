@@ -1,5 +1,7 @@
 package samstnet.com.kaz.alarm;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,7 +32,7 @@ public class AlarmDisturb extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("AlarmBroadcastReceiver","onReceive");
+        Log.d("AlarmDisturb","onReceive");
 
         builder=new NotificationCompat.Builder(context,"default");
         cus=new Customer();
@@ -52,9 +54,16 @@ public class AlarmDisturb extends BroadcastReceiver {
         builder.setContentIntent(pendingIntent);    //notification을 누르면 pendingIntent안에 있는게 실행된다.
 
 
+        NotificationManager manager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
+        //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
+                    NotificationManager.IMPORTANCE_DEFAULT));
+        }
+
         if(!cus.setting1.isSoundevent()) {
             if(!cus.setting1.isCreateevent())
-                mAlarm.manager.notify(1, builder.build());
+                manager.notify(1, builder.build());
         }
     }
 

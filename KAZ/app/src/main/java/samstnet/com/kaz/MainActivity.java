@@ -21,8 +21,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+        import android.view.View;
 
-import org.json.simple.JSONArray;
+        import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
@@ -32,7 +33,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-import samstnet.com.kaz.alarm.mAlarm;
+        import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
+        import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
