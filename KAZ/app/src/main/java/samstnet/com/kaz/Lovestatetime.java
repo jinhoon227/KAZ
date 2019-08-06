@@ -32,7 +32,7 @@ public class Lovestatetime extends Service {
        intent=new Intent(this, Lovestate.class);
         mAlarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
         calendar=Calendar.getInstance();
-        operation=PendingIntent.getBroadcast(this,30,intent,0);
+        operation=PendingIntent.getBroadcast(this,30, intent,0);
         time=0;
 
         onTimeSet();

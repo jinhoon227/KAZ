@@ -21,9 +21,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-        import android.view.View;
 
-        import org.json.simple.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
@@ -33,9 +32,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-        import samstnet.com.kaz.alarm.NonDisturb;
-        import samstnet.com.kaz.alarm.mAlarm;
-        import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.alarm.mAlarm;
+import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
 import samstnet.com.kaz.eventbus.WeatherEvent;
@@ -48,8 +46,8 @@ import samstnet.com.kaz.menu2_store.Menu2FragStore;
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
-        import static samstnet.com.kaz.eventbus.Customer.ALARMEVENT_NUM;
-        import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
+import static samstnet.com.kaz.eventbus.Customer.ALARMEVENT_NUM;
+import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
         // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     //알람 서비스
     static public Intent intent;
     Customer cus;
-    public Intent intent1;
+    //public Intent intent1;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -195,10 +193,7 @@ public class MainActivity extends AppCompatActivity {
             }).show();
         }
 
-        intent = new Intent(getApplicationContext(),//현재제어권자
-                mAlarm.class); // 이동할 컴포넌트
-        intent1 = new Intent(getApplicationContext(), NonDisturb.class);
-
+        intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
 
     }
 

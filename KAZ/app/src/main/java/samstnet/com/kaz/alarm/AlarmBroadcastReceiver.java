@@ -63,7 +63,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         Bitmap largeIcon= BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher);
         builder.setLargeIcon(largeIcon);
-        builder.setColor(Color.RED);
+        builder.setColor(Color.GREEN);
 
         ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
                 RingtoneManager.TYPE_NOTIFICATION); //기본 알람 효과음, 내가 원하는 음악의 uri를 지정할 수 있음
@@ -116,7 +116,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         tem=Integer.parseInt(temp);
 
         if(MainActivity.tempor.size()!=0) {
-            AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도";
+            AlarmTitle = MainActivity.cityInfo+"의 날씨는"+temp+"도";
         }
         else {
             error=true;

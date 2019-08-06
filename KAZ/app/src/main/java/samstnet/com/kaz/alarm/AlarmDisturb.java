@@ -51,7 +51,11 @@ public class AlarmDisturb extends BroadcastReceiver {
 
         builder.setContentIntent(pendingIntent);    //notification을 누르면 pendingIntent안에 있는게 실행된다.
 
-        mAlarm.manager.notify(1,builder.build());
+
+        if(!cus.setting1.isSoundevent()) {
+            if(!cus.setting1.isCreateevent())
+                mAlarm.manager.notify(1, builder.build());
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

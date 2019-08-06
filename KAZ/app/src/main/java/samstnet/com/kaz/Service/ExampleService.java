@@ -20,6 +20,7 @@ import java.util.Date;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
+import samstnet.com.kaz.alarm.AlarmDisturb;
 
 import static samstnet.com.kaz.eventbus.Customer.CHANNEL_ID;
 
@@ -31,7 +32,9 @@ public class ExampleService extends Service {
     int _minute;
     static int minute;
     static PendingIntent pendingIntent;
+    static public PendingIntent pendingIntent1;
     Intent intent;
+    Intent intent1;
     static Calendar calendar;
     static public int time = 0;
     static public int operationNum = 24;
@@ -44,6 +47,7 @@ public class ExampleService extends Service {
 
         //알람이 실행될 때 실행되었으면 하는 액티비티
         intent = new Intent(this, AlarmBroadcastReceiver.class);
+        intent1 = new Intent(this, AlarmDisturb.class);
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         calendar = Calendar.getInstance();
         operation = new PendingIntent[operationNum];
@@ -62,16 +66,20 @@ public class ExampleService extends Service {
 
         calendar.set(Calendar.MINUTE, _minute);
 
-        pendingIntent=PendingIntent.getBroadcast(this, 0, intent, 0);
-
+        pendingIntent=PendingIntent.getBroadcast(this, 25, intent, 0);
+        pendingIntent1=PendingIntent.getBroadcast(this,26,intent1,0);
 
         sendBroadcast(intent);
 
-        for (int i = 0; i < operationNum; i++) {
-            Log.d(String.valueOf(time), String.valueOf(_minute));
+        Log.d(String.valueOf(time), String.valueOf(_minute));
 
-            calendar.set(Calendar.HOUR_OF_DAY, time);
-            calendar.set(Calendar.MINUTE, _minute);
+        calendar.set(Calendar.HOUR_OF_DAY, time);
+        calendar.set(Calendar.MINUTE, _minute);
+
+        for (int i = 0; i < operationNum; i++) {
+
+            calendar.set(Calendar.HOUR_OF_DAY,time);
+            calendar.set(Calendar.MINUTE,0);
 
             operation[i] = PendingIntent.getBroadcast(this, i, intent, 0);
 
@@ -84,6 +92,12 @@ public class ExampleService extends Service {
             //_minute++;
             time+=1;
         }
+
+        calendar.set(Calendar.HOUR_OF_DAY,7);
+        calendar.set(Calendar.MINUTE,30);
+
+        //아침알람
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60*60*24 , pendingIntent);
     }
 
     //알람 서비스 시작

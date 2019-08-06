@@ -41,6 +41,9 @@ public class Menu4FragConfig extends Fragment {
     Customer cus;
     NotificationCompat.Builder builder;
 
+    Intent intent;
+    Intent intent1;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -62,11 +65,24 @@ public class Menu4FragConfig extends Fragment {
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+
+        intent = new Intent(getActivity().getApplication(), ScreenService.class);
+        intent1 = new Intent(getContext().getApplicationContext(),NonDisturb.class);
+
         cus=(Customer)getActivity().getApplication();
         Log.d("yeaahna","yeah");
-        //getActivity().setContentView(R.layout.fragment_menu4_frag_config);
+
+        /*
+        if (!cus.setting1.isCreateevent()) {
+            getContext().startService(MainActivity.intent);
+            if(!cus.setting1.isScreen()) {
+                getActivity().startService(intent);
+            }
+            if(!cus.setting1.isSoundevent()) {
+                getContext().startService(intent1);
+            }
+        }*/
 
     }
     @Nullable
@@ -79,8 +95,6 @@ public class Menu4FragConfig extends Fragment {
         create = rootView.findViewById(R.id.create);
         sound=rootView.findViewById(R.id.sound);
         screen=rootView.findViewById(R.id.screen);
-        final Intent intent = new Intent(getActivity().getApplication(), ScreenService.class);
-        final Intent intent1 = new Intent(getContext().getApplicationContext(),NonDisturb.class);
 
         //알림
         if (!cus.setting1.isCreateevent()) {
@@ -89,16 +103,7 @@ public class Menu4FragConfig extends Fragment {
             create.setChecked(true);
             screen.setEnabled(true);
             sound.setEnabled(true);
-            getContext().startService(MainActivity.intent);
-
-            if(!cus.setting1.isScreen()){
-                Log.d("잠금","실행");
-                getActivity().startService(intent);
-            }
-            if(!cus.setting1.isSoundevent()){
-                Log.d("방해 금지 모드","실행");
-                getContext().startService(intent1);
-            }
+            //getContext().startService(MainActivity.intent);
 
         }else{
             Log.d("알림","off");
@@ -120,9 +125,6 @@ public class Menu4FragConfig extends Fragment {
         if(!cus.setting1.isSoundevent()){
             Log.d("방해 금지 모드","on");
             sound.setChecked(true);
-
-           getActivity().startService(intent);
-
         }else{
             Log.d("방해 금지 모드","off");
             sound.setChecked(false);
@@ -177,13 +179,13 @@ public class Menu4FragConfig extends Fragment {
                 if(cus.setting1.isSoundevent()){
                     Log.d("Menu4FragConfig","sound on");
                     cus.setting1.setSoundevent(false);
-                    getContext().startService(intent1);
+                    //getContext().startService(intent1);
                 }
                 //방해 금지 모드 오프
                 else{
                     Log.d("Menu4FragConfig","sound off");
                     cus.setting1.setSoundevent(true);
-                    getContext().stopService(intent1);
+                    //getContext().stopService(intent1);
                 }
             }
         });
