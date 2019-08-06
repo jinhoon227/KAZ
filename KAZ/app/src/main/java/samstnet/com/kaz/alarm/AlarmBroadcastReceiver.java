@@ -1,5 +1,7 @@
 package samstnet.com.kaz.alarm;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -87,9 +89,17 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         Log.d("검사들어가유",String.valueOf(hour));
 
+        NotificationManager manager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
+        //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
+                    NotificationManager.IMPORTANCE_DEFAULT));
+        }
+
+
         if(!cus.setting1.isSoundevent()) {
             if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
-                mAlarm.manager.notify(1, builder.build());
+                manager.notify(1, builder.build());
                 if(error) {
                     Log.d("Alarm","아 에러;;");
                     ExampleService.sendAlarm();
@@ -100,7 +110,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             }
         }
         else {
-            mAlarm.manager.notify(1, builder.build());
+            manager.notify(1, builder.build());
             if(error) {
                 Log.d("Alarm","또 에러;;");
                 ExampleService.sendAlarm();

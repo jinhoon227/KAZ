@@ -1,10 +1,8 @@
 package samstnet.com.kaz.alarm;
 
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -26,16 +24,9 @@ public class mAlarm extends Service {
 
     public void onCreate() {
         alarmBroadcastReceiver=new AlarmBroadcastReceiver();
-        manager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         intent = new Intent(getApplicationContext(),//현재제어권자
                 ExampleService.class); // 이동할 컴포넌트
-        cus=new Customer();
-
-        //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
-                    NotificationManager.IMPORTANCE_DEFAULT));
-        }
+        //cus=new Customer();
 
         Log.d("mAlarm","onCreate");
 
