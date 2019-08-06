@@ -106,6 +106,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String itemtmp[] = new String [50];
+        String tmparr[];
+        String tmparr2;
+
+        if(savedInstanceState!=null)
+        {
+            if(savedInstanceState!=null)
+            {
+                Log.d("강제 종료시 복원 데이터","saveinstance1");
+                Bundle bundle = savedInstanceState.getParcelable("saveBundle");
+                if(bundle!=null)
+                {
+                    Log.d("강제 종료시 복원 데이터","bundle");
+                    for(int i=0;i<ITEM_NUM;i++) {
+                        itemtmp[i]=bundle.getString("item"+i,null);
+                        Log.d("강제 종료시 복원 데이터"+i,itemtmp[i]);
+                        tmparr = itemtmp[i].split("&");
+                        Customer.item[i] = new Item_type(tmparr[0], tmparr[1], Integer.parseInt(tmparr[2]), Integer.parseInt(tmparr[3]), Boolean.valueOf(tmparr[4]), Boolean.valueOf(tmparr[5]));
+                        bundle.putInt("money",cus.getMoney());
+                    }
+                    tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
+                    bundle.putString("setting",tmparr2);
+                    tmparr2 = cus.plant1.getLevel()+"&"+cus.plant1.getExp()+"&"+cus.plant1.getName()+"&"+cus.plant1.getState()+"&"+ plant_info.getItemNum()+"&"+cus.plant1.getLove();
+                    bundle.putString("plant",tmparr2);
+                    for(int i=0;i<ALARMEVENT_NUM-1;i++)
+                    {
+                        tmparr2= tmparr2+String.valueOf(cus.alarmevent[i])+"&";
+                    }
+                    tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
+                    bundle.putString("alarmevent",tmparr2);
+
+                }
+
+            }
+        }
 
         //투명한 상태바
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
