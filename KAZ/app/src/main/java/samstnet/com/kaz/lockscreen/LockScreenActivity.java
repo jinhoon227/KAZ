@@ -113,10 +113,8 @@ public class LockScreenActivity extends Activity {
 
         if (a.getLevel() == 5) {
             a.setState(a.getState() + 1);
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
         } else if (a.getLevel() == 10) {
             a.setState(a.getState() + 1);
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
         }
 
     }
@@ -242,15 +240,8 @@ public class LockScreenActivity extends Activity {
 //            Glide.with(this).load(R.drawable.normally).into(gifImage);
 //        else if (cus.plant1.getState() == 3)
 //            Glide.with(this).load(R.drawable.happy).into(gifImage);
-        if(cus.plant1.getLove()>=70){
-            Glide.with(this).load(R.drawable.happy).into(gifImage);
-        }
-        else if(cus.plant1.getLove()>=40&&cus.plant1.getLove()<70){
-            Glide.with(this).load(R.drawable.normally).into(gifImage);
-        }
-        else if(cus.plant1.getLove()>=0&&cus.plant1.getLove()<40){
-            Glide.with(this).load(R.drawable.sad).into(gifImage);
-        }
+            Glide.with(this).load(plantEmotion()).into(gifImage);
+
         slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
@@ -352,6 +343,7 @@ public class LockScreenActivity extends Activity {
         super.onStart();
         Log.d("growth_Fragment", "onStart");
     }
+
 
     // 버튼 눌리면 아이템 변경
     View.OnClickListener listener = new View.OnClickListener() {
@@ -474,6 +466,44 @@ public class LockScreenActivity extends Activity {
         //----------------------------------------------------------------
 
 
+    }
+    public int plantEmotion() {
+        if (cus.plant1.getState() == 1) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean1_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean1_normal;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean1_sad;
+            }
+
+        } else if (cus.plant1.getState() == 2) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean2_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean2_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean2_sad;
+            }
+        } else if (cus.plant1.getState() == 2) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean3_sad;
+            }
+        }
+        else if (cus.plant1.getState() == 3) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean3_sad;
+            }
+        }
+        return R.drawable.bean1_normal;
     }
 
 }

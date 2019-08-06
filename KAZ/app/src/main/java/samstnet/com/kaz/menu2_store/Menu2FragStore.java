@@ -180,7 +180,7 @@ public class Menu2FragStore extends Fragment {
         //treeview
         treeview = rootView.findViewById(R.id.treeImage);
         gifImage=new GlideDrawableImageViewTarget(treeview);
-        Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
+        Glide.with(getActivity()).load(R.drawable.bean1_normal).into(gifImage);
         statetext = rootView.findViewById(R.id.statetext);
         statetext.setText("기본상태");
         for(int i=0;i<ITEM_NUM;i++)
@@ -208,23 +208,23 @@ public class Menu2FragStore extends Fragment {
                         item.setWear(true);
                         switch (position) {
                             case 0:
-                                Glide.with(getActivity()).load(R.drawable.sprinkler).into(gifImage);
+                                Glide.with(getActivity()).load(storePlantEmotion(position)).into(gifImage);
                                 statetext.setText("물 뿌리는중");
                                 break;
                             case 1:
-                                Glide.with(getActivity()).load(R.drawable.happy).into(gifImage);
+                                Glide.with(getActivity()).load(storePlantEmotion(position)).into(gifImage);
                                 statetext.setText("비료 주는중");
                                 break;
                             case 2:
-                                Glide.with(getActivity()).load(R.drawable.happy).into(gifImage);
+                                Glide.with(getActivity()).load(storePlantEmotion(position)).into(gifImage);
                                 statetext.setText("우산 쓰는중");
                                 break;
                             case 3:
-                                Glide.with(getActivity()).load(R.drawable.sunglasses).into(gifImage);
+                                Glide.with(getActivity()).load(storePlantEmotion(position)).into(gifImage);
                                 statetext.setText("썬글라스 쓰는중");
                                 break;
                             case 4:
-                                Glide.with(getActivity()).load(R.drawable.scarf).into(gifImage);
+                                Glide.with(getActivity()).load(storePlantEmotion(position)).into(gifImage);
                                 statetext.setText("목도리 쓰는중");
                                 break;
                             default:
@@ -306,5 +306,80 @@ public class Menu2FragStore extends Fragment {
 
         }
     };
+    public int storeBasicEmotion()
+    {
+        if (cus.plant1.getState()==1) {
+            return R.drawable.bean1_normal;
+        }
+        if (cus.plant1.getState()==2) {
+            return R.drawable.bean2_happy;
+            }
+        if (cus.plant1.getState()==3) {
+            return R.drawable.bean3_happy;
+        }
+        return R.drawable.bean3_happy;
+    }
+    public int storePlantEmotion(int num) {
+        if (cus.plant1.getState()==1) {
+            if (num==0) {
+                return R.drawable.bean1_sprinkler;
+            }
+            if (num==1) {
+                return R.drawable.bean1_happy;
+            }
+
+            if (num==2) {
+                return R.drawable.bean1_happy;
+            }
+
+            if (num==3) {
+                return R.drawable.bean1_sunglass;
+            }
+
+            if (num==4) {
+                return R.drawable.bean1_scarf;
+            }
+        }
+        if (cus.plant1.getState()==2) {
+            if (num==0) {
+                return R.drawable.bean2_sprinkler;
+            }
+            if (num==1) {
+                return R.drawable.bean2_happy;
+            }
+
+            if (num==2) {
+                return R.drawable.bean2_happy;
+            }
+
+            if (num==3) {
+                return R.drawable.bean2_sunglass;
+            }
+
+            if (num==4) {
+                return R.drawable.bean2_scarf;
+            }
+        }if (cus.plant1.getState()==3) {
+            if (num==0) {
+                return R.drawable.bean3_sprinkler;
+            }
+            if (num==1) {
+                return R.drawable.bean3_happy;
+            }
+
+            if (num==2) {
+                return R.drawable.bean3_happy;
+            }
+
+            if (num==3) {
+                return R.drawable.bean3_sunglass;
+            }
+
+            if (num==4) {
+                return R.drawable.bean3_scarf;
+            }
+        }
+        return R.drawable.bean1_normal;
+    }
 
 }
