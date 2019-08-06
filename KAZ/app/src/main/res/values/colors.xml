@@ -13,4 +13,6 @@
     <color name="wtmiddlefont">#548687</color>
     <color name="frag2fontcolor">#3b8686</color>
     <color name="background3">#D9D4CF</color>
+    <color name="wtddfont">#3C3530</color>
+    <color name="config">#FFFFF3</color>
 </resources>

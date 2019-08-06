@@ -58,14 +58,18 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="20dp"
                             android:layout_marginBottom="20dp"
-                            android:layout_marginRight="10dp"
                             android:orientation="horizontal"
                             android:gravity="center"
                             android:weightSum="10">
 
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"></LinearLayout>
+
                             <ImageView
                                 android:layout_width="0dp"
-                                android:layout_weight="6"
+                                android:layout_weight="4"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/waterer3"/>
 
@@ -83,10 +87,9 @@
                                     android:textColor="@color/wtdeepfont"
                                     android:gravity="center"
                                     android:layout_marginBottom="8dp"
-                                    android:paddingRight="10dp"
                                     android:fontFamily="@font/bamin"
                                     android:text="수요일"
-                                    android:textSize="20dp" />
+                                    android:textSize="24dp" />
 
                                 <TextView
                                     android:id="@+id/weekWeatherContent"
@@ -94,12 +97,35 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/wtfont"
                                     android:gravity="center"
-                                    android:paddingRight="10dp"
                                     android:fontFamily="@font/bamin"
-                                    android:text="절대 더워해\n⊂('_'⊂) "
-                                    android:textSize="20dp" />
+                                    android:text="절대 더워해"
+                                    android:textSize="22dp" />
 
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/wtfont"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/bamin"
+                                    android:text="물 자주 마셔요!"
+                                    android:textSize="22dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/wtfont"
+                                    android:layout_marginTop="5dp"
+                                    android:gravity="center"
+                                    android:text="⊂('_'⊂) "
+                                    android:textSize="24dp" />
                             </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="match_parent"></LinearLayout>
+
                         </LinearLayout>
                     </LinearLayout>
 
