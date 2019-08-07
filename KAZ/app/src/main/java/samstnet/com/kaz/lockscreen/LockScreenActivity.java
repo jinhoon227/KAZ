@@ -57,6 +57,7 @@ public class LockScreenActivity extends Activity {
     GlideDrawableImageViewTarget gifImage, backgif;
     ProgressBar myProgressBar;
     ImageView allimg;
+    TextView jack_content;
     private boolean isBind;
     private static Intent serviceIntent;
 
@@ -219,6 +220,7 @@ public class LockScreenActivity extends Activity {
         imageView = (ImageView) findViewById(R.id.plant1);
         myProgressBar=(ProgressBar)findViewById(R.id.progressBar);
         allimg=findViewById(R.id.imageView);
+        jack_content=findViewById(R.id.jack_content);
 
         textView3 = (TextView) findViewById(R.id.temperResult);
         // textView4=(TextView)findViewById(R.id.tvBclock);
@@ -452,33 +454,37 @@ public class LockScreenActivity extends Activity {
             index = 0;
             //imageView_1.setImageResource(R.drawable.spring);
             Glide.with(this).load(R.drawable.many_cloud).into(backgif);
-            textview_1.setText("manycloud");
-
+            textview_1.setText("구름");
+            jack_content.setText("목말라요..물이 필요해요!");
 
         } else if (wtstate.get(0) == "fewcloud") {
             index = 1;
             //imageView_1.setImageResource(R.drawable.autumn);
             Glide.with(this).load(R.drawable.fewcloud).into(backgif);
 
-            textview_1.setText("fewcloud");
+            textview_1.setText("구름");
+            jack_content.setText("목말라요..물이 필요해요!");
         } else if (wtstate.get(0) == "sun") {
             index = 2;
             Glide.with(this).load(R.drawable.sunny_day).into(backgif);
 
             //imageView_1.setImageResource(R.drawable.summer);
-            textview_1.setText("sun");
+            textview_1.setText("맑은");
+            jack_content.setText("더워요! 햇빛을 막아주세요!");
         } else if (wtstate.get(0) == "rain") {
             index = 3;
             //imageView_1.setImageResource(R.drawable.winter);
             Glide.with(this).load(R.drawable.rain).into(backgif);
 
-            textview_1.setText("rain");
+            textview_1.setText("비오는");
+            jack_content.setText("비가 너무와요! 우산을 씌워줘요!");
         } else if (wtstate.get(0) == "snow") {
             index = 4;
             //imageView_1.setImageResource(R.drawable.sunny);
             Glide.with(this).load(R.drawable.snow).into(backgif);
 
-            textview_1.setText("snow");
+            textview_1.setText("눈오는");
+            jack_content.setText("추워요..입을게 필요해요!");
         } else if (wtstate.get(0) == "empty") {
             index = 0;
             imageView_1.setImageResource(R.drawable.xkon);
@@ -491,7 +497,7 @@ public class LockScreenActivity extends Activity {
 
         textView.setText(level_string);
        // textView2.setText(exp_string);
-        textView3.setText(tempor.get(0)+"도");
+        textView3.setText(tempor.get(0));
         //아이템 적용 함수
         //----------------------------------------------------------------
 

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.squareup.otto.Subscribe;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 
 public class DailyWeather extends Fragment {
@@ -29,6 +31,7 @@ public class DailyWeather extends Fragment {
     ArrayList<String> timeStr = new ArrayList<>();
     //int img[]=new int[15];
     ArrayList<Integer> img=new ArrayList<>();
+    ImageView tutorial;
 
     @Override
     public void onResume(){
@@ -69,6 +72,7 @@ public class DailyWeather extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView=(ViewGroup)inflater.inflate(R.layout.dailyweather,container,false);
         listView=rootView.findViewById(R.id.list);
+        tutorial = rootView.findViewById(R.id.tutorial3);
         adapter=new SingerAdapter();
 
         if( ((MainActivity)getActivity()).getWeatherInfo() != null){
@@ -91,6 +95,19 @@ public class DailyWeather extends Fragment {
         }
 
         listView.setAdapter(adapter);
+
+        //만약 처음 들어오는거면 튜토리얼 시청
+        if(Customer.alarmevent[3]==false){
+            tutorial.setImageResource(R.drawable.menu3_tut);
+            tutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tutorial.setImageBitmap(null);
+                    Customer.alarmevent[3]=true;
+                }
+            });
+        }
+
         return rootView;
     }
     class SingerAdapter extends BaseAdapter {

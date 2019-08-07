@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -41,7 +42,10 @@ public class Menu4FragConfig extends Fragment {
 
     Customer cus;
     NotificationCompat.Builder builder;
-    Intent intent3;
+
+
+    ImageView tutorial;
+
     Intent intent;
     Intent intent1;
 
@@ -70,7 +74,7 @@ public class Menu4FragConfig extends Fragment {
 
         intent = new Intent(getActivity().getApplication(), ScreenService.class);
         intent1 = new Intent(getContext().getApplicationContext(),NonDisturb.class);
-        intent3=new Intent(getContext().getApplicationContext(), Lovestatetime.class);
+
         cus=(Customer)getActivity().getApplication();
         Log.d("yeaahna","yeah");
 
@@ -96,6 +100,7 @@ public class Menu4FragConfig extends Fragment {
         create = rootView.findViewById(R.id.create);
         sound=rootView.findViewById(R.id.sound);
         screen=rootView.findViewById(R.id.screen);
+        tutorial=rootView.findViewById(R.id.tutorial4);
 
         //알림
         if (!cus.setting1.isCreateevent()) {
@@ -209,6 +214,18 @@ public class Menu4FragConfig extends Fragment {
                 }
             }
         });
+
+        //만약 처음 들어오는거면 튜토리얼 시청
+        if(Customer.alarmevent[4]==false){
+            tutorial.setImageResource(R.drawable.menu4_tut);
+            tutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tutorial.setImageBitmap(null);
+                    Customer.alarmevent[4]=true;
+                }
+            });
+        }
 
 
         return rootView;
