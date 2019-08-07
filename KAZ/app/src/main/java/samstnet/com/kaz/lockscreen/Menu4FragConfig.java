@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import samstnet.com.kaz.Lovestatetime;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.alarm.NonDisturb;
@@ -77,17 +75,6 @@ public class Menu4FragConfig extends Fragment {
 
         cus=(Customer)getActivity().getApplication();
         Log.d("yeaahna","yeah");
-
-        /*
-        if (!cus.setting1.isCreateevent()) {
-            getContext().startService(MainActivity.intent);
-            if(!cus.setting1.isScreen()) {
-                getActivity().startService(intent);
-            }
-            if(!cus.setting1.isSoundevent()) {
-                getContext().startService(intent1);
-            }
-        }*/
 
     }
     @Nullable
@@ -222,9 +209,12 @@ public class Menu4FragConfig extends Fragment {
                 @Override
                 public void onClick(View v) {
                     tutorial.setImageBitmap(null);
+                    tutorial.setVisibility(View.GONE);
                     Customer.alarmevent[4]=true;
                 }
             });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
 
 
@@ -262,11 +252,5 @@ public class Menu4FragConfig extends Fragment {
         // 정의해야하는 각 알림의 고유한 int값
         notificationManager.notify(1, builder.build());
     }
-    private void removeNotification() {
-        // Notification 제거
-        NotificationManagerCompat.from(getView().getContext()).cancel(1);
-    }
-//    private void soundNotification(){
-//        builder.setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE);
-//    }
+
 }

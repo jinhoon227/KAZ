@@ -6,11 +6,14 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import java.util.Date;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
@@ -61,9 +64,17 @@ public class AlarmDisturb extends BroadcastReceiver {
                     NotificationManager.IMPORTANCE_DEFAULT));
         }
 
-        if(!cus.setting1.isSoundevent()) {
-            if(!cus.setting1.isCreateevent())
-                manager.notify(1, builder.build());
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
+        String getTime = sdf.format(date);
+        int hour = Integer.valueOf(getTime);
+
+        if(hour==7) {
+            if (!cus.setting1.isSoundevent()) {
+                if (!cus.setting1.isCreateevent())
+                    manager.notify(1, builder.build());
+            }
         }
     }
 
@@ -134,7 +145,7 @@ public class AlarmDisturb extends BroadcastReceiver {
     }
 
     public String heat(){
-        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자세하세요!";
+        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자제하세요!";
     }
 
     public String cold(){

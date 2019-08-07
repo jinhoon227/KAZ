@@ -24,8 +24,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -34,10 +32,6 @@ import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.eventbus.plant_info;
-
-import static samstnet.com.kaz.DayTimeFormatter.night;
-import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
-import static samstnet.com.kaz.MainActivity.cityInfo;
 
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -560,9 +554,12 @@ public class Menu1FragGrowth extends Fragment {
                @Override
                public void onClick(View v) {
                    tutorial.setImageBitmap(null);
+                   tutorial.setVisibility(View.GONE);
                    Customer.alarmevent[1]=true;
                }
            });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
     }
 
