@@ -56,6 +56,8 @@
 
         <service android:name=".Service.ExampleService" />
         <!-- BackgroundService -->
+
+
         <receiver
             android:name=".lockscreen.ScreenReceiver"
             android:exported="false"
@@ -63,8 +65,8 @@
             android:directBootAware="true"
             >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
         </receiver>
         <receiver android:name=".Lovestate"/>
     </application>

@@ -238,9 +238,10 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
         intent2=new Intent(getApplicationContext(), ExampleService.class);
         sendBroadcast(intent2);
-        if(cus.setting1.isScreen()){
+        if(cus.setting1.isCreateevent()){
             intent3=new Intent(getApplicationContext(), Lovestatetime.class);
             startService(intent3);
+            Log.d("이거 실행","한다");
         }
     }
     //애정도 나타내는 함수(시간에 따라)

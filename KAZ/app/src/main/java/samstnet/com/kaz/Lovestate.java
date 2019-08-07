@@ -27,7 +27,7 @@ public class Lovestate extends BroadcastReceiver {
         if (cus.plant1.getLove() > 0) {
             cus.plant1.setLove(cus.plant1.getLove() - 10);
         }
-        Log.d( String.valueOf(_minute)+"분 love", String.valueOf(cus.plant1.getLove()));
+        Log.e( String.valueOf(_minute)+"분 love", String.valueOf(cus.plant1.getLove()));
 
         //아이템 사용 기록 리셋
         resetItem();
