@@ -41,7 +41,7 @@ public class DayTimeFormatter {
     //기준날짜와 시간계산
     void caclTime(){
         int tagetTime[]={2,5,8,11,14,17,20,23};
-        int standtime[]={18,6};
+        int standtime[]={20, 6};
         Log.d("현재의 의시간", Integer.toString(nowTime));
         if(nowTime>=standtime[0]||nowTime<=standtime[1]){
             night="밤";//밤
