@@ -30,7 +30,7 @@ public class Customer extends Application {
     //ALARMEVENT 갯수
     public static final int ALARMEVENT_NUM=24;
 
-
+    //0 : seogi 1-4 : jinhoon-tutorial others : empty
     public static boolean alarmevent[] = new boolean[25];
 
     private int money;
