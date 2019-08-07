@@ -7,8 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-        import android.icu.text.SimpleDateFormat;
-        import android.net.ConnectivityManager;
+import android.icu.text.SimpleDateFormat;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,9 +22,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
-        import org.json.simple.JSONArray;
+import android.view.View;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
@@ -33,11 +33,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-        import java.util.Date;
+import java.util.Date;
 
-        import samstnet.com.kaz.Service.ExampleService;
-        import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
-        import samstnet.com.kaz.alarm.mAlarm;
+import samstnet.com.kaz.alarm.mAlarm;
+import samstnet.com.kaz.Service.ExampleService;
+import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
+import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
         sendBroadcast(intent2);
         if(cus.setting1.isCreateevent()){
             intent3=new Intent(getApplicationContext(), Lovestatetime.class);
+            Log.d( "스크린 꺼졌을때 애정도 받아오는거", String.valueOf(cus.plant1.getLove()));
             startService(intent3);
             Log.d("이거 실행","한다");
         }
@@ -558,11 +560,13 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("plant",tmparr2);
         tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
         editor.putString("setting",tmparr2);
+        tmparr2="";
         for(int i=0;i<ALARMEVENT_NUM-1;i++)
         {
             tmparr2= tmparr2+String.valueOf(cus.alarmevent[i])+"&";
         }
         tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
+        Log.d("알람 이벤트", ""+tmparr2);
         editor.putString("alarmevent",tmparr2);
         editor.putString("stateTime",String.valueOf(cus.getStateTime()));
         editor.commit(); //완료한다.

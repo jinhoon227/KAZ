@@ -16,9 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +24,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
-import com.nhaarman.listviewanimations.itemmanipulation.DynamicListView;
-import com.nhaarman.listviewanimations.itemmanipulation.dragdrop.TouchViewDraggableManager;
 
 import java.util.ArrayList;
 
@@ -183,7 +179,7 @@ public class Menu2FragStore extends Fragment {
         //treeview
         treeview = rootView.findViewById(R.id.treeImage);
         gifImage=new GlideDrawableImageViewTarget(treeview);
-        Glide.with(getActivity()).load(R.drawable.bean1_normal).into(gifImage);
+        Glide.with(getActivity()).load(storeBasicEmotion()).into(gifImage);
         statetext = rootView.findViewById(R.id.statetext);
         statetext.setText("기본상태");
         for(int i=0;i<ITEM_NUM;i++)
@@ -258,9 +254,12 @@ public class Menu2FragStore extends Fragment {
                 @Override
                 public void onClick(View v) {
                     tutorial.setImageBitmap(null);
+                    tutorial.setVisibility(View.GONE);
                     Customer.alarmevent[2]=true;
                 }
             });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
 
         return rootView;

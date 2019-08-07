@@ -1,21 +1,14 @@
 package samstnet.com.kaz.lockscreen;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.KeyguardManager;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Vibrator;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +24,6 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
-import ng.max.slideview.SlideView;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.BusProvider;
@@ -273,6 +265,7 @@ public class LockScreenActivity extends Activity {
 //            Glide.with(this).load(R.drawable.happy).into(gifImage);
 
         /*
+>>>>>>> 8fb667c2770525320c851d300e887e9767e034e5
         slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {

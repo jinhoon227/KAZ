@@ -29,6 +29,7 @@
             android:layout_weight="3"
             app:srcCompat="@drawable/bean1_sad" />
 
+>>>>>>> 8fb667c2770525320c851d300e887e9767e034e5
 
         <TextView
             android:id="@+id/textView5"

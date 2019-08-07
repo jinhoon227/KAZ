@@ -24,8 +24,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -34,10 +32,6 @@ import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.eventbus.plant_info;
-
-import static samstnet.com.kaz.DayTimeFormatter.night;
-import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
-import static samstnet.com.kaz.MainActivity.cityInfo;
 
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -60,6 +54,7 @@ public class Menu1FragGrowth extends Fragment {
     TextView city_text;
     Button gps_button;
     TextView jack_content;
+    ImageView umbrella;
     ImageView tutorial;
 
     //소현----------------------------------------------------------------
@@ -122,17 +117,16 @@ public class Menu1FragGrowth extends Fragment {
 }
     public void ExpUp(plant_info a){
         if (a.getLevel()==1){
-            a.setExp(a.getExp()+20);
-        }
-
-       else if(a.getLevel()==2 || a.getLevel()==3 ||a.getLevel()==4){
             a.setExp(a.getExp()+15);
         }
-        else if(a.getLevel()==5 || a.getLevel()==6 || a.getLevel()==7){
+       else if(a.getLevel()==2 || a.getLevel()==3 ||a.getLevel()==4){
             a.setExp(a.getExp()+10);
         }
-        else if(a.getLevel()==8 ||a.getLevel()==9 || a.getLevel()>=10){
+        else if(a.getLevel()==5 || a.getLevel()==6 || a.getLevel()==7){
             a.setExp(a.getExp()+5);
+        }
+        else if(a.getLevel()==8 ||a.getLevel()==9 || a.getLevel()>=10){
+            a.setExp(a.getExp()+3);
         }
 
         if(a.getExp()>=100){
@@ -175,8 +169,8 @@ public class Menu1FragGrowth extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main, container, false);
+        cus =(Customer)getActivity().getApplication();
         //인덱스 참고 함수
         button=(Button) rootView.findViewById(R.id.button4);
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
@@ -184,8 +178,8 @@ public class Menu1FragGrowth extends Fragment {
         temperResult  =(TextView)rootView.findViewById(R.id.temperResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
         frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
-        // myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
-      //  myProgressBar.setVisibility(View.VISIBLE);
+         myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
+         myProgressBar.setVisibility(View.VISIBLE);
         tutorial = rootView.findViewById(R.id.tutorial);
         textView.setText(level_string);
 
@@ -237,6 +231,18 @@ public class Menu1FragGrowth extends Fragment {
         buttons[2]=(Button)rootView.findViewById(R.id.unbrellaButton);
         buttons[3]=(Button)rootView.findViewById(R.id.hatButton);
         buttons[4]=(Button)rootView.findViewById(R.id.coatButton);
+        umbrella = (ImageView)rootView.findViewById(R.id.umbrella4);
+        Log.d("cus.alarmevent[0]",""+cus.alarmevent[0]);
+        if(cus.alarmevent[0]==false)
+        {
+            Log.d("우산 ","안보여짐");
+            umbrella.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            Log.d("우산 ","보여짐");
+            umbrella.setVisibility(View.VISIBLE);
+        }
 
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
             getIndex();
@@ -329,27 +335,29 @@ public class Menu1FragGrowth extends Fragment {
                 return R.drawable.bean3_scarf;
             }
         }
-        return 0;
-    }
+            return 0;
+        }
 
 
-    // 버튼 눌리면 아이템 변경
-    View.OnClickListener listener=new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()){
+        // 버튼 눌리면 아이템 변경
+        View.OnClickListener listener=new View.OnClickListener()
+                {
+
+                    @Override
+                    public void onClick(View view) {
+                        switch (view.getId()){
                 //물뿌리개 선택
                 case R.id.sprinklerButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[0].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>80)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+20);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+5);
                     Log.d("물뿌리개love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(0);
                     break;
@@ -357,13 +365,14 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.FertilizerButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[1].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>85)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+15);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+2);
                     Log.d("비료love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(1);
                     break;
@@ -371,27 +380,30 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.unbrellaButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[2].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>75)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+25);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+9);
                     Log.d("우산love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(2);
+                    umbrella.setVisibility(View.VISIBLE);
                     break;
                 //썬글라스 선택
                 case R.id.hatButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[3].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>75)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+25);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+7);
                     Log.d("썬글라스love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(3);
                     break;
@@ -399,13 +411,14 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.coatButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[4].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>60)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+40);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+20);
                     Log.d("목도리love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(4);
                     break;
@@ -541,9 +554,12 @@ public class Menu1FragGrowth extends Fragment {
                @Override
                public void onClick(View v) {
                    tutorial.setImageBitmap(null);
+                   tutorial.setVisibility(View.GONE);
                    Customer.alarmevent[1]=true;
                }
            });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
     }
 
@@ -566,24 +582,16 @@ public class Menu1FragGrowth extends Fragment {
             if (cus.plant1.getLove() >= 70) {
                 return R.drawable.bean2_happy;
             } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
-                return R.drawable.bean2_happy;
+                return R.drawable.bean2_normal;
             } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
                 return R.drawable.bean2_sad;
-            }
-        } else if (cus.plant1.getState() == 2) {
-            if (cus.plant1.getLove() >= 70) {
-                return R.drawable.bean3_happy;
-            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
-                return R.drawable.bean3_happy;
-            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
-                return R.drawable.bean3_sad;
             }
         }
         else if (cus.plant1.getState() == 3) {
             if (cus.plant1.getLove() >= 70) {
                 return R.drawable.bean3_happy;
             } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
-                return R.drawable.bean3_happy;
+                return R.drawable.bean3_normal;
             } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
                 return R.drawable.bean3_sad;
             }
