@@ -47,6 +47,7 @@ public class Menu2FragStore extends Fragment {
     TextView moneyview;
     TextView statetext;
     ImageView treeview;
+    ImageView tutorial;
     //listview 에니메이션 기능 구현
     AlphaInAnimationAdapter animationAdapter;
     GlideDrawableImageViewTarget gifImage;
@@ -170,6 +171,8 @@ public class Menu2FragStore extends Fragment {
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.frag2background);
 
+        tutorial = rootView.findViewById(R.id.tutorial2);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             GradientDrawable drawable=
                     (GradientDrawable) getActivity().getApplicationContext().getDrawable(R.drawable.background_roundimg);
@@ -248,6 +251,18 @@ public class Menu2FragStore extends Fragment {
                 StAdapter.addItem(storeitem[i]);
             }
         }
+        //만약 처음 들어오는거면 튜토리얼 시청
+        if(Customer.alarmevent[2]==false){
+            tutorial.setImageResource(R.drawable.menu2_tut);
+            tutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tutorial.setImageBitmap(null);
+                    Customer.alarmevent[2]=true;
+                }
+            });
+        }
+
         return rootView;
     }
     @Override

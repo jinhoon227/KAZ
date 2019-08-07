@@ -7,7 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
+        import android.icu.text.SimpleDateFormat;
+        import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -32,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+        import java.util.Date;
 
         import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
         import samstnet.com.kaz.alarm.mAlarm;
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private GpsInfo gps;
     private LatXLngY grid;
     private ConverterGridGps converterGridGps;
-
+    static public int nowtime=0;
     Document doc = null;
     String data_info = null;
 
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     static public Intent intent;
     Customer cus;
     //public Intent intent1;
+    public int count=0;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -233,7 +236,46 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
 
     }
-
+    //애정도 나타내는 함수(시간에 따라)
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void lovestatetime(){
+        //현재시간 변수들
+        long now1 = System.currentTimeMillis();
+        Date date = new Date(now1);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("HH");//1시간단위
+        String getTime = sdf1.format(date);
+        int timing1=cus.getStateTime();//로컬시간 가져오기
+        nowtime=Integer.valueOf(getTime);//현재시간 가져오기
+        int timing=timing1-nowtime;//로컬시간-현재시간
+        count=10;
+        if(Math.abs(timing)<1){
+            count=0;
+        }
+        if(Math.abs(timing)>=1&&Math.abs(timing)<3){
+            count=10;
+        }
+        else if(Math.abs(timing)>=3&&Math.abs(timing)<5){
+            count=20;
+        }
+        else if(Math.abs(timing)>=5&&Math.abs(timing)<7){
+            count=30;
+        }
+        else if(Math.abs(timing)>=7&&Math.abs(timing)<9){
+            count=50;
+        }
+        else if(Math.abs(timing)>=9){
+            count=70;
+        }
+        //애정도가 마이너스로 변하면 최소값0으로 모두 통일
+        if(cus.plant1.getLove()-count<0)
+        {
+            cus.plant1.setLove(0);
+        }
+        //애정도가 마이너스가 아니면 그값 저장
+        else{
+            cus.plant1.setLove(cus.plant1.getLove() - count);
+        }
+    }
 
 
     @Override

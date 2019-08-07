@@ -313,19 +313,20 @@
                     <TableLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:layout_gravity="center">
 
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:orientation="horizontal">
 
                             <Button
                                 android:id="@+id/sprinklerButton"
-                                android:layout_marginLeft="15dp"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
+                                android:layout_marginLeft="15dp"
                                 android:background="@drawable/vec_sprinkler"
                                 tools:visibility="visible" />
 
@@ -365,7 +366,8 @@
                                 android:id="@+id/button4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="act" />
+                                android:text="act"
+                                android:visibility="invisible"/>
 
                         </TableRow>
                     </TableLayout>
@@ -373,6 +375,12 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/tutorial"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

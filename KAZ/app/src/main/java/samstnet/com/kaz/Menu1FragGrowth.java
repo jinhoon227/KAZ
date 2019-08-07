@@ -55,6 +55,7 @@ public class Menu1FragGrowth extends Fragment {
     Button gps_button;
     TextView jack_content;
     ImageView umbrella;
+    ImageView tutorial;
 
     //소현----------------------------------------------------------------
     WeatherEvent weatherinfo = null;
@@ -165,11 +166,12 @@ public class Menu1FragGrowth extends Fragment {
         temperResult  =(TextView)rootView.findViewById(R.id.temperResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
         frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
-         myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
+        // myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
       //  myProgressBar.setVisibility(View.VISIBLE);
+        tutorial = rootView.findViewById(R.id.tutorial);
         textView.setText(level_string);
 
-        //위치 가져오기
+        //클릭시 위치 가져오기
         city_text=rootView.findViewById(R.id.city_text);
         gps_button = rootView.findViewById(R.id.gps_button);
         gps_button.setOnClickListener(new View.OnClickListener() {
@@ -227,7 +229,6 @@ public class Menu1FragGrowth extends Fragment {
         }
         else
         {
-
             Log.d("우산 ","보여짐");
             umbrella.setVisibility(View.VISIBLE);
         }
@@ -526,7 +527,20 @@ public class Menu1FragGrowth extends Fragment {
          temperResult.setText(MainActivity.tempor.get(0));
         //textView3.setText(MainActivity.tempor.get(0));
 
+
+        //만약 처음 들어오는거면 튜토리얼 시청
+        if(Customer.alarmevent[1]==false){
+           tutorial.setImageResource(R.drawable.menu1_tut);
+           tutorial.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   tutorial.setImageBitmap(null);
+                   Customer.alarmevent[1]=true;
+               }
+           });
+        }
     }
+
 
 
     //아이템 적용 함수

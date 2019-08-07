@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            app:srcCompat="@drawable/sunny_day" />
+            app:srcCompat="@drawable/bean1_sad" />
+
 
         <TextView
             android:id="@+id/textView5"
