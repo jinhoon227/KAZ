@@ -54,6 +54,7 @@ public class Menu1FragGrowth extends Fragment {
     TextView city_text;
     Button gps_button;
     TextView jack_content;
+    ImageView umbrella;
 
     //소현----------------------------------------------------------------
     WeatherEvent weatherinfo = null;
@@ -217,6 +218,19 @@ public class Menu1FragGrowth extends Fragment {
         buttons[2]=(Button)rootView.findViewById(R.id.unbrellaButton);
         buttons[3]=(Button)rootView.findViewById(R.id.hatButton);
         buttons[4]=(Button)rootView.findViewById(R.id.coatButton);
+        umbrella = (ImageView)rootView.findViewById(R.id.umbrella4);
+        Log.d("cus.alarmevent[0]",""+cus.alarmevent[0]);
+        if(cus.alarmevent[0]==false)
+        {
+            Log.d("우산 ","안보여짐");
+            umbrella.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+
+            Log.d("우산 ","보여짐");
+            umbrella.setVisibility(View.VISIBLE);
+        }
 
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
             getIndex();
@@ -358,6 +372,7 @@ public class Menu1FragGrowth extends Fragment {
                     }
                     Log.d("우산love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(2);
+                    umbrella.setVisibility(View.VISIBLE);
                     break;
                 //썬글라스 선택
                 case R.id.hatButton:
@@ -531,24 +546,16 @@ public class Menu1FragGrowth extends Fragment {
             if (cus.plant1.getLove() >= 70) {
                 return R.drawable.bean2_happy;
             } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
-                return R.drawable.bean2_happy;
+                return R.drawable.bean2_normal;
             } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
                 return R.drawable.bean2_sad;
-            }
-        } else if (cus.plant1.getState() == 2) {
-            if (cus.plant1.getLove() >= 70) {
-                return R.drawable.bean3_happy;
-            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
-                return R.drawable.bean3_happy;
-            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
-                return R.drawable.bean3_sad;
             }
         }
         else if (cus.plant1.getState() == 3) {
             if (cus.plant1.getLove() >= 70) {
                 return R.drawable.bean3_happy;
             } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
-                return R.drawable.bean3_happy;
+                return R.drawable.bean3_normal;
             } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
                 return R.drawable.bean3_sad;
             }

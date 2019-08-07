@@ -36,7 +36,7 @@ public class Lovestate extends BroadcastReceiver {
     public void resetItem(){
         for(int i=0;i<cus.plant1.itemNum;i++){
             cus.plant1.items[i]=false;
+            Customer.alarmevent[0]=false;
         }
     }
-
 }

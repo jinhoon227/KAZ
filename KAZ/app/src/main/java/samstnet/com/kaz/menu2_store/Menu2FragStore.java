@@ -180,7 +180,7 @@ public class Menu2FragStore extends Fragment {
         //treeview
         treeview = rootView.findViewById(R.id.treeImage);
         gifImage=new GlideDrawableImageViewTarget(treeview);
-        Glide.with(getActivity()).load(R.drawable.bean1_normal).into(gifImage);
+        Glide.with(getActivity()).load(storeBasicEmotion()).into(gifImage);
         statetext = rootView.findViewById(R.id.statetext);
         statetext.setText("기본상태");
         for(int i=0;i<ITEM_NUM;i++)

@@ -284,6 +284,16 @@
 
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/umbrella4"
+                    android:layout_width="135dp"
+                    android:layout_height="166dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/umbrella3" />
+
             </android.support.constraint.ConstraintLayout>
 
 
