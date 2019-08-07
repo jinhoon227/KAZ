@@ -209,6 +209,7 @@ public class Menu4FragConfig extends Fragment {
                 @Override
                 public void onClick(View v) {
                     tutorial.setImageBitmap(null);
+                    tutorial.setVisibility(View.GONE);
                     Customer.alarmevent[4]=true;
                 }
             });
