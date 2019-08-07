@@ -100,7 +100,6 @@ public class Menu4FragConfig extends Fragment {
 
         }else{
             Log.d("알림","off");
-//            getContext().sendBroadcast(intent3);
             Log.e("Menu4에서 알림 off", String.valueOf(cus.plant1.getLove()));
             create.setChecked(false);
             screen.setEnabled(false);
