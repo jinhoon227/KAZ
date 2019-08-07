@@ -76,17 +76,6 @@ public class Menu4FragConfig extends Fragment {
         cus=(Customer)getActivity().getApplication();
         Log.d("yeaahna","yeah");
 
-        /*
-        if (!cus.setting1.isCreateevent()) {
-            getContext().startService(MainActivity.intent);
-            if(!cus.setting1.isScreen()) {
-                getActivity().startService(intent);
-            }
-            if(!cus.setting1.isSoundevent()) {
-                getContext().startService(intent1);
-            }
-        }*/
-
     }
     @Nullable
 
