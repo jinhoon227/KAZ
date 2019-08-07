@@ -213,6 +213,8 @@ public class Menu4FragConfig extends Fragment {
                     Customer.alarmevent[4]=true;
                 }
             });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
 
 
