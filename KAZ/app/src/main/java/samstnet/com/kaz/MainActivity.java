@@ -558,11 +558,13 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("plant",tmparr2);
         tmparr2 =  cus.setting1.isCreateevent()+"&"+cus.setting1.isSwitch1event()+"&"+cus.setting1.isSoundevent()+"&"+cus.setting1.isScreen();
         editor.putString("setting",tmparr2);
+        tmparr2="";
         for(int i=0;i<ALARMEVENT_NUM-1;i++)
         {
             tmparr2= tmparr2+String.valueOf(cus.alarmevent[i])+"&";
         }
         tmparr2=tmparr2+String.valueOf(cus.alarmevent[ALARMEVENT_NUM-1]);
+        Log.d("알람 이벤트", ""+tmparr2);
         editor.putString("alarmevent",tmparr2);
         editor.putString("stateTime",String.valueOf(cus.getStateTime()));
         editor.commit(); //완료한다.

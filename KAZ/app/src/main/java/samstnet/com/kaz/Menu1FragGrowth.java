@@ -170,8 +170,8 @@ public class Menu1FragGrowth extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_menu1_frag_growth_main, container, false);
+        cus =(Customer)getActivity().getApplication();
         //인덱스 참고 함수
         button=(Button) rootView.findViewById(R.id.button4);
         textView=(TextView) rootView.findViewById(R.id.LevelResult);
