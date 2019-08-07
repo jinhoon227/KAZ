@@ -22,6 +22,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import samstnet.com.kaz.Lovestatetime;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.alarm.NonDisturb;
@@ -40,7 +41,7 @@ public class Menu4FragConfig extends Fragment {
 
     Customer cus;
     NotificationCompat.Builder builder;
-
+    Intent intent3;
     Intent intent;
     Intent intent1;
 
@@ -69,7 +70,7 @@ public class Menu4FragConfig extends Fragment {
 
         intent = new Intent(getActivity().getApplication(), ScreenService.class);
         intent1 = new Intent(getContext().getApplicationContext(),NonDisturb.class);
-
+        intent3=new Intent(getContext().getApplicationContext(), Lovestatetime.class);
         cus=(Customer)getActivity().getApplication();
         Log.d("yeaahna","yeah");
 
@@ -107,6 +108,8 @@ public class Menu4FragConfig extends Fragment {
 
         }else{
             Log.d("알림","off");
+//            getContext().sendBroadcast(intent3);
+            Log.e("Menu4에서 알림 off", String.valueOf(cus.plant1.getLove()));
             create.setChecked(false);
             screen.setEnabled(false);
             sound.setEnabled(false);

@@ -22,7 +22,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-        import android.view.View;
+import android.view.View;
 
         import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
         import java.util.Date;
 
+        import samstnet.com.kaz.Service.ExampleService;
         import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
         import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
@@ -55,6 +56,7 @@ import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
         // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
+@TargetApi(Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
 
     // FrameLayout에 각 메뉴의 Fragment를 바꿔 줌
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     static public int nowtime=0;
     Document doc = null;
     String data_info = null;
-
+    Intent intent3;
     static WeatherEvent wev = null;
 
     static public ArrayList<String> wtstate = new ArrayList<>();
@@ -106,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
     Customer cus;
     //public Intent intent1;
     public int count=0;
-
+    Intent intent2;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,9 +234,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
-
+        lovestatetime();
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
-
+        intent2=new Intent(getApplicationContext(), ExampleService.class);
+        sendBroadcast(intent2);
+        if(cus.setting1.isScreen()){
+            intent3=new Intent(getApplicationContext(), Lovestatetime.class);
+            startService(intent3);
+        }
     }
     //애정도 나타내는 함수(시간에 따라)
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -248,32 +255,43 @@ public class MainActivity extends AppCompatActivity {
         nowtime=Integer.valueOf(getTime);//현재시간 가져오기
         int timing=timing1-nowtime;//로컬시간-현재시간
         count=10;
-        if(Math.abs(timing)<1){
+        Log.e(String.valueOf(cus.getStateTime()),"저장된시간");
+        if(Math.abs(timing)<1||cus.getStateTime()==0){
             count=0;
         }
-        if(Math.abs(timing)>=1&&Math.abs(timing)<3){
+        if(Math.abs(timing)>=1&&Math.abs(timing)<3&&cus.getStateTime()!=0){
             count=10;
         }
-        else if(Math.abs(timing)>=3&&Math.abs(timing)<5){
+        else if(Math.abs(timing)>=3&&Math.abs(timing)<5&&cus.getStateTime()!=0){
             count=20;
         }
-        else if(Math.abs(timing)>=5&&Math.abs(timing)<7){
+        else if(Math.abs(timing)>=5&&Math.abs(timing)<7&&cus.getStateTime()!=0){
             count=30;
         }
-        else if(Math.abs(timing)>=7&&Math.abs(timing)<9){
+        else if(Math.abs(timing)>=7&&Math.abs(timing)<9&&cus.getStateTime()!=0){
             count=50;
         }
-        else if(Math.abs(timing)>=9){
+        else if(Math.abs(timing)>=9&&cus.getStateTime()!=0){
             count=70;
         }
+        else if(cus.getStateTime()==0)
+        {
+            count=0;
+        }
+        Log.e("time1",String.valueOf(timing));
+        Log.e("count",String.valueOf(count));
         //애정도가 마이너스로 변하면 최소값0으로 모두 통일
         if(cus.plant1.getLove()-count<0)
         {
             cus.plant1.setLove(0);
+            Log.e("애정도",String.valueOf(cus.plant1.getLove()));
+            Log.e("count",String.valueOf(count));
         }
         //애정도가 마이너스가 아니면 그값 저장
         else{
             cus.plant1.setLove(cus.plant1.getLove() - count);
+            Log.e("애정도",String.valueOf(cus.plant1.getLove()));
+            Log.e("count",String.valueOf(count));
         }
     }
 

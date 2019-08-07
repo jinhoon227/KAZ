@@ -17,10 +17,12 @@ import android.util.Log;
 import java.util.Calendar;
 import java.util.Date;
 
+import samstnet.com.kaz.Lovestate;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
 import samstnet.com.kaz.alarm.AlarmDisturb;
+import samstnet.com.kaz.eventbus.Customer;
 
 import static samstnet.com.kaz.eventbus.Customer.CHANNEL_ID;
 
@@ -38,14 +40,20 @@ public class ExampleService extends Service {
     static Calendar calendar;
     static public int time = 0;
     static public int operationNum = 24;
-
+    MainActivity activity=new MainActivity();
     String AlarmTitle=new String();
     String AlarmText=new String();
-
+    Customer cus;
+    long now1;
+    Date date;
+    SimpleDateFormat sdf1;
+    String getTime;
     //온도
     String temp;
     int tem=-1;
-
+    Intent intent2;
+    PendingIntent operation1;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate() {
         super.onCreate();
@@ -55,17 +63,40 @@ public class ExampleService extends Service {
         //알람이 실행될 때 실행되었으면 하는 액티비티
         intent = new Intent(this, AlarmBroadcastReceiver.class);
         intent1 = new Intent(this, AlarmDisturb.class);
+        intent2=new Intent(this, Lovestate.class);
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         calendar = Calendar.getInstance();
         operation = new PendingIntent[operationNum];
-
+        now1 = System.currentTimeMillis();
+        date = new Date(now1);
+        sdf1 = new SimpleDateFormat("HH");//1시간단위
+        getTime = sdf1.format(date);
+        int timing1=cus.getStateTime();//로컬시간 가져오기
+        operation1=PendingIntent.getBroadcast(this,30, intent2,0);
         time = 0;
+        Log.e("알림버튼누른시간",getTime);
+        onTimeSet1();
 
+        activity.lovestatetime();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             onTimeSet();
         }
-    }
 
+    }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void onTimeSet1() {
+        // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("mm");
+        String getTime = sdf.format(date);
+        _minute=Integer.valueOf(getTime);
+
+        Log.d("LovestateTime", String.valueOf(_minute+1));
+        calendar.set(Calendar.MINUTE,1);
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*2,operation1);
+
+    }
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
@@ -149,6 +180,8 @@ public class ExampleService extends Service {
         for (int i = 0; i < operationNum; i++) {
             mAlarmManager.cancel(operation[i]);
         }
+        cus.setStateTime(Integer.parseInt(getTime));
+        Log.e("endtime",getTime);
         Log.d("test", "서비스의 onDestroy");
     }
 
