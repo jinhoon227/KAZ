@@ -254,9 +254,12 @@ public class Menu2FragStore extends Fragment {
                 @Override
                 public void onClick(View v) {
                     tutorial.setImageBitmap(null);
+                    tutorial.setVisibility(View.GONE);
                     Customer.alarmevent[2]=true;
                 }
             });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
 
         return rootView;

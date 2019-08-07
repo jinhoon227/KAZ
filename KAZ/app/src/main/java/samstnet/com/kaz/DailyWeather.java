@@ -103,9 +103,12 @@ public class DailyWeather extends Fragment {
                 @Override
                 public void onClick(View v) {
                     tutorial.setImageBitmap(null);
+                    tutorial.setVisibility(View.GONE);
                     Customer.alarmevent[3]=true;
                 }
             });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
 
         return rootView;

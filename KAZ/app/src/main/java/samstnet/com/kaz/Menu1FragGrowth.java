@@ -549,9 +549,12 @@ public class Menu1FragGrowth extends Fragment {
                @Override
                public void onClick(View v) {
                    tutorial.setImageBitmap(null);
+                   tutorial.setVisibility(View.GONE);
                    Customer.alarmevent[1]=true;
                }
            });
+        }else{
+            tutorial.setVisibility(View.GONE);
         }
     }
 
