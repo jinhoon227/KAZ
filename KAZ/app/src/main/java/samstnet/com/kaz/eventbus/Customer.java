@@ -30,7 +30,7 @@ public class Customer extends Application {
     //ALARMEVENT 갯수
     public static final int ALARMEVENT_NUM=24;
 
-
+    //0 : seogi 1-4 : jinhoon-tutorial others : empty
     public static boolean alarmevent[] = new boolean[25];
 
     private int money;
@@ -109,6 +109,8 @@ public class Customer extends Application {
         String itemWearTmp;
         String alarmeventtmp;
         String timetmp;
+        String itemequiptmp;
+
 
         //처음 기본 데이터 저장하는 Customer
         String Initalize_plant;
@@ -117,7 +119,6 @@ public class Customer extends Application {
         String Intialize_itemwear;
         String Intialize_alarmevent;
         String Intialize_timestate;
-
 
         Initalize_plant = "1&0&PLANT1&1&5&50";
 

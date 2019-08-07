@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -28,6 +29,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 import samstnet.com.kaz.eventbus.BusProvider;
+import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.weekweather.WeekWeatherInfo;
 
 public class TheDaytimeWeather extends Fragment {
@@ -96,6 +98,7 @@ public class TheDaytimeWeather extends Fragment {
                 e.printStackTrace();
             }
             weekWeatherDay.setText(convertedString);
+
         }
 
         return rootView;

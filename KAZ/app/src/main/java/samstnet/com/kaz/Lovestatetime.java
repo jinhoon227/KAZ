@@ -27,16 +27,15 @@ public class Lovestatetime extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("test", "애정도의Lovestatetime");
+        Log.e("test", "애정도의Lovestatetime");
         //알람이 실행될 때 실행되었으면 하는 액티비티
        intent=new Intent(this, Lovestate.class);
         mAlarmManager=(AlarmManager)getSystemService(Context.ALARM_SERVICE);
         calendar=Calendar.getInstance();
         operation=PendingIntent.getBroadcast(this,30, intent,0);
         time=0;
-
         onTimeSet();
-        Log.d("되냐?","안되냐");
+        Log.e("되냐?","안되냐");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -50,7 +49,7 @@ public class Lovestatetime extends Service {
 
         Log.d("LovestateTime", String.valueOf(_minute+1));
         calendar.set(Calendar.MINUTE,1);
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*1,operation);
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*2,operation);
 
     }
     @Override

@@ -12,13 +12,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -40,6 +40,9 @@ public class Menu4FragConfig extends Fragment {
 
     Customer cus;
     NotificationCompat.Builder builder;
+
+
+    ImageView tutorial;
 
     Intent intent;
     Intent intent1;
@@ -95,6 +98,7 @@ public class Menu4FragConfig extends Fragment {
         create = rootView.findViewById(R.id.create);
         sound=rootView.findViewById(R.id.sound);
         screen=rootView.findViewById(R.id.screen);
+        tutorial=rootView.findViewById(R.id.tutorial4);
 
         //알림
         if (!cus.setting1.isCreateevent()) {
@@ -107,6 +111,8 @@ public class Menu4FragConfig extends Fragment {
 
         }else{
             Log.d("알림","off");
+//            getContext().sendBroadcast(intent3);
+            Log.e("Menu4에서 알림 off", String.valueOf(cus.plant1.getLove()));
             create.setChecked(false);
             screen.setEnabled(false);
             sound.setEnabled(false);
@@ -207,6 +213,18 @@ public class Menu4FragConfig extends Fragment {
             }
         });
 
+        //만약 처음 들어오는거면 튜토리얼 시청
+        if(Customer.alarmevent[4]==false){
+            tutorial.setImageResource(R.drawable.menu4_tut);
+            tutorial.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tutorial.setImageBitmap(null);
+                    Customer.alarmevent[4]=true;
+                }
+            });
+        }
+
 
         return rootView;
     }
@@ -242,11 +260,5 @@ public class Menu4FragConfig extends Fragment {
         // 정의해야하는 각 알림의 고유한 int값
         notificationManager.notify(1, builder.build());
     }
-    private void removeNotification() {
-        // Notification 제거
-        NotificationManagerCompat.from(getView().getContext()).cancel(1);
-    }
-//    private void soundNotification(){
-//        builder.setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_VIBRATE);
-//    }
+
 }
