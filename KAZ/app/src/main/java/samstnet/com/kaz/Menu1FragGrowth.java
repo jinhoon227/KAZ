@@ -430,7 +430,7 @@ public class Menu1FragGrowth extends Fragment {
         if(wtstate.get(0)=="manycloud"){
             index=0;
             //imageView_1.setImageResource(R.drawable.spring);
-            Glide.with(this).load(R.drawable.).into(backgif);
+            Glide.with(this).load(R.drawable.back).into(backgif);
             textview_1.setText("구름");
             jack_content.setText("목말라요..물이 필요해요!");
 

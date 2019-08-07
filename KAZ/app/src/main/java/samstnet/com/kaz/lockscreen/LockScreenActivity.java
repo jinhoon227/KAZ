@@ -113,10 +113,8 @@ public class LockScreenActivity extends Activity {
 
         if (a.getLevel() == 5) {
             a.setState(a.getState() + 1);
-            Glide.with(this).load(R.drawable.bean2_happy).into(gifImage);
         } else if (a.getLevel() == 10) {
             a.setState(a.getState() + 1);
-            Glide.with(this).load(R.drawable.bean3_happy).into(gifImage);
         }
 
     }
@@ -223,7 +221,35 @@ public class LockScreenActivity extends Activity {
 
         textView3 = (TextView) findViewById(R.id.temperResult);
         // textView4=(TextView)findViewById(R.id.tvBclock);
-        SlideView slideView = (SlideView) findViewById(R.id.slider1);
+        //SlideView slideView = (SlideView) findViewById(R.id.slider1);
+
+        //잠금해제
+        imageView.setOnTouchListener(new OnSwipeTouchListener(this){
+
+            @Override
+            public void onSwipeRight() {
+                super.onSwipeRight();
+                finish();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
+                finish();
+            }
+
+            @Override
+            public void onSwipeBottom() {
+                super.onSwipeBottom();
+                finish();
+            }
+
+            @Override
+            public void onSwipeTop() {
+                super.onSwipeTop();
+                finish();
+            }
+        });
 
 
 
@@ -242,6 +268,7 @@ public class LockScreenActivity extends Activity {
 //            Glide.with(this).load(R.drawable.normally).into(gifImage);
 //        else if (cus.plant1.getState() == 3)
 //            Glide.with(this).load(R.drawable.happy).into(gifImage);
+<<<<<<< HEAD
         if(cus.plant1.getLove()>=70){
             Glide.with(this).load(R.drawable).into(gifImage);
         }
@@ -251,6 +278,10 @@ public class LockScreenActivity extends Activity {
         else if(cus.plant1.getLove()>=0&&cus.plant1.getLove()<40){
             Glide.with(this).load(R.drawable.sad).into(gifImage);
         }
+=======
+
+        /*
+>>>>>>> 8fb667c2770525320c851d300e887e9767e034e5
         slideView.setOnSlideCompleteListener(new SlideView.OnSlideCompleteListener() {
             @Override
             public void onSlideComplete(SlideView slideView) {
@@ -261,6 +292,7 @@ public class LockScreenActivity extends Activity {
                 finish();
             }
         });
+        */
         /*button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,7 +338,7 @@ public class LockScreenActivity extends Activity {
             getIndex();
         }
         */
-
+        Glide.with(this).load(plantEmotion()).into(gifImage);
         set1Image(0);
     }
 
@@ -352,6 +384,7 @@ public class LockScreenActivity extends Activity {
         super.onStart();
         Log.d("growth_Fragment", "onStart");
     }
+
 
     // 버튼 눌리면 아이템 변경
     View.OnClickListener listener = new View.OnClickListener() {
@@ -441,7 +474,7 @@ public class LockScreenActivity extends Activity {
             textview_1.setText("fewcloud");
         } else if (wtstate.get(0) == "sun") {
             index = 2;
-            Glide.with(this).load(R.drawable.sunnyday).into(backgif);
+            Glide.with(this).load(R.drawable.sunny_day).into(backgif);
 
             //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("sun");
@@ -474,6 +507,44 @@ public class LockScreenActivity extends Activity {
         //----------------------------------------------------------------
 
 
+    }
+    public int plantEmotion() {
+        if (cus.plant1.getState() == 1) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean1_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean1_normal;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean1_sad;
+            }
+
+        } else if (cus.plant1.getState() == 2) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean2_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean2_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean2_sad;
+            }
+        } else if (cus.plant1.getState() == 2) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean3_sad;
+            }
+        }
+        else if (cus.plant1.getState() == 3) {
+            if (cus.plant1.getLove() >= 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 30 && cus.plant1.getLove() < 70) {
+                return R.drawable.bean3_happy;
+            } else if (cus.plant1.getLove() >= 0 && cus.plant1.getLove() < 30) {
+                return R.drawable.bean3_sad;
+            }
+        }
+        return R.drawable.bean1_normal;
     }
 
 }
