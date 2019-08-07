@@ -240,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
         sendBroadcast(intent2);
         if(cus.setting1.isScreen()){
             intent3=new Intent(getApplicationContext(), Lovestatetime.class);
+            Log.d( "스크린 꺼졌을때 애정도 받아오는거", String.valueOf(cus.plant1.getLove()));
             startService(intent3);
         }
     }
