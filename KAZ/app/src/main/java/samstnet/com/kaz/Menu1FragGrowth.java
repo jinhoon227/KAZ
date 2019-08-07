@@ -1,9 +1,13 @@
 package samstnet.com.kaz;
 
 import android.content.Context;
+import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +27,7 @@ import com.squareup.otto.Subscribe;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import samstnet.com.kaz.eventbus.BusProvider;
@@ -35,6 +40,7 @@ import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
 import static samstnet.com.kaz.MainActivity.cityInfo;
 
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class Menu1FragGrowth extends Fragment {
 
 
@@ -66,6 +72,12 @@ public class Menu1FragGrowth extends Fragment {
     TextView textview_1;
     FrameLayout framelayout;
     FrameLayout frame1;
+    long now1;
+    Date date;
+    SimpleDateFormat sdf1;//1시간단위
+    Intent intent3;
+    String getTime;
+    int timing1=cus.getStateTime();//로컬시간 가져오기
 
     int indexs[];
     int index=0;
@@ -140,7 +152,10 @@ public class Menu1FragGrowth extends Fragment {
         //소현------------------------------------------------------------------------------------
         // Register ourselves so that we can provide the initial value.
         BusProvider.getInstance().register(this);
-
+        now1= System.currentTimeMillis();
+        date = new Date(now1);
+        sdf1 = new SimpleDateFormat("HH");
+        getTime = sdf1.format(date);
         // 해당 프래그먼트가 켜졌을때 엑티비티에 날씨 정보가 저장되어있다면 가져옴
         // FinishLoad 함수의 경우 날씨 값이 바뀌면 값을 업데이트 해주는것
         // FinishLoad 함수는 Fragment가 연결되어있어야만 수행되기에
@@ -151,8 +166,12 @@ public class Menu1FragGrowth extends Fragment {
             tempor.addAll(weatherinfo.getTempor());
             time.addAll(weatherinfo.getTime());
         }
-        //--------------------------------------------------------------------------------------
 
+        //--------------------------------------------------------------------------------------
+//        cus.setStateTime(Integer.valueOf(getTime));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//        activity.lovestatetime();//2번에 앱이 꺼진상태에서 켰을 때
+//        }
     }
     @Nullable
     @Override
@@ -189,7 +208,6 @@ public class Menu1FragGrowth extends Fragment {
         gifImage=new GlideDrawableImageViewTarget((imageView));
 
         Glide.with(this).load(plantEmotion()).into(gifImage);
-
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -261,6 +279,8 @@ public class Menu1FragGrowth extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         BusProvider.getInstance().unregister(this);
+        cus.setStateTime(Integer.valueOf(getTime));//2번로컬저장
+        Log.e("Menu1time",getTime);
         Log.d("growth_Fragment","onDestroy");
     }
 

@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import samstnet.com.kaz.Lovestatetime;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.alarm.NonDisturb;
@@ -41,6 +42,7 @@ public class Menu4FragConfig extends Fragment {
 
     Customer cus;
     NotificationCompat.Builder builder;
+
 
     ImageView tutorial;
 
@@ -111,6 +113,8 @@ public class Menu4FragConfig extends Fragment {
 
         }else{
             Log.d("알림","off");
+//            getContext().sendBroadcast(intent3);
+            Log.e("Menu4에서 알림 off", String.valueOf(cus.plant1.getLove()));
             create.setChecked(false);
             screen.setEnabled(false);
             sound.setEnabled(false);
