@@ -58,7 +58,9 @@ public class Lovestatetime extends Service {
         calendar.set(Calendar.HOUR_OF_DAY,_hour);
         //calendar.set(Calendar.MINUTE,_minute+1);
         calendar.set(Calendar.MINUTE,1);
+
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation);
+
 
     }
     @Override

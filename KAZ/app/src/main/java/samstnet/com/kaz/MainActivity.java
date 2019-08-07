@@ -23,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import android.view.View;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,9 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
-import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.Service.ExampleService;
-import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
 import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
@@ -54,7 +51,6 @@ import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
 import static samstnet.com.kaz.eventbus.Customer.ALARMEVENT_NUM;
 import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
-        // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
 @TargetApi(Build.VERSION_CODES.N)
