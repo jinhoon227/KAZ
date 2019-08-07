@@ -20,8 +20,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.squareup.otto.Subscribe;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -29,10 +27,6 @@ import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.WeatherEvent;
 import samstnet.com.kaz.eventbus.plant_info;
-
-import static samstnet.com.kaz.DayTimeFormatter.night;
-import static samstnet.com.kaz.DayTimeFormatter.nowTime_str;
-import static samstnet.com.kaz.MainActivity.cityInfo;
 
 
 public class Menu1FragGrowth extends Fragment {
@@ -430,7 +424,7 @@ public class Menu1FragGrowth extends Fragment {
         if(wtstate.get(0)=="manycloud"){
             index=0;
             //imageView_1.setImageResource(R.drawable.spring);
-            Glide.with(this).load(R.drawable.back).into(backgif);
+            Glide.with(this).load(R.drawable.many_cloud).into(backgif);
             textview_1.setText("구름");
             jack_content.setText("목말라요..물이 필요해요!");
 

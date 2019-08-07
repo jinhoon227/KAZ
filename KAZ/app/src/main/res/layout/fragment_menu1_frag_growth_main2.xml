@@ -150,11 +150,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-<<<<<<< HEAD
-                app:srcCompat="@drawable/bean1" />
-=======
-                app:srcCompat="@drawable/bean1_sad" />
->>>>>>> 8fb667c2770525320c851d300e887e9767e034e5
+                 app:srcCompat="@drawable/bean1_sad" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

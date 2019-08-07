@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -46,6 +47,14 @@ public class ExampleService extends Service {
     String temp;
     int tem=-1;
 
+    //시간
+    int _hour;
+    int hour;
+
+    int nImg=0;
+
+    AudioManager mAudioManager;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -58,6 +67,11 @@ public class ExampleService extends Service {
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         calendar = Calendar.getInstance();
         operation = new PendingIntent[operationNum];
+
+        //무음 모드
+//            mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+//            mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT); //무음
+
 
         time = 0;
 
@@ -80,27 +94,24 @@ public class ExampleService extends Service {
         pendingIntent=PendingIntent.getBroadcast(this, 25, intent, 0);
         pendingIntent1=PendingIntent.getBroadcast(this,26,intent1,0);
 
-        //sendBroadcast(intent);
+        sdf=new SimpleDateFormat("HH");
+        hour=Integer.valueOf(sdf.format(date));
+        _hour=Integer.valueOf(sdf.format(date));
 
-        for (int i = 0; i < operationNum; i++) {
+        hour=((hour/3)*3)+3;
+        if(hour>=24)
+            hour=0;
 
-            calendar.set(Calendar.HOUR_OF_DAY,time);
-            calendar.set(Calendar.MINUTE,_minute);
+        Log.d("hour",String.valueOf(hour));
 
-            Log.d(String.valueOf(time), String.valueOf(_minute));
+        calendar.set(Calendar.HOUR_OF_DAY,hour);
+        calendar.set(Calendar.MINUTE,_minute);
 
+        Log.d(String.valueOf(time), String.valueOf(_minute));
 
-            operation[i] = PendingIntent.getBroadcast(this, i, intent, 0);
+        sendBroadcast(intent);
 
-            //알람 반복
-            // 10분
-            //mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 *10 , operation[i]);
-            // 24시간
-            mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , operation[i]);
-
-            //_minute++;
-            time+=1;
-        }
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
 
         calendar.set(Calendar.HOUR_OF_DAY,7);
         calendar.set(Calendar.MINUTE,30);
@@ -109,7 +120,8 @@ public class ExampleService extends Service {
         //calendar.set(Calendar.MINUTE,minute+1);
 
         //아침알람
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , pendingIntent1);
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , pendingIntent1);
+
     }
 
     //알람 서비스 시작
@@ -134,7 +146,7 @@ public class ExampleService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(AlarmTitle)
                 .setContentText(AlarmText)
-                .setSmallIcon(R.drawable.bean1)
+                .setSmallIcon(nImg)
                 .setContentIntent(pendingIntent)
                 .build();
 
@@ -146,14 +158,9 @@ public class ExampleService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for (int i = 0; i < operationNum; i++) {
-            mAlarmManager.cancel(operation[i]);
-        }
+        mAlarmManager.cancel(pendingIntent);
+        mAlarmManager.cancel(pendingIntent1);
         Log.d("test", "서비스의 onDestroy");
-    }
-
-    public static AlarmManager getAlarmManager(){
-        return mAlarmManager;
     }
 
     @Nullable
@@ -168,72 +175,106 @@ public class ExampleService extends Service {
         tem=Integer.parseInt(temp);
 
         if(MainActivity.tempor.size()!=0) {
-            AlarmTitle = MainActivity.cityInfo+"의 날씨는"+temp+"도";
+            AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도 입니다.";
         }
         else {
-            AlarmTitle="저는 집에 갈 수 없어요ㅜㅜ";
+            AlarmTitle="에러가 났어요";
         }
 
         if(MainActivity.wtstate.size()==0){
-            AlarmText="새로고침해라";
+            AlarmText="앱을 다시 켜주세요";
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
-            if(tem>=30)
-                AlarmText=heat();
+            nImg= R.drawable._manycloud;
+            if(tem>=30&&(_hour<=20&&_hour>=6))
+                AlarmText = heat();
+            else if(tem>=25&&(_hour>20||_hour<6)) {
+                AlarmText = nightHeat();
+                nImg= R.drawable._moon;
+            }
             else if(tem<=0)
                 AlarmText=cold();
+            else if(_hour>20||_hour<6) {
+                AlarmText = "좋은 밤이에요. 오늘 하루는 어땠나요?";
+                nImg= R.drawable._moon;
+            }
             else
-                AlarmText = "구름이 많아요! 흐린 날씨에 주의하세요";
+                AlarmText = "구름이 많아요! 날씨가 흐려도 기운내세요";
+
         }
         else if(MainActivity.wtstate.get(0)=="fewcloud"){
             //AlarmTitle="구름";
-            if(tem>=30)
+            nImg= R.drawable._fewcloud;
+            if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText=heat();
+            else if(tem>=25&&(_hour>20||_hour<6)) {
+                AlarmText = nightHeat();
+                nImg= R.drawable._moon;
+            }
             else if(tem<=0)
                 AlarmText=cold();
+            else if(_hour>20||_hour<6) {
+                AlarmText = "좋은 밤이에요. 오늘 밤은 좋은 꿈 꾸세요";
+                nImg= R.drawable._moon;
+            }
             else
                 AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
         else if(MainActivity.wtstate.get(0)=="sun"){
             //AlarmTitle="태양";
-            if(tem>=30)
+            nImg= R.drawable._sunnyday;
+            if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText=heat();
+            else if(tem>=25&&(_hour>20||_hour<6)) {
+                AlarmText = nightHeat();
+                nImg= R.drawable._moon;
+            }
             else if(tem<=0)
                 AlarmText=cold();
+            else if(_hour>20||_hour<6) {
+                AlarmText = "좋은 밤이에요. 오늘은 달이 잘 보이겠어요";
+                nImg= R.drawable._moon;
+            }
             else
                 AlarmText="화창한 날씨에요. 함께 나가요";
         }
         else if(MainActivity.wtstate.get(0)=="rain"){
             //AlarmTitle="비";
+            nImg= R.drawable._rainny;
             if(tem>=30)
                 AlarmText="지금은 덥고 습한 날씨에요!. 잊지말고 우산 꼭 챙기세요";
             else if(tem<=0)
-                AlarmText="비예보도 있는데 춥기까지하네. 우산 챙기세요";
+                AlarmText="비예보도 있는데 춥기까지! 꼭 우산 챙기세요";
             else
                 AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
         }
         else if(MainActivity.wtstate.get(0)=="snow"){
             //AlarmTitle="눈";
+            nImg= R.drawable._snowy;
             if(tem>=30)
-                AlarmText="날씨가 미쳤어";
+                AlarmText="날씨가 미쳤어!";
             else if(tem<=0)
                 AlarmText="영하 온도에 눈까지 와요. 야외 활동을 자제하세요";
             else
                 AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
         }
         else {
-            AlarmText="아 속안좋아";
+            AlarmText="알람을 껐다 켜주세요";
         }
 
     }
 
     public String heat(){
-        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자세하세요!";
+        return "날씨가 많이 더워요. 물 많이 마시고 야외활동을 자제하세요!";
     }
 
     public String cold(){
-        return "으슬으슬 너무 추워요. 따뜻하게 입고나가요~";
+        return "으슬으슬 너무 추워요. 따뜻하게 입고나가요";
+    }
+
+    public String nightHeat(){
+        return "더운 밤이에요. 잠자리에 들 때 주의하세요";
     }
 
 
