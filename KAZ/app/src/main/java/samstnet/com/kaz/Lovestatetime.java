@@ -49,7 +49,7 @@ public class Lovestatetime extends Service {
 
         Log.d("LovestateTime", String.valueOf(_minute+1));
         calendar.set(Calendar.MINUTE,1);
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*2,operation);
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation);
 
     }
     @Override
