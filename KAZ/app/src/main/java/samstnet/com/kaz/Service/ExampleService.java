@@ -107,12 +107,21 @@ public class ExampleService extends Service {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("mm");
+        SimpleDateFormat hdf = new SimpleDateFormat("HH");
         String getTime = sdf.format(date);
         _minute=Integer.valueOf(getTime);
+        getTime = hdf.format(date);
+        int _hour=Integer.valueOf(getTime);
+
+        _hour=(_hour/3)*3+3;
 
         Log.d("LovestateTime", String.valueOf(_minute+1));
+        Log.d("LovestateHour", String.valueOf(_hour));
+
+       calendar.set(Calendar.HOUR_OF_DAY,_hour);
         calendar.set(Calendar.MINUTE,1);
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
+
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
 
     }
     @RequiresApi(api = Build.VERSION_CODES.N)

@@ -32,21 +32,30 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"
+            android:noHistory="true">
         </activity>
-        <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".menu2_store.PopupActivity2" android:theme="@android:style/Theme.Dialog" />
-
+        <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog"
+            android:excludeFromRecents="true"
+            android:noHistory="true"/>
+        <activity android:name=".menu2_store.PopupActivity2" android:theme="@android:style/Theme.Dialog"
+            android:excludeFromRecents="true"
+            android:noHistory="true"/>
         <activity android:name=".lockscreen.LockScreenActivity"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
 
         <service android:name=".lockscreen.ScreenService"
@@ -54,20 +63,19 @@
         <service android:name=".alarm.mAlarm"/>
         <service android:name=".alarm.NonDisturb"/>
 
-        <receiver android:name=".alarm.AlarmBroadcastReceiver"/>
         <receiver android:name=".alarm.AlarmDisturb"/>
 
         <service android:name=".Service.ExampleService" />
         <!-- BackgroundService -->
         <receiver
-            android:name=".lockscreen.ScreenReceiver"
+            android:name=".alarm.AlarmBroadcastReceiver"
             android:exported="false"
             android:enabled="true"
             android:directBootAware="true"
             >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
         </receiver>
         <receiver android:name=".Lovestate"/>
 

@@ -44,12 +44,23 @@ public class Lovestatetime extends Service {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("mm");
+        SimpleDateFormat hdf = new SimpleDateFormat("HH");
         String getTime = sdf.format(date);
         _minute=Integer.valueOf(getTime);
+        getTime = hdf.format(date);
+        int _hour=Integer.valueOf(getTime);
+
+        _hour=(_hour/3)*3;
 
         Log.d("LovestateTime", String.valueOf(_minute+1));
+        Log.d("LovestateHour", String.valueOf(_hour));
+
+        calendar.set(Calendar.HOUR_OF_DAY,_hour);
+        //calendar.set(Calendar.MINUTE,_minute+1);
         calendar.set(Calendar.MINUTE,1);
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*2,operation);
+
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation);
+
 
     }
     @Override

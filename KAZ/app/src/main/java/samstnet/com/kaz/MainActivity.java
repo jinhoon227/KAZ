@@ -23,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 
-import android.view.View;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -35,9 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 
-import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.Service.ExampleService;
-import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
 import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
@@ -54,7 +51,6 @@ import samstnet.com.kaz.weekweather.WeekWeatherParser;
 
 import static samstnet.com.kaz.eventbus.Customer.ALARMEVENT_NUM;
 import static samstnet.com.kaz.eventbus.Customer.ITEM_NUM;
-        // import samstnet.com.kaz.menu2_store.Shop_fragment;
 
 
 @TargetApi(Build.VERSION_CODES.N)
@@ -239,9 +235,11 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
         intent2=new Intent(getApplicationContext(), ExampleService.class);
         sendBroadcast(intent2);
-        if(cus.setting1.isScreen()){
+        if(cus.setting1.isCreateevent()){
             intent3=new Intent(getApplicationContext(), Lovestatetime.class);
+            Log.d( "스크린 꺼졌을때 애정도 받아오는거", String.valueOf(cus.plant1.getLove()));
             startService(intent3);
+            Log.d("이거 실행","한다");
         }
     }
     //애정도 나타내는 함수(시간에 따라)

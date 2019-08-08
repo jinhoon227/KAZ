@@ -172,7 +172,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             nImg=3;
             if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText = heat();
-            else if(tem>=25&&(_hour>20||_hour<6)) {
+            else if(tem>=28&&(_hour>20||_hour<6)) {
                 AlarmText = nightHeat();
                 nImg=6;
             }
@@ -191,7 +191,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             nImg=2;
             if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText=heat();
-            else if(tem>=25&&(_hour>20||_hour<6)) {
+            else if(tem>=28&&(_hour>20||_hour<6)) {
                 AlarmText = nightHeat();
                 nImg=6;
             }
@@ -209,7 +209,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             nImg=1;
             if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText=heat();
-            else if(tem>=25&&(_hour>20||_hour<6)) {
+            else if(tem>=28&&(_hour>20||_hour<6)) {
                 AlarmText = nightHeat();
                 nImg=6;
             }

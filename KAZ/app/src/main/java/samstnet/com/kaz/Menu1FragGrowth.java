@@ -117,17 +117,16 @@ public class Menu1FragGrowth extends Fragment {
 }
     public void ExpUp(plant_info a){
         if (a.getLevel()==1){
-            a.setExp(a.getExp()+20);
-        }
-
-       else if(a.getLevel()==2 || a.getLevel()==3 ||a.getLevel()==4){
             a.setExp(a.getExp()+15);
         }
-        else if(a.getLevel()==5 || a.getLevel()==6 || a.getLevel()==7){
+       else if(a.getLevel()==2 || a.getLevel()==3 ||a.getLevel()==4){
             a.setExp(a.getExp()+10);
         }
-        else if(a.getLevel()==8 ||a.getLevel()==9 || a.getLevel()>=10){
+        else if(a.getLevel()==5 || a.getLevel()==6 || a.getLevel()==7){
             a.setExp(a.getExp()+5);
+        }
+        else if(a.getLevel()==8 ||a.getLevel()==9 || a.getLevel()>=10){
+            a.setExp(a.getExp()+3);
         }
 
         if(a.getExp()>=100){
@@ -179,8 +178,8 @@ public class Menu1FragGrowth extends Fragment {
         temperResult  =(TextView)rootView.findViewById(R.id.temperResult);
         imageView=(ImageView)rootView.findViewById(R.id.plant1);
         frame1=(FrameLayout)rootView.findViewById(R.id.frame1);
-        // myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
-      //  myProgressBar.setVisibility(View.VISIBLE);
+         myProgressBar= (ProgressBar)rootView.findViewById(R.id.progressBar);
+         myProgressBar.setVisibility(View.VISIBLE);
         tutorial = rootView.findViewById(R.id.tutorial);
         textView.setText(level_string);
 
@@ -336,27 +335,29 @@ public class Menu1FragGrowth extends Fragment {
                 return R.drawable.bean3_scarf;
             }
         }
-        return 0;
-    }
+            return 0;
+        }
 
 
-    // 버튼 눌리면 아이템 변경
-    View.OnClickListener listener=new View.OnClickListener()
-    {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()){
+        // 버튼 눌리면 아이템 변경
+        View.OnClickListener listener=new View.OnClickListener()
+                {
+
+                    @Override
+                    public void onClick(View view) {
+                        switch (view.getId()){
                 //물뿌리개 선택
                 case R.id.sprinklerButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[0].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>80)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+20);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+5);
                     Log.d("물뿌리개love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(0);
                     break;
@@ -364,13 +365,14 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.FertilizerButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[1].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>85)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+15);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+2);
                     Log.d("비료love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(1);
                     break;
@@ -378,14 +380,16 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.unbrellaButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[2].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>75)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+25);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+9);
                     Log.d("우산love",String.valueOf(cus.plant1.getLove()));
+                    cus.alarmevent[0]=true;
                     cus.plant1.setItems(2);
                     umbrella.setVisibility(View.VISIBLE);
                     break;
@@ -393,13 +397,14 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.hatButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[3].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>75)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+25);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+7);
                     Log.d("썬글라스love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(3);
                     break;
@@ -407,13 +412,14 @@ public class Menu1FragGrowth extends Fragment {
                 case R.id.coatButton:
                     setCharacterImage(setCharacterImageById(view));
                     buttons[4].setVisibility(View.GONE);
-                    if(cus.plant1.getLove()>90)
+                    if(cus.plant1.getLove()>60)
                     {
                         cus.plant1.setLove(100);
                     }
                     else{
-                        cus.plant1.setLove(cus.plant1.getLove()+10);
+                        cus.plant1.setLove(cus.plant1.getLove()+40);
                     }
+                    cus.plant1.setExp(cus.plant1.getExp()+20);
                     Log.d("목도리love",String.valueOf(cus.plant1.getLove()));
                     cus.plant1.setItems(4);
                     break;
