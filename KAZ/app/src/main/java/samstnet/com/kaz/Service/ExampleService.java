@@ -79,10 +79,6 @@ public class ExampleService extends Service {
         calendar = Calendar.getInstance();
         operation = new PendingIntent[operationNum];
 
-        //무음 모드
-//            mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-//            mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT); //무음
-
 
         now1 = System.currentTimeMillis();
         date = new Date(now1);
@@ -93,11 +89,10 @@ public class ExampleService extends Service {
 
         time = 0;
         Log.e("알림버튼누른시간",getTime);
-        onTimeSet1();
-
         activity.lovestatetime();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             onTimeSet();
+            onTimeSet1();
         }
 
     }
@@ -115,11 +110,23 @@ public class ExampleService extends Service {
 
         _hour=(_hour/3)*3+3;
 
+        if(_minute>=60){
+            _minute=0;
+        }
+        if(_hour>=24){
+            _hour=0;
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,1);
+        }
+        else{
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,1);
+        }
+
         Log.d("LovestateTime", String.valueOf(_minute+1));
         Log.d("LovestateHour", String.valueOf(_hour));
 
-       calendar.set(Calendar.HOUR_OF_DAY,_hour);
-        calendar.set(Calendar.MINUTE,1);
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
 
@@ -127,7 +134,7 @@ public class ExampleService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
-        _minute=0;
+        _minute=10;
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -143,19 +150,25 @@ public class ExampleService extends Service {
         _hour=Integer.valueOf(sdf.format(date));
 
         hour=((hour/3)*3)+3;
-        if(hour>=24)
+
+        hour=24;
+
+
+        if(hour>=24){
             hour=0;
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,hour);
+            calendar.set(Calendar.MINUTE,_minute);
+        }
+        else{
+            calendar.set(Calendar.HOUR_OF_DAY,hour);
+            calendar.set(Calendar.MINUTE,_minute);
+        }
 
-        Log.d("hour",String.valueOf(hour));
-
-        calendar.set(Calendar.HOUR_OF_DAY,hour);
-        calendar.set(Calendar.MINUTE,_minute);
-
-        Log.d(String.valueOf(time), String.valueOf(_minute));
-
-        sendBroadcast(intent);
+        Log.d(String.valueOf(hour), String.valueOf(minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
+        //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
 
         calendar.set(Calendar.HOUR_OF_DAY,7);
         calendar.set(Calendar.MINUTE,30);
@@ -230,18 +243,18 @@ public class ExampleService extends Service {
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
-            nImg= R.drawable._manycloud;
+            nImg= R.drawable.sfewcloudy;
             if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText = heat();
             else if(tem>=25&&(_hour>20||_hour<6)) {
                 AlarmText = nightHeat();
-                nImg= R.drawable._moon;
+                nImg= R.drawable.smoon;
             }
             else if(tem<=0)
                 AlarmText=cold();
             else if(_hour>20||_hour<6) {
                 AlarmText = "좋은 밤이에요. 오늘 하루는 어땠나요?";
-                nImg= R.drawable._moon;
+                nImg= R.drawable.smoon;
             }
             else
                 AlarmText = "구름이 많아요! 날씨가 흐려도 기운내세요";
@@ -249,43 +262,43 @@ public class ExampleService extends Service {
         }
         else if(MainActivity.wtstate.get(0)=="fewcloud"){
             //AlarmTitle="구름";
-            nImg= R.drawable._fewcloud;
+            nImg= R.drawable.sfewcloudy;
             if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText=heat();
             else if(tem>=25&&(_hour>20||_hour<6)) {
                 AlarmText = nightHeat();
-                nImg= R.drawable._moon;
+                nImg= R.drawable.smoon;
             }
             else if(tem<=0)
                 AlarmText=cold();
             else if(_hour>20||_hour<6) {
                 AlarmText = "좋은 밤이에요. 오늘 밤은 좋은 꿈 꾸세요";
-                nImg= R.drawable._moon;
+                nImg= R.drawable.smoon;
             }
             else
                 AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
         else if(MainActivity.wtstate.get(0)=="sun"){
             //AlarmTitle="태양";
-            nImg= R.drawable._sunnyday;
+            nImg= R.drawable.ssun;
             if(tem>=30&&(_hour<=20&&_hour>=6))
                 AlarmText=heat();
             else if(tem>=25&&(_hour>20||_hour<6)) {
                 AlarmText = nightHeat();
-                nImg= R.drawable._moon;
+                nImg= R.drawable.smoon;
             }
             else if(tem<=0)
                 AlarmText=cold();
             else if(_hour>20||_hour<6) {
                 AlarmText = "좋은 밤이에요. 오늘은 달이 잘 보이겠어요";
-                nImg= R.drawable._moon;
+                nImg= R.drawable.smoon;
             }
             else
                 AlarmText="화창한 날씨에요. 함께 나가요";
         }
         else if(MainActivity.wtstate.get(0)=="rain"){
             //AlarmTitle="비";
-            nImg= R.drawable._rainny;
+            nImg= R.drawable.srain;
             if(tem>=30)
                 AlarmText="지금은 덥고 습한 날씨에요!. 잊지말고 우산 꼭 챙기세요";
             else if(tem<=0)
@@ -295,7 +308,7 @@ public class ExampleService extends Service {
         }
         else if(MainActivity.wtstate.get(0)=="snow"){
             //AlarmTitle="눈";
-            nImg= R.drawable._snowy;
+            nImg= R.drawable.ssnow;
             if(tem>=30)
                 AlarmText="날씨가 미쳤어!";
             else if(tem<=0)

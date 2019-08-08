@@ -73,7 +73,7 @@ public class AlarmDisturb extends BroadcastReceiver {
         if(hour==7) {
             if (!cus.setting1.isSoundevent()) {
                 if (!cus.setting1.isCreateevent())
-                    manager.notify(1, builder.build());
+                    manager.notify(3, builder.build());
             }
         }
     }

@@ -3,6 +3,7 @@
 
         import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import samstnet.com.kaz.Service.ExampleService;
-import samstnet.com.kaz.alarm.mAlarm;
+        import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
+        import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     static public ArrayList<String> wtstate = new ArrayList<>();
     static public ArrayList<String> tempor = new ArrayList<>();
-    ArrayList<Integer> time = new ArrayList<>();
+    static public ArrayList<Integer> time = new ArrayList<>();
 
     //주간 날씨 저장
     ArrayList<WeekWeatherInfo> arr_wwif = null;
@@ -107,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
     //public Intent intent1;
     public int count=0;
     Intent intent2;
+    public static Context mContext;
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         String itemtmp[] = new String [50];
         String tmparr[];
         String tmparr2;
+
+        mContext=this;
 
         if(savedInstanceState!=null)
         {
@@ -162,7 +170,13 @@ public class MainActivity extends AppCompatActivity {
             /*if(LockScreenActivity.islock==false){
             Intent intent = new Intent(getApplication(), ScreenService.class);
             startService(intent);}*/
-        setContentView(R.layout.activity_main);
+
+            Log.e("AlarmBroadcastReceiver1", String.valueOf(AlarmBroadcastReceiver.count));
+            AlarmBroadcastReceiver.count=0;
+            Log.e("AlarmBroadcastReceiver2", String.valueOf(AlarmBroadcastReceiver.count));
+
+
+            setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
 
@@ -234,16 +248,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
-        lovestatetime();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            lovestatetime();
+            Log.e("api ","build");
+        }
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
         intent2=new Intent(getApplicationContext(), ExampleService.class);
         sendBroadcast(intent2);
+
         if(cus.setting1.isCreateevent()){
             intent3=new Intent(getApplicationContext(), Lovestatetime.class);
             Log.d( "스크린 꺼졌을때 애정도 받아오는거", String.valueOf(cus.plant1.getLove()));
             startService(intent3);
             Log.d("이거 실행","한다");
         }
+
     }
     //애정도 나타내는 함수(시간에 따라)
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -348,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
             isPermission = true;
         }
     }
+
 
     double latitude;
     double longitude;
@@ -658,7 +679,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //접속시 네트워크 상태 확인
-    private NetworkInfo getNetworkInfo(){
+    public NetworkInfo getNetworkInfo(){
         ConnectivityManager connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
         return networkInfo;

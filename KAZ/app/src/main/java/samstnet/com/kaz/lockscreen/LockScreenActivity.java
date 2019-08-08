@@ -50,6 +50,7 @@ public class LockScreenActivity extends Activity {
     ProgressBar myProgressBar;
     ImageView allimg;
     TextView jack_content;
+    ImageView umbrella_layout2;
     private boolean isBind;
     private static Intent serviceIntent;
 
@@ -152,7 +153,6 @@ public class LockScreenActivity extends Activity {
         }
 
         //keyLock.reenableKeyguard();
-        cus = (Customer) getApplication();
         //소현------------------------------------------------------------------------------------
         // Register ourselves so that we can provide the initial value.
         BusProvider.getInstance().register(this);
@@ -213,12 +213,12 @@ public class LockScreenActivity extends Activity {
         myProgressBar=(ProgressBar)findViewById(R.id.progressBar);
         allimg=findViewById(R.id.imageView);
         jack_content=findViewById(R.id.jack_content);
-
+        umbrella_layout2 = (ImageView)findViewById(R.id.umbrella5);
         textView3 = (TextView) findViewById(R.id.temperResult);
         // textView4=(TextView)findViewById(R.id.tvBclock);
         //SlideView slideView = (SlideView) findViewById(R.id.slider1);
-
         //잠금해제
+        myProgressBar.setProgress(cus.plant1.getExp());
         allimg.setOnTouchListener(new OnSwipeTouchListener(this){
 
             @Override
@@ -333,6 +333,17 @@ public class LockScreenActivity extends Activity {
     public void onResume() {
         super.onResume();
         Log.d("growth_Fragment", "onResume");
+
+        if(cus.alarmevent[0]==false)
+        {
+            Log.d("우산 ","안보여짐");
+            umbrella_layout2.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            Log.d("우산 ","보여짐");
+            umbrella_layout2.setVisibility(View.VISIBLE);
+        }
     }
 
 

@@ -7,10 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.media.RingtoneManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -30,7 +30,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     String AlarmTitle=new String();
     String AlarmText=new String();
-    static int timeCount=0;
+    static public int count=0;
     Uri ringtoneUri;
     NotificationCompat.Builder builder;
     Customer cus;
@@ -61,12 +61,46 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         hour = Integer.valueOf(getTime);
         _hour=Integer.valueOf(getTime);
 
+        builder=new NotificationCompat.Builder(context,"default");
+        Intent _intent=new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent= (PendingIntent) PendingIntent.getActivity(context,
+                0,
+                _intent,
+                PendingIntent.FLAG_UPDATE_CURRENT); //알람이 이미 켜져있다면 내용을 업데이트해줌
+
+        NotificationManager manager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
+        //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
+                    NotificationManager.IMPORTANCE_DEFAULT));
+        }
+
+        builder.setContentIntent(pendingIntent);    //notification을 누르면 pendingIntent안에 있는게 실행된다.
+
+        NetworkInfo mNetworkState= ((MainActivity)MainActivity.mContext).getNetworkInfo();
+        if(mNetworkState!=null&&mNetworkState.isConnected()) {
+            ((MainActivity) MainActivity.mContext).UsingGps();
+            //Log.e("AlarmBroadcastReceiverA", String.valueOf(count));
+            count = 0;
+        }else {
+            count++;
+            //Log.e("AlarmBroadcastReceiverB", String.valueOf(count));
+
+            if(count>9) {
+                if(!cus.setting1.isSoundevent())
+                    if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
+                        builder.setSmallIcon(R.drawable.ssun);
+                        builder.setContentTitle("날씨 데이터를 받아오지 못했어요");
+                        builder.setContentText("WIFI를 확인해주세요");
+                        manager.notify(1, builder.build());
+                        return;
+                    }
+            }
+        }
+
         if(NonDisturb.startTime>NonDisturb.endTime)
             hour+=24;
 
-        builder=new NotificationCompat.Builder(context,"default");
-
-        builder.setSmallIcon(R.mipmap.ic_launcher);
         BusProvider.getInstance().register(this);
 
         setText();
@@ -74,39 +108,31 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         builder.setContentTitle(AlarmTitle);
         builder.setContentText(AlarmText);
 
-        Intent _intent=new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent= (PendingIntent) PendingIntent.getActivity(context,
-                0,
-                _intent,
-                PendingIntent.FLAG_UPDATE_CURRENT); //알람이 이미 켜져있다면 내용을 업데이트해줌
-
-        builder.setContentIntent(pendingIntent);    //notification을 누르면 pendingIntent안에 있는게 실행된다.
 
         switch (nImg){
-            case 0:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._sunnyday);
-                break;
             case 1:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._sunnyday);
+                builder.setSmallIcon(R.drawable.ssun);
                 break;
             case 2:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._fewcloud);
+                builder.setSmallIcon(R.drawable.sfewcloudy);
                 break;
             case 3:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._manycloud);
+                builder.setSmallIcon(R.drawable.scloudy);
                 break;
             case 4:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._rainny);
+                builder.setSmallIcon(R.drawable.srain);
                 break;
             case 5:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._snowy);
+                builder.setSmallIcon(R.drawable.ssnow);
                 break;
             case 6:
-                largeIcon= BitmapFactory.decodeResource(context.getResources(),R.drawable._moon);
+                builder.setSmallIcon(R.drawable.smoon);
+                break;
+            case 0:
+                builder.setSmallIcon(R.drawable.kong);
                 break;
         }
 
-        builder.setLargeIcon(largeIcon);
         builder.setColor(Color.GREEN);
 
         ringtoneUri= RingtoneManager.getActualDefaultRingtoneUri(context,
@@ -114,7 +140,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         builder.setSound(ringtoneUri);
 
-        builder.setSmallIcon(R.drawable.kong);
+        //builder.setSmallIcon(R.drawable.ssun);
 
         long[] vibrate={0,100,200,300};     //진동
         builder.setVibrate(vibrate);
@@ -124,12 +150,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         Log.d("검사들어가유",String.valueOf(hour));
 
-        NotificationManager manager=(NotificationManager)context.getSystemService(context.NOTIFICATION_SERVICE);
-        //오레오 이상에서만 동작, 오레오 이상에서 notificationChannel이 없으면 동작하지 않음
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
-            manager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
-                    NotificationManager.IMPORTANCE_DEFAULT));
-        }
 
             if (!cus.setting1.isSoundevent()) {
                 if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
@@ -149,11 +169,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setText(){
-        temp = MainActivity.tempor.get(0);
+        temp = MainActivity.tempor.get(count);
         tem=Integer.parseInt(temp);
 
         if(MainActivity.tempor.size()!=0) {
@@ -167,7 +188,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         if(MainActivity.wtstate.size()==0){
             AlarmText="앱을 다시 켜주세요";
         }
-        else if(MainActivity.wtstate.get(0)=="manycloud"){
+        else if(MainActivity.wtstate.get(count)=="manycloud"){
             //AlarmTitle="흐림";
             nImg=3;
             if(tem>=30&&(_hour<=20&&_hour>=6))
@@ -186,7 +207,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 AlarmText = "구름이 많아요! 날씨가 흐려도 기운내세요";
 
         }
-        else if(MainActivity.wtstate.get(0)=="fewcloud"){
+        else if(MainActivity.wtstate.get(count)=="fewcloud"){
             //AlarmTitle="구름";
             nImg=2;
             if(tem>=30&&(_hour<=20&&_hour>=6))
@@ -204,7 +225,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             else
                 AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
-        else if(MainActivity.wtstate.get(0)=="sun"){
+        else if(MainActivity.wtstate.get(count)=="sun"){
             //AlarmTitle="태양";
             nImg=1;
             if(tem>=30&&(_hour<=20&&_hour>=6))
@@ -222,17 +243,17 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             else
                 AlarmText="화창한 날씨에요. 함께 나가요";
         }
-        else if(MainActivity.wtstate.get(0)=="rain"){
+        else if(MainActivity.wtstate.get(count)=="rain"){
             //AlarmTitle="비";
             nImg=4;
             if(tem>=30)
-                AlarmText="지금은 덥고 습한 날씨에요!. 잊지말고 우산 꼭 챙기세요";
+                AlarmText="덥고 습한 날이에요. 비예보가 있으니 잊지말고 우산 꼭 챙기세요";
             else if(tem<=0)
                 AlarmText="비예보도 있는데 춥기까지! 꼭 우산 챙기세요";
             else
                 AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
         }
-        else if(MainActivity.wtstate.get(0)=="snow"){
+        else if(MainActivity.wtstate.get(count)=="snow"){
             //AlarmTitle="눈";
             nImg=5;
             if(tem>=30)
