@@ -22,8 +22,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+        import android.widget.Toast;
 
-import org.json.simple.JSONArray;
+        import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
@@ -215,6 +216,8 @@ public class MainActivity extends AppCompatActivity {
             callPermission();
             if(isPermission) {
                 UsingGps();
+            }else{
+
             }
         }
         else {
@@ -316,6 +319,10 @@ public class MainActivity extends AppCompatActivity {
         //권한을 수락했다면 위치정보 가져오기
         if(isAccessFineLocation){
             UsingGps();
+        }else{
+            //거절하면 종료
+            Toast.makeText(getApplicationContext(), "위치권한을 허용하지 않으면 사용할 수 없습니다.", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
@@ -621,6 +628,32 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString("item" + i, tmparr2); //item1라는 key값으로 id 데이터를 저장한다.
         }
         outState.putParcelable("saveBundle", bundle);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        //장시간 백그라운드에 있다가 다시 돌아왔을때 날씨가 변경되었으면 해당부분실행
+        //날씨 다시가져와서 리스트 업데이트(리스트는 업데이트는 finshload 호출을통해서)
+        //finshload 로 뿌려주기에 주간도 업데이트됨
+        if(time.size()!=0){
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            String getTime = sdf.format(date);
+            String today[] = getTime.split("-");
+            if(time.get(0)==21){
+                //오후9시일경우
+                if(Integer.parseInt(today[3])<21) {
+                    Log.d("resume", "yesNine1");
+                    UsingGps();
+                }
+            }
+            else if(Integer.parseInt(today[3])>=time.get(0)+3) {
+                Log.d("resume", "yes1");
+                UsingGps();
+            }
+        }
     }
 
 
