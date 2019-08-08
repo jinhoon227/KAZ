@@ -25,6 +25,8 @@ public class ScreenReceiver extends BroadcastReceiver {
         public void onReceive(Context context, Intent intent) {
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)||intent.getAction().equals(intent.ACTION_BOOT_COMPLETED)) {
+
+
             if (km == null)
 
                 km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
