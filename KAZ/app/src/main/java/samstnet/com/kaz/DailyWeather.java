@@ -34,32 +34,6 @@ public class DailyWeather extends Fragment {
     ImageView tutorial;
 
     @Override
-    public void onResume(){
-        super.onResume();
-        //장시간 백그라운드에 있다가 다시 돌아왔을때 날씨가 변경되었으면 해당부분실행
-        //날씨 다시가져와서 리스트 업데이트(리스트는 업데이트는 finshload 호출을통해서)
-        //finshload 로 뿌려주기에 주간도 업데이트됨
-        if(time.size()!=0){
-            long now = System.currentTimeMillis();
-            Date date = new Date(now);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-            String getTime = sdf.format(date);
-            String today[] = getTime.split("-");
-            if(time.get(0)==21){
-                //오후9시일경우
-                if(Integer.parseInt(today[3])<21) {
-                    Log.d("resume", "yesNine");
-                    ((MainActivity) getActivity()).UsingGps();
-                }
-            }
-            else if(Integer.parseInt(today[3])>=time.get(0)+3) {
-                Log.d("resume", "yes");
-                ((MainActivity) getActivity()).UsingGps();
-            }
-        }
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BusProvider.getInstance().register(this);

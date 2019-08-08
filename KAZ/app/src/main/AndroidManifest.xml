@@ -55,8 +55,8 @@
             android:noHistory="true"/>
         <activity android:name=".lockscreen.LockScreenActivity"
             android:excludeFromRecents="true"
-            android:noHistory="true"/>
-
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
 
         <service android:name=".lockscreen.ScreenService"
             android:screenOrientation="portrait"/>

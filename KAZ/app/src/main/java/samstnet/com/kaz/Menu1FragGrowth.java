@@ -499,7 +499,7 @@ public class Menu1FragGrowth extends Fragment {
                 Glide.with(this).load(R.drawable.sunny_night).into(backgif);
 
             }else {
-                Glide.with(this).load(R.drawable.sunny_day).into(backgif);
+                Glide.with(this).load(R.drawable._sunny_day).into(backgif);
             }
             //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("맑은");
