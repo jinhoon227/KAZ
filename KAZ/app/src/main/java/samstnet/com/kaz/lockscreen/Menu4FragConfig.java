@@ -54,6 +54,12 @@ public class Menu4FragConfig extends Fragment {
     }
 
     @Override
+    public  void onResume(){
+        super.onResume();
+        Log.d("innnninn","ohhhhh");
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         BusProvider.getInstance().unregister(this);

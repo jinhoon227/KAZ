@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/KAZ/app/libs/listviewanimations_lib-core-slh_3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/KAZ/app/libs/listviewanimations_lib-core_3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/KAZ/app/libs/listviewanimations_lib-manipulation_3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/KAZ/app/libs/nineoldandroids-2.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

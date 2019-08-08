@@ -389,6 +389,7 @@ public class Menu1FragGrowth extends Fragment {
                     }
                     cus.plant1.setExp(cus.plant1.getExp()+9);
                     Log.d("우산love",String.valueOf(cus.plant1.getLove()));
+                    cus.alarmevent[0]=true;
                     cus.plant1.setItems(2);
                     umbrella.setVisibility(View.VISIBLE);
                     break;
