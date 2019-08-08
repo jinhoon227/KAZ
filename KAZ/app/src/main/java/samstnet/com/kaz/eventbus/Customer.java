@@ -122,11 +122,11 @@ public class Customer extends Application {
 
         Initalize_plant = "1&0&PLANT1&1&5&50";
 
-        Intialize_item[0]="물뿌리개&식물에게 물을 줍니다.(비오는 날씨 제외)&" + R.drawable.vec_sprinkler+ "&40&false&false";
-        Intialize_item[1]= "비료&식물이 더 잘 자랄 수 있는 영양분을 제공합니다(모든 날씨)&" + R.drawable.vec_beryo+ "&20&false&false";
-        Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다(비오는 날씨)&" + R.drawable.vec_umbrella + "&70&false&false";
-        Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다(맑은 날씨)&" + R.drawable.vec_sunglasses + "&50&false&false";
-        Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.(눈오는 날씨)&" + R.drawable.vec_scarf+ "&100&false&false";
+        Intialize_item[0]="물뿌리개&식물에게 물을 줍니다.(비오는 날씨 제외)&" + R.mipmap.vec_sprinkler+ "&40&false&false";
+        Intialize_item[1]= "비료&식물이 더 잘 자랄 수 있는 영양분을 제공합니다(모든 날씨)&" + R.mipmap.vec_beryo+ "&20&false&false";
+        Intialize_item[2]="우산&비를 피할 수 있는 우산을 씌워 줍니다(비오는 날씨)&" + R.mipmap.vec_umbrella + "&70&false&false";
+        Intialize_item[3]="썬글라스&강한 햇빛을 피할 수 있는 썬글라쓰를 씌워 줍니다(맑은 날씨)&" + R.mipmap.vec_sunglasses + "&50&false&false";
+        Intialize_item[4]="목도리&추위를 피할 수 있게 목도리를 두릅니다.(눈오는 날씨)&" + R.mipmap.vec_scarf+ "&100&false&false";
 
         Intialize_setting= "true&true&true&true&true";
         //Intialize_setting="false&false&false&false&false";
