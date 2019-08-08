@@ -56,8 +56,10 @@ public class Lovestatetime extends Service {
         }
 
         if(_hour>=24){
-            calendar.set(Calendar.HOUR_OF_DAY,23);
-            calendar.set(Calendar.MINUTE,59);
+            _hour=0;
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,1);
         }
         else{
             calendar.set(Calendar.HOUR_OF_DAY,_hour);

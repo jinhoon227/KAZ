@@ -114,8 +114,10 @@ public class ExampleService extends Service {
             _minute=0;
         }
         if(_hour>=24){
-            calendar.set(Calendar.HOUR_OF_DAY,23);
-            calendar.set(Calendar.MINUTE,59);
+            _hour=0;
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,1);
         }
         else{
             calendar.set(Calendar.HOUR_OF_DAY,_hour);
@@ -149,16 +151,21 @@ public class ExampleService extends Service {
 
         hour=((hour/3)*3)+3;
 
+        hour=24;
+
+
         if(hour>=24){
-            calendar.set(Calendar.HOUR_OF_DAY,23);
-            calendar.set(Calendar.MINUTE,59);
+            hour=0;
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,hour);
+            calendar.set(Calendar.MINUTE,_minute);
         }
         else{
             calendar.set(Calendar.HOUR_OF_DAY,hour);
-            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.MINUTE,_minute);
         }
 
-        Log.e(String.valueOf(hour), String.valueOf(_minute));
+        Log.d(String.valueOf(hour), String.valueOf(minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
         //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
