@@ -67,8 +67,6 @@
 
         <service android:name=".Service.ExampleService" />
         <!-- BackgroundService -->
-
-
         <receiver
             android:name=".alarm.AlarmBroadcastReceiver"
             android:exported="false"
