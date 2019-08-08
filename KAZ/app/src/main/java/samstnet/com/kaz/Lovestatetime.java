@@ -56,6 +56,8 @@ public class Lovestatetime extends Service {
         }
         if(_hour>=24)
             _hour=0;
+
+
         Log.d("LovestateTime", String.valueOf(_minute+1));
         Log.d("LovestateHour", String.valueOf(_hour));
 

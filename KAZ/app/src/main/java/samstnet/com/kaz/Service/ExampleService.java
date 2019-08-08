@@ -114,6 +114,8 @@ public class ExampleService extends Service {
         }
         if(_hour>=24)
             _hour=0;
+
+
         Log.d("LovestateTime", String.valueOf(_minute+1));
         Log.d("LovestateHour", String.valueOf(_hour));
 
@@ -147,9 +149,10 @@ public class ExampleService extends Service {
 
         calendar.set(Calendar.HOUR_OF_DAY,hour);
         //calendar.set(Calendar.HOUR_OF_DAY,_hour);
-        calendar.set(Calendar.MINUTE,minute);
+        calendar.set(Calendar.MINUTE,_minute);
 
-        Log.d(String.valueOf(_hour), String.valueOf(minute));
+
+        Log.e(String.valueOf(hour), String.valueOf(_minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
         //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
