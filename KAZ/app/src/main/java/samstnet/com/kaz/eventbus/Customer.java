@@ -186,6 +186,7 @@ public class Customer extends Application {
         Log.d("고객 돈 :", "" + money);
         timetmp = prefs.getString("stateTime",Intialize_timestate);
         stateTime = Integer.parseInt(timetmp);
+        createNotificationChannel();
     }
 
     private static Customer instance = null;

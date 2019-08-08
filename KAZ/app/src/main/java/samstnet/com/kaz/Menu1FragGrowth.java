@@ -66,6 +66,7 @@ public class Menu1FragGrowth extends Fragment {
     TextView textview_1;
     FrameLayout framelayout;
     FrameLayout frame1;
+    ImageView umbrella_layout;
     long now1;
     Date date;
     SimpleDateFormat sdf1;//1시간단위
@@ -202,6 +203,7 @@ public class Menu1FragGrowth extends Fragment {
 
         Glide.with(this).load(plantEmotion()).into(gifImage);
 
+        myProgressBar.setProgress(cus.plant1.getExp());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,17 +233,17 @@ public class Menu1FragGrowth extends Fragment {
         buttons[2]=(Button)rootView.findViewById(R.id.unbrellaButton);
         buttons[3]=(Button)rootView.findViewById(R.id.hatButton);
         buttons[4]=(Button)rootView.findViewById(R.id.coatButton);
-        umbrella = (ImageView)rootView.findViewById(R.id.umbrella4);
+        umbrella_layout = (ImageView)rootView.findViewById(R.id.umbrella_layout1);
         Log.d("cus.alarmevent[0]",""+cus.alarmevent[0]);
         if(cus.alarmevent[0]==false)
         {
             Log.d("우산 ","안보여짐");
-            umbrella.setVisibility(View.INVISIBLE);
+            umbrella_layout .setVisibility(View.INVISIBLE);
         }
         else
         {
             Log.d("우산 ","보여짐");
-            umbrella.setVisibility(View.VISIBLE);
+            umbrella_layout .setVisibility(View.VISIBLE);
         }
 
         if(((MainActivity)getActivity()).getWeatherInfo() != null){
@@ -391,7 +393,7 @@ public class Menu1FragGrowth extends Fragment {
                     Log.d("우산love",String.valueOf(cus.plant1.getLove()));
                     cus.alarmevent[0]=true;
                     cus.plant1.setItems(2);
-                    umbrella.setVisibility(View.VISIBLE);
+                    umbrella_layout .setVisibility(View.VISIBLE);
                     break;
                 //썬글라스 선택
                 case R.id.hatButton:

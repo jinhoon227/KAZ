@@ -285,7 +285,7 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/umbrella4"
+                    android:id="@+id/umbrella_layout1"
                     android:layout_width="135dp"
                     android:layout_height="166dp"
                     app:layout_constraintEnd_toEndOf="parent"
