@@ -350,6 +350,7 @@ public class LockScreenActivity extends Activity {
 
     public void onPause() {
         super.onPause();
+
         Log.d("growth_Fragment", "onPause");
     }
 
@@ -459,7 +460,7 @@ public class LockScreenActivity extends Activity {
             jack_content.setText("목말라요..물이 필요해요!");
         } else if (wtstate.get(0) == "sun") {
             index = 2;
-            Glide.with(this).load(R.drawable.sunny_day).into(backgif);
+            Glide.with(this).load(R.drawable._sunny_day).into(backgif);
 
             //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("맑은");

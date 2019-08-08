@@ -37,8 +37,9 @@ public class ScreenReceiver extends BroadcastReceiver {
 
                 i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                context.startActivity(i.addFlags(FLAG_ACTIVITY_NEW_TASK));
-                Log.e("부팅시","잠금화면");
+            i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            context.startActivity(i);
 
             //Intent j = new Intent(context , ExampleService.class);
 

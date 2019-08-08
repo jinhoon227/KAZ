@@ -41,7 +41,6 @@ public class mAlarm extends Service {
 
     //알람 서비스 종료
     public void stopAlarm(){
-        AlarmBroadcastReceiver.timeCount=0;
         stopService(intent);
     }
 

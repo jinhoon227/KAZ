@@ -3,6 +3,7 @@
 
         import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +23,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+        import android.widget.Toast;
 
-import org.json.simple.JSONArray;
+        import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
@@ -35,7 +37,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import samstnet.com.kaz.Service.ExampleService;
-import samstnet.com.kaz.alarm.mAlarm;
+        import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
+        import samstnet.com.kaz.alarm.mAlarm;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 import samstnet.com.kaz.eventbus.Item_type;
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     static public ArrayList<String> wtstate = new ArrayList<>();
     static public ArrayList<String> tempor = new ArrayList<>();
-    ArrayList<Integer> time = new ArrayList<>();
+    static public ArrayList<Integer> time = new ArrayList<>();
 
     //주간 날씨 저장
     ArrayList<WeekWeatherInfo> arr_wwif = null;
@@ -106,6 +109,10 @@ public class MainActivity extends AppCompatActivity {
     //public Intent intent1;
     public int count=0;
     Intent intent2;
+    public static Context mContext;
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +120,8 @@ public class MainActivity extends AppCompatActivity {
         String itemtmp[] = new String [50];
         String tmparr[];
         String tmparr2;
+
+        mContext=this;
 
         if(savedInstanceState!=null)
         {
@@ -161,7 +170,13 @@ public class MainActivity extends AppCompatActivity {
             /*if(LockScreenActivity.islock==false){
             Intent intent = new Intent(getApplication(), ScreenService.class);
             startService(intent);}*/
-        setContentView(R.layout.activity_main);
+
+            Log.e("AlarmBroadcastReceiver1", String.valueOf(AlarmBroadcastReceiver.count));
+            AlarmBroadcastReceiver.count=0;
+            Log.e("AlarmBroadcastReceiver2", String.valueOf(AlarmBroadcastReceiver.count));
+
+
+            setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
 
 
@@ -215,6 +230,8 @@ public class MainActivity extends AppCompatActivity {
             callPermission();
             if(isPermission) {
                 UsingGps();
+            }else{
+
             }
         }
         else {
@@ -231,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             lovestatetime();
             Log.e("api ","build");
@@ -238,12 +256,14 @@ public class MainActivity extends AppCompatActivity {
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
         intent2=new Intent(getApplicationContext(), ExampleService.class);
         sendBroadcast(intent2);
+
         if(cus.setting1.isCreateevent()){
             intent3=new Intent(getApplicationContext(), Lovestatetime.class);
             Log.d( "스크린 꺼졌을때 애정도 받아오는거", String.valueOf(cus.plant1.getLove()));
             startService(intent3);
             Log.d("이거 실행","한다");
         }
+
     }
     //애정도 나타내는 함수(시간에 따라)
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -319,6 +339,10 @@ public class MainActivity extends AppCompatActivity {
         //권한을 수락했다면 위치정보 가져오기
         if(isAccessFineLocation){
             UsingGps();
+        }else{
+            //거절하면 종료
+            Toast.makeText(getApplicationContext(), "위치권한을 허용하지 않으면 사용할 수 없습니다.", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
 
@@ -344,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
             isPermission = true;
         }
     }
+
 
     double latitude;
     double longitude;
@@ -626,9 +651,35 @@ public class MainActivity extends AppCompatActivity {
         outState.putParcelable("saveBundle", bundle);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        //장시간 백그라운드에 있다가 다시 돌아왔을때 날씨가 변경되었으면 해당부분실행
+        //날씨 다시가져와서 리스트 업데이트(리스트는 업데이트는 finshload 호출을통해서)
+        //finshload 로 뿌려주기에 주간도 업데이트됨
+        if(time.size()!=0){
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+            String getTime = sdf.format(date);
+            String today[] = getTime.split("-");
+            if(time.get(0)==21){
+                //오후9시일경우
+                if(Integer.parseInt(today[3])<21) {
+                    Log.d("resume", "yesNine1");
+                    UsingGps();
+                }
+            }
+            else if(Integer.parseInt(today[3])>=time.get(0)+3) {
+                Log.d("resume", "yes1");
+                UsingGps();
+            }
+        }
+    }
+
 
     //접속시 네트워크 상태 확인
-    private NetworkInfo getNetworkInfo(){
+    public NetworkInfo getNetworkInfo(){
         ConnectivityManager connectivityManager=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
         return networkInfo;
