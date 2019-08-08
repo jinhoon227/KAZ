@@ -231,7 +231,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
-        lovestatetime();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            lovestatetime();
+            Log.e("api ","build");
+        }
         intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
         intent2=new Intent(getApplicationContext(), ExampleService.class);
         sendBroadcast(intent2);

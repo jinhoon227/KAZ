@@ -114,7 +114,11 @@ public class ExampleService extends Service {
         int _hour=Integer.valueOf(getTime);
 
         _hour=(_hour/3)*3+3;
-
+        if(_minute>=60){
+            _minute=0;
+        }
+        if(_hour>=24)
+            _hour=0;
         Log.d("LovestateTime", String.valueOf(_minute+1));
         Log.d("LovestateHour", String.valueOf(_hour));
 
