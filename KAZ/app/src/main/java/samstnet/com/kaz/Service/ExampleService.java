@@ -109,16 +109,22 @@ public class ExampleService extends Service {
         int _hour=Integer.valueOf(getTime);
 
         _hour=(_hour/3)*3+3;
+
         if(_minute>=60){
             _minute=0;
         }
-        if(_hour>=24)
-            _hour=0;
+        if(_hour>=24){
+            calendar.set(Calendar.HOUR_OF_DAY,23);
+            calendar.set(Calendar.MINUTE,59);
+        }
+        else{
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,1);
+        }
+
         Log.d("LovestateTime", String.valueOf(_minute+1));
         Log.d("LovestateHour", String.valueOf(_hour));
 
-       calendar.set(Calendar.HOUR_OF_DAY,_hour);
-        calendar.set(Calendar.MINUTE,1);
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
 
@@ -142,14 +148,17 @@ public class ExampleService extends Service {
         _hour=Integer.valueOf(sdf.format(date));
 
         hour=((hour/3)*3)+3;
-        if(hour>=24)
-            hour=0;
 
-        calendar.set(Calendar.HOUR_OF_DAY,hour);
-        //calendar.set(Calendar.HOUR_OF_DAY,_hour);
-        calendar.set(Calendar.MINUTE,minute);
+        if(hour>=24){
+            calendar.set(Calendar.HOUR_OF_DAY,23);
+            calendar.set(Calendar.MINUTE,59);
+        }
+        else{
+            calendar.set(Calendar.HOUR_OF_DAY,hour);
+            calendar.set(Calendar.MINUTE,0);
+        }
 
-        Log.d(String.valueOf(_hour), String.valueOf(minute));
+        Log.e(String.valueOf(hour), String.valueOf(_minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
         //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
