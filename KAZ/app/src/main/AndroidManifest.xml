@@ -68,14 +68,16 @@
         <service android:name=".Service.ExampleService" />
         <!-- BackgroundService -->
         <receiver
-            android:name=".alarm.AlarmBroadcastReceiver"
+            android:name=".alarm.AlarmBroadcastReceiver"/>
+        <receiver
+            android:name=".Service.RebootReceiver"
             android:exported="false"
             android:enabled="true"
             android:directBootAware="true"
             >
             <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
         </receiver>
         <receiver android:name=".Lovestate"/>
 
