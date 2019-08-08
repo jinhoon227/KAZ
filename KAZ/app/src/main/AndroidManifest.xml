@@ -46,7 +46,8 @@
         <activity android:name=".menu2_store.PopupActivity" android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".menu2_store.PopupActivity2" android:theme="@android:style/Theme.Dialog" />
 
-        <activity android:name=".lockscreen.LockScreenActivity" />
+        <activity android:name=".lockscreen.LockScreenActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".lockscreen.ScreenService"
             android:screenOrientation="portrait"/>

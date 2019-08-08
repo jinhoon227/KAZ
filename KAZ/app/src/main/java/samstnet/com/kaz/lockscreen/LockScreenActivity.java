@@ -350,6 +350,7 @@ public class LockScreenActivity extends Activity {
 
     public void onPause() {
         super.onPause();
+
         Log.d("growth_Fragment", "onPause");
     }
 
