@@ -154,14 +154,14 @@ public class ExampleService extends Service {
             calendar.set(Calendar.MINUTE,59);
         }
         else{
-            calendar.set(Calendar.HOUR_OF_DAY,hour);
-            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,minute);
         }
 
         Log.e(String.valueOf(hour), String.valueOf(_minute));
 
-        mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
-        //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
+        //mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
+        mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
 
         calendar.set(Calendar.HOUR_OF_DAY,7);
         calendar.set(Calendar.MINUTE,30);

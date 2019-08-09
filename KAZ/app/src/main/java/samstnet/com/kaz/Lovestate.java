@@ -28,16 +28,16 @@ public class Lovestate extends BroadcastReceiver {
             cus.plant1.setLove(cus.plant1.getLove() - 10);
         }
 
-        Log.d( String.valueOf(_minute)+"분 lovestate", String.valueOf(cus.plant1.getLove()));
+            Log.d( String.valueOf(_minute)+"분 lovestate", String.valueOf(cus.plant1.getLove()));
 
-        //아이템 사용 기록 리셋
-        resetItem();
-    }
+            //아이템 사용 기록 리셋
+            resetItem();
+        }
 
-    public void resetItem(){
-        for(int i=0;i<cus.plant1.itemNum;i++){
-            cus.plant1.items[i]=false;
-            Customer.alarmevent[0]=false;
+        public void resetItem(){
+            for(int i=0;i<cus.plant1.itemNum;i++){
+                cus.plant1.items[i]=false;
+                cus.alarmevent[0]=false;
         }
     }
 }
