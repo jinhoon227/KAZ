@@ -37,9 +37,9 @@ public class ScreenReceiver extends BroadcastReceiver {
 
                 Intent i = new Intent(context, LockScreenActivity.class);
 
-                i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+               // i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-            i.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags( FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             context.startActivity(i);
 
