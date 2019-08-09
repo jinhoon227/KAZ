@@ -80,12 +80,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         NetworkInfo mNetworkState= ((MainActivity)MainActivity.mContext).getNetworkInfo();
         if(mNetworkState!=null&&mNetworkState.isConnected()) {
             ((MainActivity) MainActivity.mContext).UsingGps();
-            //Log.e("AlarmBroadcastReceiverA", String.valueOf(count));
+            Log.e("AlarmBroadcastReceiverA", String.valueOf(count));
             count = 0;
         }else {
             count++;
-            //Log.e("AlarmBroadcastReceiverB", String.valueOf(count));
-
+            Log.e("AlarmBroadcastReceiverB", String.valueOf(count));
             if(count>9) {
                 if(!cus.setting1.isSoundevent())
                     if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
