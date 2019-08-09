@@ -467,6 +467,8 @@ public class Menu1FragGrowth extends Fragment {
         }
         if(wtstate.get(0)=="manycloud"){
             index=0;
+            cus.alarmevent[0]=false;
+            umbrella_layout.setVisibility(View.INVISIBLE);
             //imageView_1.setImageResource(R.drawable.spring);
             Glide.with(this).load(R.drawable.many_cloud).into(backgif);
             textview_1.setText("구름");
@@ -475,6 +477,8 @@ public class Menu1FragGrowth extends Fragment {
         }
         else if(wtstate.get(0)=="fewcloud"){
             index=1;
+            cus.alarmevent[0]=false;
+            umbrella_layout.setVisibility(View.INVISIBLE);
             //imageView_1.setImageResource(R.drawable.autumn);
 
             if(DayTimeFormatter.night=="밤"){
@@ -495,6 +499,8 @@ public class Menu1FragGrowth extends Fragment {
         }
         else if(wtstate.get(0)=="sun"){
             index=2;
+            cus.alarmevent[0]=false;
+            umbrella_layout.setVisibility(View.INVISIBLE);
             if(DayTimeFormatter.night=="밤"){
                 Glide.with(this).load(R.drawable.sunny_night).into(backgif);
 
@@ -515,6 +521,9 @@ public class Menu1FragGrowth extends Fragment {
             jack_content.setText("비가 너무와요! 우산을 씌워줘요!");
         }
         else if(wtstate.get(0)=="snow"){
+            cus.alarmevent[0]=false;
+            umbrella_layout.setVisibility(View.INVISIBLE);
+
             index=4;
             //imageView_1.setImageResource(R.drawable.sunny);
             Glide.with(this).load(R.drawable.snow).into(backgif);

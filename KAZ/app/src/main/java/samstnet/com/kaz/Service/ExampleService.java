@@ -162,14 +162,9 @@ public class ExampleService extends Service {
             calendar.set(Calendar.MINUTE,_minute);
         }
         else{
-<<<<<<< HEAD
-            calendar.set(Calendar.HOUR_OF_DAY,_hour);
-            calendar.set(Calendar.MINUTE,minute);
-=======
             Log.d("Alarm","Alarm2");
             calendar.set(Calendar.HOUR_OF_DAY,hour);
             calendar.set(Calendar.MINUTE,_minute);
->>>>>>> 1196a52d83b1a66677f1bfc59cacabeaca2f9c1a
         }
 
         Log.d(String.valueOf(hour), String.valueOf(minute));
