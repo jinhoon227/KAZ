@@ -16,7 +16,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.BottomNavigationView;
+        import android.support.design.bottomnavigation.LabelVisibilityMode;
+        import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
             setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -218,12 +220,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //08.04 하단 이동탭버튼을 함수를 이용하여 고정
-        //이전에는 desing libary 가 28버전 이상이여야지
-        //app:labelVisibilityMode="selected" 를 지원해주었으나
-        //28버전에서는 NoClassDefFoundError 가 발생함
-        //해당 오류가 떠도 앱실행에는 아무문제없으나 그냥 꺼림칙해서 바꿈
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         // 권한 요청을 해야 함
         if (!isPermission) {
