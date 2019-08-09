@@ -1,7 +1,5 @@
-
-        package samstnet.com.kaz;
-
-        import android.Manifest;
+package samstnet.com.kaz;
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -590,6 +588,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("alarmevent",tmparr2);
         editor.putString("stateTime",String.valueOf(cus.getStateTime()));
         editor.commit(); //완료한다.
+
     }
 
     @Override

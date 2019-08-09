@@ -466,18 +466,25 @@ public class LockScreenActivity extends Activity {
         } else if (wtstate.get(0) == "fewcloud") {
             index = 1;
             //imageView_1.setImageResource(R.drawable.autumn);
-            Glide.with(this).load(R.drawable.fewcloud).into(backgif);
+            if(DayTimeFormatter.night=="밤"){
+                Glide.with(this).load(R.drawable.fewcloud_night).into(backgif);
+                Log.d("밤","밤");
+            }
+            else
+            {
+                Glide.with(this).load(R.drawable.fewcloud).into(backgif);
 
+            }
             textview_1.setText("구름");
             jack_content.setText("목말라요..물이 필요해요!");
         } else if (wtstate.get(0) == "sun") {
             index = 2;
             if(DayTimeFormatter.night=="밤"){
                 Glide.with(this).load(R.drawable.sunny_night).into(backgif);
-
             }
-            Glide.with(this).load(R.drawable.sunny_day).into(backgif);
-
+            else {
+                Glide.with(this).load(R.drawable.sunny_day).into(backgif);
+            }
             //imageView_1.setImageResource(R.drawable.summer);
             textview_1.setText("맑은");
             jack_content.setText("더워요! 햇빛을 막아주세요!");
