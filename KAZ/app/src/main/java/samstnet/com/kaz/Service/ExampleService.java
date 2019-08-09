@@ -114,17 +114,21 @@ public class ExampleService extends Service {
             _minute=0;
         }
         if(_hour>=24){
-            calendar.set(Calendar.HOUR_OF_DAY,23);
-            calendar.set(Calendar.MINUTE,59);
+            _hour=0;
+            Log.d("Alarm","Lpvestate1");
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,_hour);
+            calendar.set(Calendar.MINUTE,1);
         }
         else{
+            Log.d("Alarm","Lpvestate2");
             calendar.set(Calendar.HOUR_OF_DAY,_hour);
             calendar.set(Calendar.MINUTE,1);
         }
 
-        Log.d("LovestateTime", String.valueOf(_minute+1));
-        Log.d("LovestateHour", String.valueOf(_hour));
 
+        Log.d("LovestateHour", String.valueOf(_hour));
+        Log.d("LovestateTime", String.valueOf(_minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
 
@@ -149,16 +153,26 @@ public class ExampleService extends Service {
 
         hour=((hour/3)*3)+3;
 
+
         if(hour>=24){
-            calendar.set(Calendar.HOUR_OF_DAY,23);
-            calendar.set(Calendar.MINUTE,59);
+            hour=0;
+            Log.d("Alarm","Alarm1");
+            calendar.add(Calendar.MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,hour);
+            calendar.set(Calendar.MINUTE,_minute);
         }
         else{
+<<<<<<< HEAD
             calendar.set(Calendar.HOUR_OF_DAY,_hour);
             calendar.set(Calendar.MINUTE,minute);
+=======
+            Log.d("Alarm","Alarm2");
+            calendar.set(Calendar.HOUR_OF_DAY,hour);
+            calendar.set(Calendar.MINUTE,_minute);
+>>>>>>> 1196a52d83b1a66677f1bfc59cacabeaca2f9c1a
         }
 
-        Log.e(String.valueOf(hour), String.valueOf(_minute));
+        Log.d(String.valueOf(hour), String.valueOf(minute));
 
         //mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
         mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
