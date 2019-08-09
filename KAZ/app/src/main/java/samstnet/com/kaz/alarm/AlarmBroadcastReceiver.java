@@ -180,6 +180,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             AlarmText="앱을 다시 켜주세요";
         }
         else if(MainActivity.wtstate.get(count)=="manycloud"){
+            Customer.alarmevent[0]=false;
             //AlarmTitle="흐림";
             nImg=3;
             if(tem>=30&&(_hour<=20&&_hour>=6))
@@ -199,6 +200,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         }
         else if(MainActivity.wtstate.get(count)=="fewcloud"){
+            Customer.alarmevent[0]=false;
             //AlarmTitle="구름";
             nImg=2;
             if(tem>=30&&(_hour<=20&&_hour>=6))
@@ -217,6 +219,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 AlarmText="날씨가 좋아요. 산책하러갈까요?";
         }
         else if(MainActivity.wtstate.get(count)=="sun"){
+            Customer.alarmevent[0]=false;
             //AlarmTitle="태양";
             nImg=1;
             if(tem>=30&&(_hour<=20&&_hour>=6))
@@ -245,6 +248,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 AlarmText="비 예보가 있어요. 잊지말고 우산 챙기세요!";
         }
         else if(MainActivity.wtstate.get(count)=="snow"){
+            Customer.alarmevent[0]=false;
             //AlarmTitle="눈";
             nImg=5;
             if(tem>=30)

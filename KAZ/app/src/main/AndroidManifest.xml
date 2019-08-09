@@ -69,6 +69,7 @@
         <!-- BackgroundService -->
         <receiver
             android:name=".alarm.AlarmBroadcastReceiver"/>
+        <receiver android:name=".lockscreen.ScreenReceiver"/>
         <receiver android:name=".Lovestate"/>
 
         <receiver android:name=".alarm.updateWeather"/>
