@@ -71,6 +71,8 @@
             android:name=".alarm.AlarmBroadcastReceiver"/>
         <receiver android:name=".Lovestate"/>
 
+        <receiver android:name=".alarm.updateWeather"/>
+
     </application>
 
 

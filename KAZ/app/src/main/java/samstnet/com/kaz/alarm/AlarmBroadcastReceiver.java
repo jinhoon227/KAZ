@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.media.RingtoneManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -77,30 +76,23 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         builder.setContentIntent(pendingIntent);    //notification을 누르면 pendingIntent안에 있는게 실행된다.
 
-        NetworkInfo mNetworkState= ((MainActivity)MainActivity.mContext).getNetworkInfo();
-        if(mNetworkState!=null&&mNetworkState.isConnected()) {
-            ((MainActivity) MainActivity.mContext).UsingGps();
-            Log.e("AlarmBroadcastReceiverA", String.valueOf(count));
-            count = 0;
-        }else {
-            count++;
-            Log.e("AlarmBroadcastReceiverB", String.valueOf(count));
-            if(count>9) {
-                if(!cus.setting1.isSoundevent())
-                    if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
-                        builder.setSmallIcon(R.drawable.ssun);
-                        builder.setContentTitle("날씨 데이터를 받아오지 못했어요");
-                        builder.setContentText("WIFI를 확인해주세요");
-                        manager.notify(1, builder.build());
-                        return;
-                    }
-            }
-        }
-
         if(NonDisturb.startTime>NonDisturb.endTime)
             hour+=24;
 
         BusProvider.getInstance().register(this);
+
+        Log.e("AlarmBroadcastReceiver",String.valueOf(count));
+
+        if(AlarmBroadcastReceiver.count>9) {
+            if(!cus.setting1.isSoundevent())
+                if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
+                    builder.setSmallIcon(R.drawable.ssun);
+                    builder.setContentTitle("날씨 데이터를 받아오지 못했어요");
+                    builder.setContentText("WIFI를 확인해주세요");
+                    manager.notify(1, builder.build());
+                    return;
+                }
+        }
 
         setText();
 

@@ -23,6 +23,7 @@ import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.alarm.AlarmBroadcastReceiver;
 import samstnet.com.kaz.alarm.AlarmDisturb;
+import samstnet.com.kaz.alarm.updateWeather;
 import samstnet.com.kaz.eventbus.Customer;
 
 import static samstnet.com.kaz.eventbus.Customer.CHANNEL_ID;
@@ -62,7 +63,9 @@ public class ExampleService extends Service {
     AudioManager mAudioManager;
 
     Intent intent2;
+    Intent intent3;
     PendingIntent operation1;
+    PendingIntent operation2;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -75,10 +78,11 @@ public class ExampleService extends Service {
         intent = new Intent(this, AlarmBroadcastReceiver.class);
         intent1 = new Intent(this, AlarmDisturb.class);
         intent2=new Intent(this, Lovestate.class);
+        intent3=new Intent(this, updateWeather.class);
+
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         calendar = Calendar.getInstance();
         operation = new PendingIntent[operationNum];
-
 
         now1 = System.currentTimeMillis();
         date = new Date(now1);
@@ -86,6 +90,7 @@ public class ExampleService extends Service {
         getTime = sdf1.format(date);
         int timing1=cus.getStateTime();//로컬시간 가져오기
         operation1=PendingIntent.getBroadcast(this,30, intent2,0);
+        operation2=PendingIntent.getBroadcast(this,31, intent3,0);
 
         time = 0;
         Log.e("알림버튼누른시간",getTime);
@@ -118,12 +123,12 @@ public class ExampleService extends Service {
             Log.d("Alarm","Lpvestate1");
             calendar.add(Calendar.MONTH,1);
             calendar.set(Calendar.HOUR_OF_DAY,_hour);
-            calendar.set(Calendar.MINUTE,1);
+            calendar.set(Calendar.MINUTE,0);
         }
         else{
             Log.d("Alarm","Lpvestate2");
             calendar.set(Calendar.HOUR_OF_DAY,_hour);
-            calendar.set(Calendar.MINUTE,1);
+            calendar.set(Calendar.MINUTE,0);
         }
 
 
@@ -131,12 +136,13 @@ public class ExampleService extends Service {
         Log.d("LovestateTime", String.valueOf(_minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
-
+        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation2);
+       // mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation2);
     }
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
-        _minute=10;
+        _minute=15;
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -164,13 +170,13 @@ public class ExampleService extends Service {
         else{
             Log.d("Alarm","Alarm2");
             calendar.set(Calendar.HOUR_OF_DAY,hour);
-            calendar.set(Calendar.MINUTE,_minute);
+            calendar.set(Calendar.MINUTE,minute);
         }
 
         Log.d(String.valueOf(hour), String.valueOf(minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
-        //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
+        //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 2 , pendingIntent);
 
         calendar.set(Calendar.HOUR_OF_DAY,7);
         calendar.set(Calendar.MINUTE,30);
