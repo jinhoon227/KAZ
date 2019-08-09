@@ -24,6 +24,7 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
+import samstnet.com.kaz.DayTimeFormatter;
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
 import samstnet.com.kaz.eventbus.BusProvider;
@@ -471,6 +472,10 @@ public class LockScreenActivity extends Activity {
             jack_content.setText("목말라요..물이 필요해요!");
         } else if (wtstate.get(0) == "sun") {
             index = 2;
+            if(DayTimeFormatter.night=="밤"){
+                Glide.with(this).load(R.drawable.sunny_night).into(backgif);
+
+            }
             Glide.with(this).load(R.drawable.sunny_day).into(backgif);
 
             //imageView_1.setImageResource(R.drawable.summer);
