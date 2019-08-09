@@ -136,7 +136,7 @@ public class ExampleService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
-        _minute=0;
+        _minute=10;
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -169,8 +169,8 @@ public class ExampleService extends Service {
 
         Log.d(String.valueOf(hour), String.valueOf(minute));
 
-        //mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
-        mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
+        //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 , pendingIntent);
 
         calendar.set(Calendar.HOUR_OF_DAY,7);
         calendar.set(Calendar.MINUTE,30);
