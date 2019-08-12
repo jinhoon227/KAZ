@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import samstnet.com.kaz.MainActivity;
 import samstnet.com.kaz.R;
-import samstnet.com.kaz.alarm.NonDisturb;
 import samstnet.com.kaz.eventbus.BusProvider;
 import samstnet.com.kaz.eventbus.Customer;
 
@@ -45,7 +44,6 @@ public class Menu4FragConfig extends Fragment {
     ImageView tutorial;
 
     Intent intent;
-    Intent intent1;
 
     @Override
     public void onAttach(Context context) {
@@ -77,7 +75,6 @@ public class Menu4FragConfig extends Fragment {
         super.onCreate(savedInstanceState);
 
         intent = new Intent(getActivity().getApplication(), ScreenService.class);
-        intent1 = new Intent(getContext().getApplicationContext(),NonDisturb.class);
 
         cus=(Customer)getActivity().getApplication();
         Log.d("yeaahna","yeah");
@@ -149,8 +146,8 @@ public class Menu4FragConfig extends Fragment {
                         getActivity().startService(intent);
                     }
                     //방해금지
-                    if(!cus.setting1.isScreen()){
-                        getContext().startService(intent1);
+                    if(!cus.setting1.isSoundevent()){
+                        cus.setting1.setSoundevent(false);
                     }
                 }
                 //알림을 껐을때
@@ -166,7 +163,7 @@ public class Menu4FragConfig extends Fragment {
                         getActivity().stopService(intent);
                     }
                     if(!cus.setting1.isSoundevent()){
-                        getActivity().stopService(intent1);
+                        cus.setting1.setSoundevent(true);
                     }
 
                 }

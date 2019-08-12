@@ -166,9 +166,6 @@ public class MainActivity extends AppCompatActivity {
             }else if(mNetworkState.getType()==ConnectivityManager.TYPE_MOBILE){
                 Log.d("Network","3G/LTE");
             }
-            /*if(LockScreenActivity.islock==false){
-            Intent intent = new Intent(getApplication(), ScreenService.class);
-            startService(intent);}*/
 
             Log.e("AlarmBroadcastReceiver1", String.valueOf(AlarmBroadcastReceiver.count));
             AlarmBroadcastReceiver.count=0;
@@ -247,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             lovestatetime();
             Log.e("api ","build");
         }
-        intent = new Intent(getApplicationContext(), mAlarm.class); // 이동할 컴포넌트
+        intent = new Intent(getApplicationContext(), ExampleService.class); // 이동할 컴포넌트
         intent2=new Intent(getApplicationContext(), ExampleService.class);
         sendBroadcast(intent2);
 

@@ -76,7 +76,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         builder.setContentIntent(pendingIntent);    //notification을 누르면 pendingIntent안에 있는게 실행된다.
 
-        if(NonDisturb.startTime>NonDisturb.endTime)
+        if(ExampleService.startTime>ExampleService.endTime)
             hour+=24;
 
         BusProvider.getInstance().register(this);
@@ -85,7 +85,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         if(AlarmBroadcastReceiver.count>9) {
             if(!cus.setting1.isSoundevent())
-                if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
+                if (!(ExampleService.startTime < hour &&ExampleService._endTime >= hour)) {
                     builder.setSmallIcon(R.drawable.ssun);
                     builder.setContentTitle("날씨 데이터를 받아오지 못했어요");
                     builder.setContentText("WIFI를 확인해주세요");
@@ -143,7 +143,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
 
             if (!cus.setting1.isSoundevent()) {
-                if (!(NonDisturb.startTime < hour && NonDisturb._endTime >= hour)) {
+                if (!(ExampleService.startTime < hour &&ExampleService._endTime > hour)) {
                     manager.notify(1, builder.build());
                     if (error) {
                         Log.d("Alarm", "아 에러;;");

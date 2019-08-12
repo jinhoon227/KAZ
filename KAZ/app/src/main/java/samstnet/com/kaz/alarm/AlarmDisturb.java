@@ -70,12 +70,11 @@ public class AlarmDisturb extends BroadcastReceiver {
         String getTime = sdf.format(date);
         int hour = Integer.valueOf(getTime);
 
-        if(hour==7) {
             if (!cus.setting1.isSoundevent()) {
                 if (!cus.setting1.isCreateevent())
                     manager.notify(3, builder.build());
             }
-        }
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -87,11 +86,11 @@ public class AlarmDisturb extends BroadcastReceiver {
             AlarmTitle = "현재 "+MainActivity.cityInfo+"의 날씨는"+temp+"도";
         }
         else {
-            AlarmTitle="저는 집에 갈 수 없어요ㅜㅜ";
+            AlarmTitle="오류가 발생하였습니다.";
         }
 
         if(MainActivity.wtstate.size()==0){
-            AlarmText="새로고침해라";
+            AlarmText="새로고침해주세요";
         }
         else if(MainActivity.wtstate.get(0)=="manycloud"){
             //AlarmTitle="흐림";
@@ -139,7 +138,7 @@ public class AlarmDisturb extends BroadcastReceiver {
                 AlarmText="눈 예보가 있어요. 따뜻하게 입고 나가요!";
         }
         else {
-            AlarmText="아 속안좋아";
+            AlarmText="데이터를 받아오지 못했어요";
         }
 
     }

@@ -67,10 +67,16 @@ public class ExampleService extends Service {
     PendingIntent operation1;
     PendingIntent operation2;
 
+    static public int startTime,_startTime;
+    static public int endTime,_endTime;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate() {
         super.onCreate();
+
+        startTime = 22;
+        endTime = 7;
 
         Log.d("test", "서비스의 onCreate");
 
@@ -81,7 +87,6 @@ public class ExampleService extends Service {
         intent3=new Intent(this, updateWeather.class);
 
         mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        calendar = Calendar.getInstance();
         operation = new PendingIntent[operationNum];
 
         now1 = System.currentTimeMillis();
@@ -91,6 +96,15 @@ public class ExampleService extends Service {
         int timing1=cus.getStateTime();//로컬시간 가져오기
         operation1=PendingIntent.getBroadcast(this,30, intent2,0);
         operation2=PendingIntent.getBroadcast(this,31, intent3,0);
+
+        _startTime=startTime;
+        if(endTime<startTime) {
+            _endTime = endTime+24;
+        }
+        else{
+            _endTime=endTime;
+        }
+
 
         time = 0;
         Log.e("알림버튼누른시간",getTime);
@@ -104,6 +118,9 @@ public class ExampleService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet1() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
+
+        calendar = Calendar.getInstance();
+
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdf = new SimpleDateFormat("mm");
@@ -115,13 +132,10 @@ public class ExampleService extends Service {
 
         _hour=(_hour/3)*3+3;
 
-        if(_minute>=60){
-            _minute=0;
-        }
         if(_hour>=24){
             _hour=0;
             Log.d("Alarm","Lpvestate1");
-            calendar.add(Calendar.MONTH,1);
+            calendar.add(Calendar.DAY_OF_YEAR,1);
             calendar.set(Calendar.HOUR_OF_DAY,_hour);
             calendar.set(Calendar.MINUTE,0);
         }
@@ -132,8 +146,8 @@ public class ExampleService extends Service {
         }
 
 
-        Log.d("LovestateHour", String.valueOf(_hour));
-        Log.d("LovestateTime", String.valueOf(_minute));
+        Log.e("ExampleService 3",String.valueOf( calendar.get(Calendar.DAY_OF_YEAR)));
+        Log.d(String.valueOf(_hour), String.valueOf(minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation1);
         mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*60*60*3,operation2);
@@ -142,7 +156,9 @@ public class ExampleService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onTimeSet() {
         // 사용자가 시간을 선택하였을 때, 실행됨, 유저가 설정한 시간과 분이 이곳에서 설정됨
-        _minute=15;
+
+        calendar = Calendar.getInstance();
+        _minute=10;
 
         long now = System.currentTimeMillis();
         Date date = new Date(now);
@@ -159,30 +175,43 @@ public class ExampleService extends Service {
 
         hour=((hour/3)*3)+3;
 
-
         if(hour>=24){
             hour=0;
             Log.d("Alarm","Alarm1");
-            calendar.add(Calendar.MONTH,1);
+            calendar.add(Calendar.DAY_OF_YEAR,1);
             calendar.set(Calendar.HOUR_OF_DAY,hour);
             calendar.set(Calendar.MINUTE,_minute);
         }
         else{
             Log.d("Alarm","Alarm2");
             calendar.set(Calendar.HOUR_OF_DAY,hour);
-            calendar.set(Calendar.MINUTE,minute);
+            calendar.set(Calendar.MINUTE,_minute);
         }
 
+        Log.e("ExampleService 1",String.valueOf( calendar.get(Calendar.DAY_OF_YEAR)));
         Log.d(String.valueOf(hour), String.valueOf(minute));
 
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 3 , pendingIntent);
         //mAlarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 2 , pendingIntent);
 
-        calendar.set(Calendar.HOUR_OF_DAY,7);
+        //현재 시간 리셋
+        calendar = Calendar.getInstance();
+        if(_hour>endTime){
+            calendar.add(Calendar.DAY_OF_YEAR,1);
+            Log.d("AlarmDisturb 1","NonDisturb");
+        }
+        else{
+            Log.d("AlarmDisturb 2","NonDisturb");
+        }
+
+        calendar.set(Calendar.HOUR_OF_DAY, endTime);
         calendar.set(Calendar.MINUTE,30);
 
         //calendar.set(Calendar.HOUR_OF_DAY,1);
         //calendar.set(Calendar.MINUTE,minute+1);
+
+        Log.e("ExampleService 2",String.valueOf( calendar.get(Calendar.DAY_OF_YEAR)));
+        Log.d(String.valueOf(endTime), String.valueOf(_hour));
 
         //아침알람
         mAlarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24 , pendingIntent1);
@@ -224,7 +253,7 @@ public class ExampleService extends Service {
     public void onDestroy() {
         super.onDestroy();
          mAlarmManager.cancel(pendingIntent);
-        mAlarmManager.cancel(pendingIntent1);
+         mAlarmManager.cancel(pendingIntent1);
         Log.d("test", "서비스의 onDestroy");
     }
 
